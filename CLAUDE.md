@@ -3,6 +3,9 @@
 お酒の種類から合うつまみを探せるレシピアプリ。
 オサケノミタイ（`~/dev/osakenomitai`）の姉妹アプリで、色・書体・フッターの作りをそろえている。
 
+- 本番：https://shiryu-takahashi-0112.github.io/sakenotsumami/ （GitHub Pages。`main` にpushすると反映）
+- 個人サイトのProjectに掲載している。内容・URL・ステータスが変わったら、個人サイトも直す。
+
 ## 構成
 
 | ファイル | 中身 |
