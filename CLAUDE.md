@@ -46,6 +46,7 @@
 - 例外は2か所だけ：**ノの左右を1文字の5%ずつ詰め、ケとノの間はさらに4%詰める**。
 - **見た目で均等になるよう字間を詰める作り方（案C）は、Shiryuから「字間が狭すぎて不自然」と言われてやめた。** カタカナ本来のマス目のリズムを崩さない。
 - 作り直しは `tools/logotype.py`（`python3 tools/logotype.py 0.06 -final 0.05 0.04`）。SVGは `brand/`。
+- **ファビコンは「サ」の一文字**（黄色の地、Zen Kaku Gothic New Black。`icons/favicon.svg`・`favicon-32.png`）。2026-09-29にShiryuが指定。ホーム画面のアプリアイコンは「サケノ／ツマミ」の2行のまま。
 - 使っている場所：アプリ上部の `.logo`、20歳の確認画面、アプリアイコン（サケノ／ツマミの2行）、共有画像 `og-image.jpg`、個人サイトのProject。アイコンと共有画像は `~/sakenotsumami-cowork/brand/` のHTMLから書き出している。
 
 ## SNS

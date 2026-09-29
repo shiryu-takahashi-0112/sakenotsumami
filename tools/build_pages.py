@@ -86,7 +86,8 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{url}">
-<link rel="icon" type="image/png" sizes="192x192" href="{up}icons/icon-192.png">
+<link rel="icon" type="image/svg+xml" href="{up}icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="{up}icons/favicon-32.png">
 <link rel="apple-touch-icon" href="{up}icons/apple-touch-icon.png">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="サケノツマミ">
