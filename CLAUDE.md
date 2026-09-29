@@ -18,10 +18,14 @@
 | `images/raw/` | 生成したままの写真。重いのでgitに入れない |
 | `images/PROMPTS.md` | 写真の生成指示（共通文＋料理ごとの文） |
 | `tools/photos.py` | `raw/` から `images/<id>.jpg` を作る |
+| `tools/build_pages.py` | 検索用のページ（`recipes/<id>/`・`drinks/<id>/`）と `sitemap.xml` を書き出す |
+| `privacy.html`・`terms.html` | プライバシーポリシーと利用規約 |
 | `brand/` | ロゴタイプのSVG（サケノツマミ・オサケノミタイ） |
 | `tools/logotype.py` | ロゴタイプをフォントから線に起こす |
 
 ## 決めごと
+
+- **`recipes.js` を変えたら、必ず `python3 tools/build_pages.py` を実行してからコミットする。** アプリはJavaScriptで画面を描くため、検索エンジンと共有時のプレビュー用に、同じ内容を素のHTMLでも持っている。公開URLが変わったら、このスクリプトの `BASE` と `index.html` の `canonical`・`og:` を直す。
 
 - **レシピは誰でも見られる。保存だけ会員にする**（2026-09-28にShiryuが決定）。ログインは Google とメールリンク（パスワードなし）。
 - レシピを足すときは、既存と同じ書き方（常体、手順3〜5、お酒2〜3個）にする。鶏肉・豚肉は火の通りを確かめる手順を入れる。

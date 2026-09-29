@@ -228,6 +228,9 @@
 
   <p class="count" id="count"></p>
   <ul class="list" id="list"></ul>
+  <nav class="links" aria-label="お酒ごとのつまみ一覧">
+    <a href="drinks/beer/">ビールに合うつまみ</a><a href="drinks/highball/">ハイボールに合うつまみ</a><a href="drinks/sour/">レモンサワーに合うつまみ</a><a href="drinks/sake/">日本酒に合うつまみ</a><a href="drinks/shochu/">焼酎に合うつまみ</a><a href="drinks/wine/">ワインに合うつまみ</a>
+  </nav>
 </section>
 
 <section class="view" id="viewSaved" hidden>
@@ -630,7 +633,7 @@ $('dSave').addEventListener('click', () => toggleSave(openId));
 $('detail').addEventListener('click', async e => {
   if(!e.target.closest('#dShare')) return;
   const r = byId(openId);
-  const url = `${location.origin}${location.pathname}#all/${r.id}`;
+  const url = new URL(`recipes/${r.id}/`, location.href.split('#')[0]).href;
   const text = `${r.name}｜${r.catch}`;
   if(navigator.share){
     try{ await navigator.share({title: `${r.name}｜サケノツマミ`, text, url}); }catch(err){}
