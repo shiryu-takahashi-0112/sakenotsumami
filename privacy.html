@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>プライバシーポリシー｜サケノツマミ</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#121212;--muted:rgba(18,18,18,.6);--line:rgba(18,18,18,.12);--soft:#f7f7f5;--main:#F2C600;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#fff;color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;font-size:15px;line-height:1.9;}
+  .page{max-width:720px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top,0px)) 16px 64px;}
+  .back{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;margin-bottom:20px;}
+  h1{font-size:24px;font-weight:900;margin:0 0 6px;}
+  .date{font-size:12.5px;color:var(--muted);margin:0 0 24px;}
+  h2{font-size:17px;font-weight:900;margin:32px 0 10px;display:flex;align-items:center;gap:8px;}
+  h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--main);}
+  p{margin:0 0 10px;}
+  ul{margin:0 0 10px;padding-left:1.3em;}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:0 0 12px;}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.7;min-width:520px;}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line);}
+  th{background:var(--soft);font-size:12px;color:var(--muted);}
+  tr:last-child td{border-bottom:none;}
+  code{background:var(--soft);padding:1px 5px;border-radius:4px;font-size:12.5px;}
+  a{color:inherit;text-decoration-color:var(--main);text-decoration-thickness:2px;text-underline-offset:3px;}
+</style>
+</head>
+<body>
+<main class="page">
+<a class="back" href="./">← サケノツマミへもどる</a>
+<h1>プライバシーポリシー</h1>
+<p class="date">最終改定日：2026年9月29日</p>
+<p>サケノツマミ（以下「当サービス」）は、お酒の種類に合うつまみのレシピを紹介する無料のWebサービスです。<br>
+当サービスの運営者（以下「運営者」）は、個人情報の保護に関する法律その他の関係法令を守り、利用者の情報を次のとおり取り扱います。</p>
+
+<h2>1. 取得する情報</h2>
+<div class="scroll"><table>
+<thead><tr><th>種類</th><th>内容</th><th>取得する場面</th></tr></thead>
+<tbody>
+<tr><td>アカウント情報</td><td>メールアドレス。Googleでログインした場合は、Googleアカウントの識別子・表示名・プロフィール写真のURL。パスワードは使いません。</td><td>会員登録・ログイン</td></tr>
+<tr><td>保存データ</td><td>保存したレシピと、保存した日時</td><td>レシピを保存したとき</td></tr>
+<tr><td>アクセス情報</td><td>IPアドレス、ブラウザの種類、閲覧日時など、ページを配信するサーバーが自動で記録する情報</td><td>ページを開いたとき</td></tr>
+</tbody></table></div>
+<p>次の情報は、利用者の端末（ブラウザのローカルストレージ）にだけ保存します。<br>
+運営者は直接見ることができず、ブラウザの設定からいつでも削除できます。</p>
+<ul>
+<li><code>sakenotsumami.ageOk</code>：20歳以上であることを確認した記録</li>
+<li><code>sakenotsumami.emailForSignIn</code>：メールでログインするときに、リンクを開くまで一時的に覚えておくメールアドレス</li>
+<li><code>sakenotsumami.pendingSave</code>：ログイン前に押した保存を、ログイン後に反映するための記録</li>
+</ul>
+
+<h2>2. 利用目的</h2>
+<ul>
+<li>会員の認証と、保存したレシピを複数の端末で表示するため</li>
+<li>お問い合わせに対応するため</li>
+<li>不正な利用を防ぎ、サービスを安全に運営するため</li>
+<li>サービスの改善のため（個人を特定しない形での集計）</li>
+</ul>
+<p>この目的を超えて利用する場合は、あらかじめ利用者の同意を得ます。</p>
+
+<h2>3. 第三者への提供</h2>
+<p>法令に基づく場合などを除き、利用者の同意なく個人情報を第三者に提供しません。<br>
+取得した情報を販売することはありません。</p>
+
+<h2>4. 利用している外部サービス</h2>
+<div class="scroll"><table>
+<thead><tr><th>サービス</th><th>提供事業者</th><th>役割</th></tr></thead>
+<tbody>
+<tr><td>Firebase Authentication / Cloud Firestore</td><td>Google LLC</td><td>アカウントの認証、保存データの保管</td></tr>
+<tr><td>GitHub Pages</td><td>GitHub, Inc.</td><td>ページの配信</td></tr>
+<tr><td>Google Fonts / jsDelivr</td><td>Google LLC ほか</td><td>書体・アイコンの配信</td></tr>
+</tbody></table></div>
+<p>これらのサービスの利用に伴い、情報が日本国外のサーバーで取り扱われる場合があります。<br>
+各サービスでの情報の取り扱いは、それぞれの事業者のプライバシーポリシーに従います。</p>
+
+<h2>5. 安全管理</h2>
+<ul>
+<li>通信はすべて暗号化（HTTPS）しています。</li>
+<li>保存データは、ログインした本人だけが読み書きできるよう、アクセスを制限しています。</li>
+</ul>
+
+<h2>6. 保管期間と削除</h2>
+<p>アカウント情報と保存データは、利用者が当サービスを使っている間、または削除の申し出があるまで保管します。<br>
+アカウントの削除を希望する場合は、下のお問い合わせ先からご連絡ください。<br>
+法令で保管が必要なものを除き、速やかに削除します。</p>
+
+<h2>7. 改定</h2>
+<p>このポリシーは、必要に応じて改定します。<br>
+改定したときは、このページで最終改定日とあわせてお知らせします。</p>
+
+<h2>お問い合わせ</h2>
+<p>運営者：高橋 子竜（Shiryu Takahashi）<br>
+お問い合わせは、運営者のサイトのフォームからお願いします。<br>
+<a href="https://shiryu-takahashi.com/contact" target="_blank" rel="noopener">https://shiryu-takahashi.com/contact</a></p>
+</main>
+</body>
+</html>
