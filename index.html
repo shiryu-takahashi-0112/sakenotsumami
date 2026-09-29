@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>サケノツマミ | お酒に合うつまみレシピ</title>
+<meta name="description" content="今夜のお酒に合わせて選べる、つまみのレシピ集。">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  /* 色・書体はオサケノミタイと同じ */
+  :root{
+    --white: #ffffff;
+    --ink: #121212;
+    --main: #F2C600;
+    --main-soft: rgba(242,198,0,0.16);
+    --surface-soft: #f7f7f5;
+    --line: rgba(18,18,18,0.12);
+    --muted: rgba(18,18,18,0.55);
+    --muted-2: rgba(18,18,18,0.38);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+    /* フッターメニュー：本体68px＋ホームバーの余白（オサケノミタイ・Creators Communityと同じ高さ） */
+    --tab-h: 68px;
+    --tab-total: calc(var(--tab-h) + var(--safe-b));
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--white);font-family:'Zen Kaku Gothic New', sans-serif;color:var(--ink);}
+  body.lock{overflow:hidden;}
+  button{font-family:inherit;color:inherit;}
+  .wrap{max-width:720px;margin:0 auto;padding-bottom:var(--tab-total);}
+  .view[hidden]{display:none;}
+
+  /* ---------- ヘッダー ---------- */
+  .head{padding:calc(22px + var(--safe-t)) 16px 6px;}
+  .logo{margin:0;font-size:28px;font-weight:900;letter-spacing:.06em;line-height:1;}
+  .lead{margin:10px 0 0;font-size:13px;color:var(--muted);font-weight:500;}
+
+  /* ---------- お酒の選択 ---------- */
+  .drinks{position:sticky;top:0;z-index:10;background:var(--white);padding:14px 0 12px;border-bottom:1px solid var(--line);}
+  .drinks-q{margin:0 16px 10px;font-size:13px;font-weight:700;}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;appearance:none;border:1.5px solid var(--line);background:var(--white);border-radius:999px;
+    height:38px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;
+    transition:background .15s,border-color .15s;
+  }
+  .chip.on{background:var(--main);border-color:var(--ink);}
+
+  /* ---------- 一覧 ---------- */
+  .count{margin:18px 16px 10px;font-size:13px;color:var(--muted);font-weight:500;}
+  .count b{color:var(--ink);font-size:17px;font-weight:900;margin-right:2px;}
+  .count .drink-name{color:var(--ink);font-weight:700;}
+  .list{list-style:none;margin:0;padding:0 16px 32px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;}
+  @media (min-width:640px){ .list{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  .list li{position:relative;}
+  .card{
+    appearance:none;width:100%;text-align:left;border:1px solid var(--line);background:var(--white);border-radius:16px;
+    padding:12px 52px 12px 12px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:background .15s;
+  }
+  /* 保存ボタン。カードの右端に重ねる（ボタンの入れ子にしないため別要素） */
+  .save-btn{
+    position:absolute;right:6px;top:50%;transform:translateY(-50%);appearance:none;border:none;background:none;
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--muted-2);cursor:pointer;
+  }
+  .save-btn.on{color:var(--ink);}
+  .save-btn.on i{color:var(--main);-webkit-text-stroke:.6px var(--ink);}
+  .card:active{background:var(--surface-soft);}
+  /* 写真は images/<レシピのid>.jpg。無いあいだは黄色の地にアイコンを出す */
+  .thumb{
+    flex:none;position:relative;width:72px;height:72px;border-radius:12px;overflow:hidden;background:var(--main-soft);
+    display:flex;align-items:center;justify-content:center;font-size:26px;color:rgba(18,18,18,.28);
+  }
+  .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .card-body{min-width:0;flex:1;}
+  .card-name{margin:0;font-size:15.5px;font-weight:900;line-height:1.35;}
+  .card-catch{margin:3px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .tags{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .tags i{margin-right:2px;}
+  .empty{margin:40px 24px;text-align:center;color:var(--muted);font-size:14px;line-height:1.8;}
+  .empty i{display:block;font-size:40px;color:var(--main);margin-bottom:8px;}
+
+  /* ---------- レシピ詳細 ---------- */
+  .sheet{position:fixed;inset:0;bottom:var(--tab-total);z-index:100;background:var(--white);overflow-y:auto;transform:translateY(100%);transition:transform .28s ease;visibility:hidden;}
+  .sheet.open{transform:none;visibility:visible;}
+  .sheet-bar{position:sticky;top:0;z-index:2;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:calc(8px + var(--safe-t)) 8px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);}
+  .d-save{appearance:none;border:1.5px solid var(--ink);background:var(--white);height:36px;padding:0 14px;border-radius:999px;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;cursor:pointer;margin-right:4px;}
+  .d-save i{font-size:17px;}
+  .d-save.on{background:var(--main);}
+  .back{appearance:none;border:none;background:none;height:40px;padding:0 10px;display:flex;align-items:center;gap:2px;font-size:14px;font-weight:700;cursor:pointer;}
+  .back i{font-size:22px;}
+  .detail{padding:20px 16px 40px;max-width:720px;margin:0 auto;}
+  .hero{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin:0 0 18px;background:var(--main-soft);}
+  .d-name{margin:0;font-size:24px;font-weight:900;line-height:1.35;}
+  .d-catch{margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6;}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .meta div{padding:10px 8px;text-align:center;}
+  .meta div + div{border-left:1px solid var(--line);}
+  .meta dt{font-size:11px;color:var(--muted);font-weight:700;}
+  .meta dd{margin:4px 0 0;font-size:14.5px;font-weight:900;}
+  .d-h{margin:28px 0 10px;font-size:16px;font-weight:900;display:flex;align-items:center;gap:8px;}
+  .d-h:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--main);}
+  .pair{display:flex;flex-wrap:wrap;gap:6px;}
+  .pair span{font-size:13px;font-weight:700;border:1.5px solid var(--ink);border-radius:999px;padding:5px 12px;}
+  .pair span.cur{background:var(--main);}
+  .why{margin:12px 0 0;background:var(--surface-soft);border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.7;}
+  .ing{list-style:none;margin:0;padding:0;}
+  .ing li{display:flex;justify-content:space-between;gap:12px;padding:10px 2px;border-bottom:1px dashed var(--line);font-size:14.5px;}
+  .ing li span:last-child{font-weight:700;white-space:nowrap;}
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s;}
+  .steps li{counter-increment:s;position:relative;padding:0 0 16px 38px;font-size:14.5px;line-height:1.75;}
+  .steps li:before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--white);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+
+  /* ---------- マイページ ---------- */
+  .page-h{margin:0;padding:calc(22px + var(--safe-t)) 16px 14px;font-size:22px;font-weight:900;border-bottom:1px solid var(--line);}
+  .me{display:flex;align-items:center;gap:14px;padding:20px 16px;}
+  .avatar{flex:none;width:56px;height:56px;border-radius:50%;background:var(--main);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;overflow:hidden;}
+  .avatar img{width:100%;height:100%;object-fit:cover;}
+  .me-name{margin:0;font-size:17px;font-weight:900;}
+  .me-mail{margin:2px 0 0;font-size:12.5px;color:var(--muted);word-break:break-all;}
+  .menu{list-style:none;margin:0 16px;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .menu li + li{border-top:1px solid var(--line);}
+  .menu button{appearance:none;border:none;background:none;width:100%;display:flex;align-items:center;gap:10px;padding:15px 14px;font-size:14.5px;font-weight:700;text-align:left;cursor:pointer;}
+  .menu button i{font-size:19px;}
+  .menu .count-badge{margin-left:auto;color:var(--muted);font-weight:500;}
+  .note{margin:28px 16px;font-size:11.5px;color:var(--muted-2);line-height:1.7;text-align:center;}
+
+  /* ---------- ログイン ---------- */
+  .auth-box{padding:24px 16px;}
+  .auth-title{margin:0;font-size:19px;font-weight:900;line-height:1.5;}
+  .auth-lead{margin:8px 0 20px;font-size:13.5px;color:var(--muted);line-height:1.7;}
+  .btn{appearance:none;width:100%;height:50px;border-radius:999px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
+  .btn-google{border:1.5px solid var(--ink);background:var(--white);}
+  .btn-google i{font-size:19px;}
+  .btn-main{border:1.5px solid var(--ink);background:var(--main);}
+  .btn-main:disabled{opacity:.5;cursor:default;}
+  .or{display:flex;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted-2);}
+  .or:before,.or:after{content:'';flex:1;height:1px;background:var(--line);}
+  .field{width:100%;height:50px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:inherit;font-size:16px;margin-bottom:10px;outline:none;}
+  .field:focus{border-color:var(--ink);}
+  .auth-msg{margin:12px 0 0;font-size:13px;line-height:1.7;}
+  .auth-msg.ok{background:var(--main-soft);border-radius:12px;padding:12px 14px;}
+  .auth-msg.err{color:#c0392b;}
+  .modal{position:fixed;inset:0;z-index:1500;background:rgba(18,18,18,.4);display:flex;align-items:flex-end;justify-content:center;}
+  .modal[hidden]{display:none;}
+  .modal-body{position:relative;width:100%;max-width:520px;background:var(--white);border-radius:20px 20px 0 0;padding-bottom:calc(8px + var(--safe-b));max-height:90vh;overflow-y:auto;}
+  .modal-close{position:absolute;right:8px;top:8px;appearance:none;border:none;background:none;width:40px;height:40px;font-size:22px;cursor:pointer;}
+  .confirm{padding:24px 16px 8px;}
+  .confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+  .btn-sub{border:1.5px solid var(--line);background:var(--white);}
+
+  /* ---------- フッターメニュー（オサケノミタイの .tabbar と同じ作り） ---------- */
+  .tabbar{
+    position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--white);border-top:1px solid var(--line);
+    height:var(--tab-total);padding-bottom:var(--safe-b);box-shadow:0 -4px 18px rgba(18,18,18,0.05);
+    display:grid;grid-template-columns:repeat(3,1fr);
+  }
+  .tab{
+    appearance:none;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:4px;height:var(--tab-h);color:rgba(18,18,18,0.42);font-size:10.5px;font-weight:700;cursor:pointer;position:relative;
+  }
+  .tab i{font-size:24px;line-height:24px;height:24px;}
+  .tab.on{color:var(--ink);}
+  .tab.on i{color:var(--main);}
+  .tab.on:before{content:'';position:absolute;top:0;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--main);}
+
+  /* ---------- トースト ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:calc(var(--tab-total) + 16px);transform:translate(-50%,10px);z-index:2100;
+    background:var(--ink);color:var(--white);font-size:12.5px;font-weight:700;padding:10px 18px;border-radius:20px;
+    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="view" id="viewSearch">
+  <header class="head">
+    <h1 class="logo">サケノツマミ</h1>
+    <p class="lead">今夜のお酒に合わせて、ちょうどいいつまみを。</p>
+  </header>
+
+  <nav class="drinks" aria-label="お酒の種類">
+    <p class="drinks-q">今夜のお酒は？</p>
+    <div class="chips" id="chips"></div>
+  </nav>
+
+  <p class="count" id="count"></p>
+  <ul class="list" id="list"></ul>
+</section>
+
+<section class="view" id="viewSaved" hidden>
+  <h2 class="page-h">保存したつまみ</h2>
+  <div id="savedBody"></div>
+</section>
+
+<section class="view" id="viewMypage" hidden>
+  <h2 class="page-h">マイページ</h2>
+  <div id="mypageBody"></div>
+  <p class="note">お酒は20歳になってから。<br>飲酒運転は法律で禁止されています。</p>
+</section>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="メニュー">
+  <button class="tab" data-view="search"><i class="ri-search-line"></i><span>さがす</span></button>
+  <button class="tab" data-view="saved"><i class="ri-bookmark-line"></i><span>保存</span></button>
+  <button class="tab" data-view="mypage"><i class="ri-user-3-line"></i><span>マイページ</span></button>
+</nav>
+
+<div class="modal" id="loginModal" hidden>
+  <div class="modal-body">
+    <button class="modal-close" data-close aria-label="閉じる"><i class="ri-close-line"></i></button>
+    <div class="auth-box" id="loginModalBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="logoutModal" hidden>
+  <div class="modal-body">
+    <div class="confirm">
+      <h2 class="auth-title">ログアウトしますか？</h2>
+      <p class="auth-lead" style="margin-bottom:0">次に保存を見るときは、もう一度ログインが必要です。</p>
+      <div class="confirm-actions">
+        <button class="btn btn-sub" data-close>キャンセル</button>
+        <button class="btn btn-main" id="logoutOk">ログアウトする</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<section class="sheet" id="sheet" aria-hidden="true">
+  <div class="sheet-bar"><button class="back" id="back"><i class="ri-arrow-left-s-line"></i>もどる</button><button class="d-save" id="dSave"></button></div>
+  <article class="detail" id="detail"></article>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<!-- Firebaseの設定。まだ無いあいだはログインと保存が「準備中」になる -->
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="recipes.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const drinkName = id => DRINKS.find(d => d.id === id)?.name || '';
+const photo = r => `images/${r.id}.jpg`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const byId = id => RECIPES.find(r => r.id === id);
+
+function showToast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ---------- Firebase（会員・保存） ---------- */
+// 見るのは誰でも自由。保存だけ会員にする
+const fbReady = !!window.FIREBASE_CONFIG && !!window.firebase;
+let auth = null, db = null;
+if(fbReady){
+  firebase.initializeApp(window.FIREBASE_CONFIG);
+  auth = firebase.auth();
+  db = firebase.firestore();
+}
+let user = null;
+let saved = new Map();   // レシピid → 保存した日時（ミリ秒）
+let unsubSaves = null;
+const PENDING_KEY = 'sakenotsumami.pendingSave';   // ログイン前に押した保存。ログイン後に保存する
+const EMAIL_KEY = 'sakenotsumami.emailForSignIn';  // メールリンクを開いたときに使うアドレス
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} },
+};
+
+function savesRef(){ return db.collection('users').doc(user.uid).collection('saves'); }
+
+async function toggleSave(id){
+  if(!user){
+    store.set(PENDING_KEY, id);
+    openLogin('保存するには、無料の会員登録が必要です');
+    return;
+  }
+  try{
+    if(saved.has(id)){
+      await savesRef().doc(id).delete();
+      showToast('保存を外しました');
+    }else{
+      await savesRef().doc(id).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()});
+      showToast('保存しました');
+    }
+  }catch(e){
+    showToast('保存できませんでした');
+  }
+}
+
+function watchSaves(){
+  if(unsubSaves){ unsubSaves(); unsubSaves = null; }
+  saved = new Map();
+  if(!user){ refreshSaveUI(); return; }
+  unsubSaves = savesRef().onSnapshot(snap => {
+    saved = new Map();
+    // serverTimestamp は書き込み直後だけ null になるので、そのときは今の時刻で並べる
+    snap.forEach(d => saved.set(d.id, d.get('savedAt', {serverTimestamps:'estimate'})?.toMillis?.() || Date.now()));
+    refreshSaveUI();
+  }, () => showToast('保存の読み込みに失敗しました'));
+}
+
+function refreshSaveUI(){
+  document.querySelectorAll('.save-btn').forEach(b => setSaveBtn(b, saved.has(b.dataset.id)));
+  if(openId) renderDetailSave();
+  if(view === 'saved') renderSaved();
+  if(view === 'mypage') renderMypage();
+}
+
+function setSaveBtn(b, on){
+  b.classList.toggle('on', on);
+  b.innerHTML = `<i class="${on ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i>`;
+  b.setAttribute('aria-label', on ? '保存を外す' : '保存する');
+}
+
+/* ---------- ログイン ---------- */
+function authFormHTML(title, lead){
+  if(!fbReady){
+    return `<h2 class="auth-title">会員登録は準備中です</h2>
+      <p class="auth-lead">もうしばらくお待ちください。レシピはこのまま自由に見られます。</p>`;
+  }
+  return `<h2 class="auth-title">${esc(title)}</h2>
+    <p class="auth-lead">${esc(lead)}</p>
+    <button class="btn btn-google" data-auth="google"><i class="ri-google-fill"></i>Googleで続ける</button>
+    <div class="or">または</div>
+    <form data-auth="email">
+      <input class="field" type="email" name="email" autocomplete="email" placeholder="メールアドレス" required>
+      <button class="btn btn-main" type="submit">ログイン用のリンクを送る</button>
+    </form>
+    <p class="auth-msg" data-auth-msg hidden></p>`;
+}
+
+function openLogin(title){
+  $('loginModalBody').innerHTML = authFormHTML(title, '登録もログインも同じボタンからできます。パスワードは不要です。');
+  $('loginModal').hidden = false;
+}
+function closeModals(){
+  $('loginModal').hidden = true;
+  $('logoutModal').hidden = true;
+}
+
+// ログインのボタンとフォームは、モーダルとマイページの両方に置くので委譲で拾う
+document.addEventListener('click', e => {
+  if(e.target.closest('[data-auth="google"]')){
+    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .catch(err => { if(err.code !== 'auth/popup-closed-by-user') showToast('ログインできませんでした'); });
+  }
+  if(e.target.closest('[data-close]') || e.target.classList.contains('modal')) closeModals();
+});
+document.addEventListener('submit', async e => {
+  const form = e.target.closest('[data-auth="email"]');
+  if(!form) return;
+  e.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('button');
+  const msg = form.parentElement.querySelector('[data-auth-msg]');
+  btn.disabled = true;
+  try{
+    await auth.sendSignInLinkToEmail(email, {url: location.origin + location.pathname, handleCodeInApp: true});
+    store.set(EMAIL_KEY, email);
+    msg.className = 'auth-msg ok';
+    msg.textContent = `${email} にログイン用のリンクを送りました。メールを開いてリンクを押すと、ログインが完了します。`;
+  }catch(err){
+    msg.className = 'auth-msg err';
+    msg.textContent = err.code === 'auth/invalid-email' ? 'メールアドレスの形が正しくありません。' : '送信できませんでした。時間をおいてもう一度お試しください。';
+    btn.disabled = false;
+  }
+  msg.hidden = false;
+});
+
+// メールのリンクから開いたとき
+async function finishEmailLink(){
+  if(!fbReady || !auth.isSignInWithEmailLink(location.href)) return;
+  let email = store.get(EMAIL_KEY);
+  // 別の端末・ブラウザで開いた場合はアドレスを聞き直す（Firebaseの推奨どおり）
+  if(!email) email = prompt('確認のため、ログインに使うメールアドレスを入力してください');
+  if(!email) return;
+  try{
+    await auth.signInWithEmailLink(email, location.href);
+    store.del(EMAIL_KEY);
+    showToast('ログインしました');
+  }catch(e){
+    showToast('リンクが古いか、すでに使われています');
+  }
+  history.replaceState(null, '', location.pathname + location.hash);
+}
+
+if(fbReady){
+  auth.onAuthStateChanged(async u => {
+    user = u;
+    watchSaves();
+    if(u){
+      closeModals();
+      const pending = store.get(PENDING_KEY);
+      store.del(PENDING_KEY);
+      if(pending && byId(pending)){
+        try{ await savesRef().doc(pending).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()}); showToast('ログインして、保存しました'); }catch(e){}
+      }
+    }
+    if(view === 'mypage') renderMypage();
+    if(view === 'saved') renderSaved();
+  });
+  finishEmailLink();
+}
+
+$('logoutOk').addEventListener('click', async () => {
+  await auth.signOut();
+  closeModals();
+  showToast('ログアウトしました');
+});
+
+/* ---------- 一覧 ---------- */
+let current = 'all';
+let view = 'search';
+let openId = null;
+
+function cardHTML(r){
+  return `<li>
+    <button class="card" data-id="${r.id}">
+      <div class="thumb"><i class="ri-restaurant-2-line"></i><img src="${photo(r)}" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="card-body">
+        <p class="card-name">${esc(r.name)}</p>
+        <p class="card-catch">${esc(r.catch)}</p>
+        <div class="tags">
+          <span><i class="ri-time-line"></i>${r.min}分</span>
+          <span><i class="${TOOLS[r.tool].icon}"></i>${TOOLS[r.tool].name}</span>
+          <span>${r.drinks.map(drinkName).join('・')}</span>
+        </div>
+      </div>
+    </button>
+    <button class="save-btn${saved.has(r.id) ? ' on' : ''}" data-id="${r.id}" aria-label="保存する"><i class="${saved.has(r.id) ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i></button>
+  </li>`;
+}
+
+function renderChips(){
+  $('chips').innerHTML = [{id:'all', name:'すべて'}, ...DRINKS]
+    .map(d => `<button class="chip${d.id === current ? ' on' : ''}" data-id="${d.id}">${d.name}</button>`).join('');
+  // 選んだお酒が横スクロールの外に隠れないように寄せる
+  const on = $('chips').querySelector('.on');
+  $('chips').scrollLeft = on.offsetLeft - ($('chips').clientWidth - on.offsetWidth) / 2;
+}
+
+function renderList(){
+  const items = RECIPES.filter(r => current === 'all' || r.drinks.includes(current))
+    .sort((a, b) => a.min - b.min);
+  $('count').innerHTML = current === 'all'
+    ? `つまみ <b>${items.length}</b>品`
+    : `<span class="drink-name">${drinkName(current)}</span>に合うつまみ <b>${items.length}</b>品`;
+  $('list').innerHTML = items.map(cardHTML).join('');
+}
+
+function renderSaved(){
+  if(!user){
+    $('savedBody').innerHTML = `<div class="auth-box">${authFormHTML('気に入ったつまみを保存しよう', '会員登録（無料）すると、レシピの右の印を押して保存できます。パスワードは不要です。')}</div>`;
+    return;
+  }
+  const items = [...saved.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => byId(id)).filter(Boolean);
+  $('savedBody').innerHTML = items.length
+    ? `<p class="count"><b>${items.length}</b>品</p><ul class="list">${items.map(cardHTML).join('')}</ul>`
+    : `<p class="empty"><i class="ri-bookmark-line"></i>まだ保存したつまみはありません。<br>レシピの右の印を押すと、ここに並びます。</p>`;
+}
+
+function renderMypage(){
+  if(!user){
+    $('mypageBody').innerHTML = `<div class="auth-box">${authFormHTML('会員登録・ログイン', '登録は無料です。レシピを保存して、いつでも見返せます。')}</div>`;
+    return;
+  }
+  const name = user.displayName || user.email?.split('@')[0] || '会員';
+  $('mypageBody').innerHTML = `
+    <div class="me">
+      <div class="avatar">${user.photoURL ? `<img src="${esc(user.photoURL)}" alt="">` : esc(name.slice(0, 1))}</div>
+      <div><p class="me-name">${esc(name)}</p><p class="me-mail">${esc(user.email || '')}</p></div>
+    </div>
+    <ul class="menu">
+      <li><button data-go="saved"><i class="ri-bookmark-line"></i>保存したつまみ<span class="count-badge">${saved.size}品</span></button></li>
+      <li><button id="logoutBtn"><i class="ri-logout-box-r-line"></i>ログアウト</button></li>
+    </ul>`;
+}
+
+/* ---------- レシピ詳細 ---------- */
+function renderDetailSave(){
+  const on = saved.has(openId);
+  $('dSave').classList.toggle('on', on);
+  $('dSave').innerHTML = `<i class="${on ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i>${on ? '保存済み' : '保存'}`;
+}
+
+function openRecipe(id){
+  const r = byId(id);
+  if(!r) return closeRecipe();
+  openId = id;
+  $('detail').innerHTML = `
+    <img class="hero" src="${photo(r)}" alt="${esc(r.name)}" onerror="this.remove()">
+    <h2 class="d-name">${esc(r.name)}</h2>
+    <p class="d-catch">${esc(r.catch)}</p>
+    <dl class="meta">
+      <div><dt>時間</dt><dd>${r.min}分</dd></div>
+      <div><dt>道具</dt><dd>${TOOLS[r.tool].name}</dd></div>
+      <div><dt>分量</dt><dd>2人分</dd></div>
+    </dl>
+    <h3 class="d-h">合うお酒</h3>
+    <div class="pair">${r.drinks.map(d => `<span class="${d === current ? 'cur' : ''}">${drinkName(d)}</span>`).join('')}</div>
+    <p class="why">${esc(r.why)}</p>
+    <h3 class="d-h">材料</h3>
+    <ul class="ing">${r.ing.map(([n, a]) => `<li><span>${esc(n)}</span><span>${esc(a)}</span></li>`).join('')}</ul>
+    <h3 class="d-h">作り方</h3>
+    <ol class="steps">${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>`;
+  renderDetailSave();
+  $('sheet').scrollTop = 0;
+  $('sheet').classList.add('open');
+  $('sheet').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lock');
+}
+
+function closeRecipe(){
+  openId = null;
+  $('sheet').classList.remove('open');
+  $('sheet').setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lock');
+}
+
+/* ---------- 画面の切り替え ---------- */
+// URLのハッシュで状態を持つ。共有や戻るボタンに対応するため
+//   #beer / #beer/mugen-piman … さがす（お酒・レシピ）
+//   #saved / #saved/mugen-piman … 保存
+//   #mypage … マイページ
+function applyHash(){
+  const [head, recipe] = location.hash.slice(1).split('/');
+  view = head === 'saved' || head === 'mypage' ? head : 'search';
+  if(view === 'search') current = DRINKS.some(d => d.id === head) ? head : 'all';
+  $('viewSearch').hidden = view !== 'search';
+  $('viewSaved').hidden = view !== 'saved';
+  $('viewMypage').hidden = view !== 'mypage';
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.view === view));
+  if(view === 'search'){ renderChips(); renderList(); }
+  if(view === 'saved') renderSaved();
+  if(view === 'mypage') renderMypage();
+  recipe ? openRecipe(recipe) : closeRecipe();
+}
+const baseHash = () => view === 'search' ? (current === 'all' ? '' : current) : view;
+
+$('tabbar').addEventListener('click', e => {
+  const t = e.target.closest('.tab');
+  if(!t) return;
+  const v = t.dataset.view;
+  location.hash = v === 'search' ? (current === 'all' ? '' : current) : v;
+  if(v === view && !openId) window.scrollTo({top: 0, behavior: 'smooth'});
+});
+$('chips').addEventListener('click', e => {
+  const b = e.target.closest('.chip');
+  if(b) location.hash = b.dataset.id === 'all' ? '' : b.dataset.id;
+});
+document.querySelector('.wrap').addEventListener('click', e => {
+  const s = e.target.closest('.save-btn');
+  if(s) return toggleSave(s.dataset.id);
+  const c = e.target.closest('.card');
+  if(c) location.hash = `${baseHash() || 'all'}/${c.dataset.id}`;
+  const go = e.target.closest('[data-go]');
+  if(go) location.hash = go.dataset.go;
+  if(e.target.closest('#logoutBtn')) $('logoutModal').hidden = false;
+});
+$('dSave').addEventListener('click', () => toggleSave(openId));
+$('back').addEventListener('click', () => { location.hash = baseHash(); });
+window.addEventListener('hashchange', applyHash);
+applyHash();
+</script>
+</body>
+</html>

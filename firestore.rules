@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 保存したレシピ。本人だけが読み書きできる。ドキュメントIDはレシピのid
+    match /users/{uid}/saves/{recipeId} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && recipeId.matches('^[a-z0-9-]{1,60}$')
+        && request.resource.data.keys().hasOnly(['savedAt'])
+        && request.resource.data.savedAt == request.time;
+    }
+  }
+}
