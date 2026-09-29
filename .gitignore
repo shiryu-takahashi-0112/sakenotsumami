@@ -2,3 +2,4 @@ images/raw/
 .DS_Store
 .claude/
 __pycache__/
+.cf-web-analytics-token

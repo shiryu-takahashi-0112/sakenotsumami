@@ -1,0 +1,48 @@
+name: Deploy osakenomitai.com
+
+# main に push すると、オサケノミタイとサケノツマミを組み立てて osakenomitai.com に公開する。
+# サケノツマミのリポジトリにも同じワークフローがある（どちらのpushでも、両方の最新を配る）。
+# 認証は GitHub Secrets の CLOUDFLARE_API_TOKEN と CLOUDFLARE_ACCOUNT_ID。未登録のあいだは何もせずに終わる。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-osakenomitai-com
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check secret
+        id: secret
+        env:
+          T: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$T" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN が未登録のため、osakenomitai.com への公開をスキップしました。"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          repository: shiryu-takahashi-0112/osakenomitai
+          path: osakenomitai
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          repository: shiryu-takahashi-0112/sakenotsumami
+          path: sakenotsumami
+      - name: Build
+        if: steps.secret.outputs.ok == 'true'
+        run: osakenomitai/site/build.sh "$PWD/osakenomitai" "$PWD/sakenotsumami"
+      - name: Deploy
+        if: steps.secret.outputs.ok == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4 deploy --config osakenomitai/site/wrangler.jsonc

@@ -47,3 +47,12 @@
 - **見た目で均等になるよう字間を詰める作り方（案C）は、Shiryuから「字間が狭すぎて不自然」と言われてやめた。** カタカナ本来のマス目のリズムを崩さない。
 - 作り直しは `tools/logotype.py`（`python3 tools/logotype.py 0.06 -final 0.05 0.04`）。SVGは `brand/`。
 - 使っている場所：アプリ上部の `.logo`、20歳の確認画面、アプリアイコン（サケノ／ツマミの2行）、共有画像 `og-image.jpg`、個人サイトのProject。アイコンと共有画像は `~/sakenotsumami-cowork/brand/` のHTMLから書き出している。
+
+## SNS
+
+2026-09-29にShiryuと決めた。運用方針の全文は https://claude.ai/artifact/X8hZavqnBU56yUkdpauZL4
+
+- アカウントは専用のものを5つ（Instagram・Threads・X・TikTok・YouTube）。MACROHACKと同じく、Coworkが毎日12時にまとめて作成し、公開は予約で18時。
+- **話し方は案A「ブランドとして淡々と、温度は居酒屋のカウンター程度」。** 一人称は使わず、アプリの `catch`・`why` と同じ文体。人格（大将風・AIアンバサダー）は立てない。写真がAI生成なので、「作った・飲んだ」と体験を語らない。
+- 投稿の末尾には必ず「お酒は20歳になってから」と「※写真はAIで作ったイメージです」を入れる。飲む動作、一気・飲みすぎを連想させる言葉、銘柄は出さない。
+- 動画と画像は `~/sakenotsumami-cowork/` の仕組みで作る。
