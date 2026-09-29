@@ -3,7 +3,8 @@
 お酒の種類から合うつまみを探せるレシピアプリ。
 オサケノミタイ（`~/dev/osakenomitai`）の姉妹アプリで、色・書体・フッターの作りをそろえている。
 
-- 本番：https://shiryu-takahashi-0112.github.io/sakenotsumami/ （GitHub Pages。`main` にpushすると反映）
+- 本番：https://osakenomitai.com/sakenotsumami/ （2026-09-29にドメインへ移転。`main` にpushすると GitHub Actions が Cloudflare に公開する。仕組みはオサケノミタイの `site/` と `.github/workflows/deploy-site.yml`）
+- 旧URL（shiryu-takahashi-0112.github.io/sakenotsumami/）も GitHub Pages で残っているが、開くと新しいURLへ移る。
 - 個人サイトのProjectに掲載している。内容・URL・ステータスが変わったら、個人サイトも直す。
 
 ## 構成
@@ -26,6 +27,7 @@
 ## 決めごと
 
 - **`recipes.js` を変えたら、必ず `python3 tools/build_pages.py` を実行してからコミットする。** アプリはJavaScriptで画面を描くため、検索エンジンと共有時のプレビュー用に、同じ内容を素のHTMLでも持っている。公開URLが変わったら、このスクリプトの `BASE` と `index.html` の `canonical`・`og:` を直す。
+- アクセス数は Cloudflare Web Analytics（自動設定、osakenomitai.com）で見る。
 
 - **レシピは誰でも見られる。保存だけ会員にする**（2026-09-28にShiryuが決定）。ログインは Google とメールリンク（パスワードなし）。
 - レシピを足すときは、既存と同じ書き方（常体、手順3〜5、お酒2〜3個）にする。鶏肉・豚肉は火の通りを確かめる手順を入れる。

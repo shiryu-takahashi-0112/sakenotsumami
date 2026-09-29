@@ -2,6 +2,10 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>
+// 旧URL（GitHub Pages）で開かれたら、新しいドメインへ移す（2026-09-29にosakenomitai.comへ移転）
+if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('https://osakenomitai.com'+location.pathname+location.search+location.hash);
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>プライバシーポリシー｜サケノツマミ</title>
 <meta name="robots" content="noindex">
@@ -34,7 +38,7 @@
 <main class="page">
 <a class="back" href="./">← サケノツマミへもどる</a>
 <h1>プライバシーポリシー</h1>
-<p class="date">最終改定日：2026年9月29日</p>
+<p class="date">最終改定日：2026年9月29日（配信とアクセス計測をCloudflareに変更）</p>
 <p>サケノツマミ（以下「当サービス」）は、お酒の種類に合うつまみのレシピを紹介する無料のWebサービスです。<br>
 当サービスの運営者（以下「運営者」）は、個人情報の保護に関する法律その他の関係法令を守り、利用者の情報を次のとおり取り扱います。</p>
 
@@ -59,7 +63,7 @@
 <li>会員の認証と、保存したレシピを複数の端末で表示するため</li>
 <li>お問い合わせに対応するため</li>
 <li>不正な利用を防ぎ、サービスを安全に運営するため</li>
-<li>サービスの改善のため（個人を特定しない形での集計）</li>
+<li>サービスの改善のため（アクセス数などを、個人を特定しない形で集計します）</li>
 </ul>
 <p>この目的を超えて利用する場合は、あらかじめ利用者の同意を得ます。</p>
 
@@ -72,7 +76,7 @@
 <thead><tr><th>サービス</th><th>提供事業者</th><th>役割</th></tr></thead>
 <tbody>
 <tr><td>Firebase Authentication / Cloud Firestore</td><td>Google LLC</td><td>アカウントの認証、保存データの保管</td></tr>
-<tr><td>GitHub Pages</td><td>GitHub, Inc.</td><td>ページの配信</td></tr>
+<tr><td>Cloudflare Workers / Cloudflare Web Analytics</td><td>Cloudflare, Inc.</td><td>ページの配信、アクセス状況の集計（Cookieを使わず、個人を特定しない形）</td></tr>
 <tr><td>Google Fonts / jsDelivr</td><td>Google LLC ほか</td><td>書体・アイコンの配信</td></tr>
 </tbody></table></div>
 <p>これらのサービスの利用に伴い、情報が日本国外のサーバーで取り扱われる場合があります。<br>

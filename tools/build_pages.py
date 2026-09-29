@@ -14,7 +14,7 @@
 """
 import html, json, pathlib, re, subprocess, datetime
 
-BASE = 'https://shiryu-takahashi-0112.github.io/sakenotsumami/'
+BASE = 'https://osakenomitai.com/sakenotsumami/'
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # recipes.js をそのまま node で読んで JSON にする（データの定義を二重に持たないため）
@@ -82,6 +82,7 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('https://osakenomitai.com'+location.pathname+location.search+location.hash);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
