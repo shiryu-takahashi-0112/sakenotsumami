@@ -25,11 +25,23 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--main);}
   p{margin:0 0 10px;}
   ul{margin:0 0 10px;padding-left:1.3em;}
-  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:0 0 12px;}
-  table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.7;min-width:520px;}
+  .scroll{border:1px solid var(--line);border-radius:12px;margin:0 0 12px;overflow:hidden;}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.7;}
   th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line);}
   th{background:var(--soft);font-size:12px;color:var(--muted);}
   tr:last-child td{border-bottom:none;}
+  td:first-child{font-weight:700;white-space:nowrap;}
+  /* スマホでは表を行ごとのカードにする */
+  @media (max-width:600px){
+    thead{display:none;}
+    table,tbody,tr,td{display:block;}
+    tr{padding:12px 14px;border-bottom:1px solid var(--line);}
+    tr:last-child{border-bottom:none;}
+    td{padding:0;border:none;white-space:normal;}
+    td:first-child{font-size:14.5px;margin-bottom:4px;}
+    td+td{margin-top:6px;}
+    td[data-label]:before{content:attr(data-label);display:block;font-size:11.5px;font-weight:700;color:var(--muted);}
+  }
   code{background:var(--soft);padding:1px 5px;border-radius:4px;font-size:12.5px;}
   a{color:inherit;text-decoration-color:var(--main);text-decoration-thickness:2px;text-underline-offset:3px;}
 </style>
@@ -38,7 +50,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <main class="page">
 <a class="back" href="./">← サケノツマミへもどる</a>
 <h1>プライバシーポリシー</h1>
-<p class="date">最終改定日：2026年9月29日（配信とアクセス計測をCloudflareに変更）</p>
+<p class="date">最終改定日：2026年9月30日（お問い合わせ先をInstagramのDMに変更）</p>
 <p>サケノツマミ（以下「当サービス」）は、お酒の種類に合うつまみのレシピを紹介する無料のWebサービスです。<br>
 当サービスの運営者（以下「運営者」）は、個人情報の保護に関する法律その他の関係法令を守り、利用者の情報を次のとおり取り扱います。</p>
 
@@ -46,9 +58,9 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <div class="scroll"><table>
 <thead><tr><th>種類</th><th>内容</th><th>取得する場面</th></tr></thead>
 <tbody>
-<tr><td>アカウント情報</td><td>メールアドレス。Googleでログインした場合は、Googleアカウントの識別子・表示名・プロフィール写真のURL。パスワードは使いません。</td><td>会員登録・ログイン</td></tr>
-<tr><td>保存データ</td><td>保存したレシピと、保存した日時</td><td>レシピを保存したとき</td></tr>
-<tr><td>アクセス情報</td><td>IPアドレス、ブラウザの種類、閲覧日時など、ページを配信するサーバーが自動で記録する情報</td><td>ページを開いたとき</td></tr>
+<tr><td>アカウント情報</td><td data-label="内容">メールアドレス。Googleでログインした場合は、Googleアカウントの識別子・表示名・プロフィール写真のURL。パスワードは使いません。</td><td data-label="取得する場面">会員登録・ログイン</td></tr>
+<tr><td>保存データ</td><td data-label="内容">保存したレシピと、保存した日時</td><td data-label="取得する場面">レシピを保存したとき</td></tr>
+<tr><td>アクセス情報</td><td data-label="内容">IPアドレス、ブラウザの種類、閲覧日時など、ページを配信するサーバーが自動で記録する情報</td><td data-label="取得する場面">ページを開いたとき</td></tr>
 </tbody></table></div>
 <p>次の情報は、利用者の端末（ブラウザのローカルストレージ）にだけ保存します。<br>
 運営者は直接見ることができず、ブラウザの設定からいつでも削除できます。</p>
@@ -75,9 +87,9 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <div class="scroll"><table>
 <thead><tr><th>サービス</th><th>提供事業者</th><th>役割</th></tr></thead>
 <tbody>
-<tr><td>Firebase Authentication / Cloud Firestore</td><td>Google LLC</td><td>アカウントの認証、保存データの保管</td></tr>
-<tr><td>Cloudflare Workers / Cloudflare Web Analytics</td><td>Cloudflare, Inc.</td><td>ページの配信、アクセス状況の集計（Cookieを使わず、個人を特定しない形）</td></tr>
-<tr><td>Google Fonts / jsDelivr</td><td>Google LLC ほか</td><td>書体・アイコンの配信</td></tr>
+<tr><td>Firebase Authentication / Cloud Firestore</td><td data-label="提供事業者">Google LLC</td><td data-label="役割">アカウントの認証、保存データの保管</td></tr>
+<tr><td>Cloudflare Workers / Cloudflare Web Analytics</td><td data-label="提供事業者">Cloudflare, Inc.</td><td data-label="役割">ページの配信、アクセス状況の集計（Cookieを使わず、個人を特定しない形）</td></tr>
+<tr><td>Google Fonts / jsDelivr</td><td data-label="提供事業者">Google LLC ほか</td><td data-label="役割">書体・アイコンの配信</td></tr>
 </tbody></table></div>
 <p>これらのサービスの利用に伴い、情報が日本国外のサーバーで取り扱われる場合があります。<br>
 各サービスでの情報の取り扱いは、それぞれの事業者のプライバシーポリシーに従います。</p>
@@ -99,8 +111,8 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 
 <h2>お問い合わせ</h2>
 <p>運営者：高橋 子竜（Shiryu Takahashi）<br>
-お問い合わせは、運営者のサイトのフォームからお願いします。<br>
-<a href="https://shiryu-takahashi.com/contact" target="_blank" rel="noopener">https://shiryu-takahashi.com/contact</a></p>
+お問い合わせは、サケノツマミのInstagram（@sakenotsumami）へのDMでお願いします。<br>
+<a href="https://ig.me/m/sakenotsumami" target="_blank" rel="noopener">https://ig.me/m/sakenotsumami</a></p>
 </main>
 </body>
 </html>
