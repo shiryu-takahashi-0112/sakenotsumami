@@ -7,6 +7,17 @@
 - 旧URL（shiryu-takahashi-0112.github.io/sakenotsumami/）も GitHub Pages で残っているが、開くと新しいURLへ移る。
 - 個人サイトのProjectに掲載している。内容・URL・ステータスが変わったら、個人サイトも直す。
 
+## stg（確認用URL）
+
+2026-09-30にShiryuの指示で用意した（MACROHACKと同じ考え方）。**stg ＝ 作業ブランチの確認用URL。** `stg` という名前のブランチは作らない。
+
+- `main` 以外のブランチに push すると、`.github/workflows/deploy-preview.yml` が Cloudflare の Worker Previews に出す。本番（osakenomitai.com）は変わらない。オサケノミタイのリポジトリにも同じワークフローがある。
+- URLは、GitHub Actions の実行結果の Summary と、コミットの「stg」ステータス（PRのチェック欄の Details）に出る。ブランチ名の `/` などを `-` にした名前が付き、同じブランチなら push のたびに同じURLが更新される。
+- もう片方のリポジトリに同じ名前のブランチがあれば、それと組み合わせる。無ければ `main` と組み合わせる。
+- **変更は stg と本番の両方で確かめる。** push 後に stg（PCとスマホ）で見てから `main` に入れ、公開後に本番でも見る。
+- stg は検索エンジンに載せない（`X-Robots-Tag: noindex`）。
+- **stg ではログインできない。** Firebase の承認済みドメインに stg のドメインが無いため。保存まわりを stg で確かめたいときは、Firebaseコンソールの Authentication →設定→承認済みドメインに stg のドメインを足す（データは本番と共用）。
+
 ## 構成
 
 | ファイル | 中身 |
@@ -28,6 +39,7 @@
 
 - **`recipes.js` を変えたら、必ず `python3 tools/build_pages.py` を実行してからコミットする。** アプリはJavaScriptで画面を描くため、検索エンジンと共有時のプレビュー用に、同じ内容を素のHTMLでも持っている。公開URLが変わったら、このスクリプトの `BASE` と `index.html` の `canonical`・`og:` を直す。
 - アクセス数は Cloudflare Web Analytics（自動設定、osakenomitai.com）で見る。
+- **お問い合わせは Instagram（@sakenotsumami）のDMで受ける**（`https://ig.me/m/sakenotsumami`）。個人サイトのフォームには飛ばさない（2026-09-30にShiryuが決定）。アプリのフッター・`privacy.html`・`terms.html` の3か所。
 
 - **レシピは誰でも見られる。保存だけ会員にする**（2026-09-28にShiryuが決定）。ログインは Google とメールリンク（パスワードなし）。
 - レシピを足すときは、既存と同じ書き方（常体、手順3〜5、お酒2〜3個）にする。鶏肉・豚肉は火の通りを確かめる手順を入れる。
@@ -56,6 +68,7 @@
 
 2026-09-29にShiryuと決めた。運用方針の全文は https://claude.ai/artifact/X8hZavqnBU56yUkdpauZL4
 
+- **Instagramの投稿は2026-10-01に始める**（2026-09-30にShiryuが決定）。
 - アカウントは専用のものを5つ（Instagram・Threads・X・TikTok・YouTube）。MACROHACKと同じく、Coworkが毎日12時にまとめて作成し、公開は予約で18時。
 - **話し方は案A「ブランドとして淡々と、温度は居酒屋のカウンター程度」。** 一人称は使わず、アプリの `catch`・`why` と同じ文体。人格（大将風・AIアンバサダー）は立てない。写真がAI生成なので、「作った・飲んだ」と体験を語らない。
 - 投稿の末尾には必ず「お酒は20歳になってから」と「※写真はAIで作ったイメージです」を入れる。飲む動作、一気・飲みすぎを連想させる言葉、銘柄は出さない。
