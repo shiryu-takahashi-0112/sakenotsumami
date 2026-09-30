@@ -1,0 +1,96 @@
+name: Preview (stg)
+
+# main 以外のブランチに push すると、そのブランチ専用の確認用URL（stg）を作る。本番（osakenomitai.com）は変えない。
+# オサケノミタイのリポジトリにも同じワークフローがある。もう片方のリポジトリに同じ名前のブランチがあればそれを、無ければ main を組み合わせる。
+# URLは実行結果の Summary と、コミットの「stg」ステータス（PRのチェック欄）に出る。
+on:
+  push:
+    branches-ignore: [main]
+
+concurrency:
+  group: preview-${{ github.repository }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check secret
+        id: secret
+        env:
+          T: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$T" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN が未登録のため、stg を作りませんでした。"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Pick branches
+        id: ref
+        if: steps.secret.outputs.ok == 'true'
+        env:
+          BRANCH: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          # もう片方のリポジトリに同じ名前のブランチがあれば使う
+          pick() {
+            if [ "$REPO" = "shiryu-takahashi-0112/$1" ]; then echo "$BRANCH"
+            elif git ls-remote --exit-code --heads "https://github.com/shiryu-takahashi-0112/$1" "$BRANCH" >/dev/null; then echo "$BRANCH"
+            else echo main; fi
+          }
+          echo "osakenomitai=$(pick osakenomitai)" >> "$GITHUB_OUTPUT"
+          echo "sakenotsumami=$(pick sakenotsumami)" >> "$GITHUB_OUTPUT"
+          # URLに使う名前：英小文字・数字・ハイフンだけにして40文字まで（例 claude/foo-bar → claude-foo-bar）
+          name=$(printf '%s' "$BRANCH" | tr 'A-Z' 'a-z' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//' | cut -c1-40 | sed -E 's/-+$//')
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          repository: shiryu-takahashi-0112/osakenomitai
+          ref: ${{ steps.ref.outputs.osakenomitai }}
+          path: osakenomitai
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          repository: shiryu-takahashi-0112/sakenotsumami
+          ref: ${{ steps.ref.outputs.sakenotsumami }}
+          path: sakenotsumami
+      - name: Build
+        if: steps.secret.outputs.ok == 'true'
+        run: |
+          osakenomitai/site/build.sh "$PWD/osakenomitai" "$PWD/sakenotsumami"
+          # stg は検索エンジンに載せない
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > osakenomitai/dist/_headers
+      - name: Deploy preview
+        id: deploy
+        if: steps.secret.outputs.ok == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NAME: ${{ steps.ref.outputs.name }}
+        run: |
+          npx --yes wrangler@4 preview --config osakenomitai/site/wrangler.jsonc --name "$NAME" \
+            --message "${GITHUB_REPOSITORY#*/}@${GITHUB_SHA::7}" --json | tee out.json
+          url=$(jq -r '[.. | strings | select(test("^https://[^ ]*workers\\.dev"))][0] // empty' out.json)
+          if [ -z "$url" ]; then echo "::error::stg のURLを読み取れませんでした（上の出力を確認）"; exit 1; fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          {
+            echo "### stg"
+            echo "- オサケノミタイ：$url/"
+            echo "- サケノツマミ：$url/sakenotsumami/"
+            echo "- 組み合わせ：osakenomitai@${{ steps.ref.outputs.osakenomitai }} ＋ sakenotsumami@${{ steps.ref.outputs.sakenotsumami }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Link from commit
+        if: steps.deploy.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          path=/; [ "${GITHUB_REPOSITORY#*/}" = sakenotsumami ] && path=/sakenotsumami/
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" -f state=success -f context=stg \
+            -f target_url="${URL%/}$path" -f description="このブランチの確認用URL"
