@@ -74,10 +74,20 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           NAME: ${{ steps.ref.outputs.name }}
         run: |
-          npx --yes wrangler@4 preview --config osakenomitai/site/wrangler.jsonc --name "$NAME" \
-            --message "${GITHUB_REPOSITORY#*/}@${GITHUB_SHA::7}" --json | tee out.json
-          url=$(jq -r '[.. | strings | select(test("^https://[^ ]*workers\\.dev"))][0] // empty' out.json)
-          if [ -z "$url" ]; then echo "::error::stg のURLを読み取れませんでした（上の出力を確認）"; exit 1; fi
+          # 両方のリポジトリに同時に push すると、同じ名前の stg を同時に作ろうとして片方が失敗するので、少し待って1回やり直す
+          for i in 1 2; do
+            if npx --yes wrangler@4 preview --config osakenomitai/site/wrangler.jsonc --name "$NAME" \
+                 --message "${GITHUB_REPOSITORY#*/}@${GITHUB_SHA::7}" --json > out.txt; then ok=1; break; fi
+            cat out.txt; ok=0; sleep 20
+          done
+          cat out.txt
+          [ "$ok" = 1 ] || exit 1
+          # 出力の後ろにあるJSONからURLを取る
+          url=$(sed -n '/^{/,$p' out.txt | jq -r '[.. | strings | select(test("^https://[^ ]*workers\\.dev"))][0] // empty')
+          if [ -z "$url" ]; then
+            echo "::error::stg は作れたが、URLが出ていません。site/wrangler.jsonc の preview_urls が true のまま本番（main）に出ているか確認してください。"
+            exit 1
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
           {
             echo "### stg"
