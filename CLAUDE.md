@@ -52,6 +52,10 @@
 - **ファビコンは「サ」の一文字**（黄色の地、Zen Kaku Gothic New Black。`icons/favicon.svg`・`favicon-32.png`）。2026-09-29にShiryuが指定。ホーム画面のアプリアイコンは「サケノ／ツマミ」の2行のまま。
 - 使っている場所：アプリ上部の `.logo`、20歳の確認画面、アプリアイコン（サケノ／ツマミの2行）、共有画像 `og-image.jpg`、個人サイトのProject。アイコンと共有画像は `~/sakenotsumami-cowork/brand/` のHTMLから書き出している。
 
+## 定例
+
+- **サケノツマミの定例は毎週月曜日**（2026-10-03にShiryuが指示）。週の数字（SNSのフォロワー・再生・保存、アプリへの訪問、会員登録）と、翌週の投稿の予定を、月曜に話せる形にそろえておく。
+
 ## SNS
 
 2026-09-29にShiryuと決めた。運用方針の全文は https://claude.ai/artifact/X8hZavqnBU56yUkdpauZL4
@@ -62,7 +66,9 @@
 - **縦動画は毎日1本**（2026-09-29にShiryuが指示）。リール・TikTok・YouTubeショートの3か所に同じ日に出す。1品の作り方を見せる「1品型」（月・水・土）と、「ビールに合うつまみ3選」などの「◯選型」（火・木・金・日）を交互に出す。カルーセルは火・木、Threads・Xは毎日。
 - 動画と画像は `~/sakenotsumami-cowork/` の仕組みで作る。
 - **ストーリーズ用の画像には「※写真はAIで作ったイメージです」「お酒は20歳になってから」の注記を入れない**（2026-10-02にShiryuが「※の表記は無しで」と指示）。オサケノミタイで紹介する画像は `~/sakenotsumami-cowork/brand/story-intro.html`（メンションを置く空きを「▼ フォローはこちら」の下に取っている）。
-- **毎日の投稿はCoworkのルーティーン「サケノツマミ｜投稿｜Instagram・TikTok（毎日12時45分）」**（2026-10-02に作成）。`~/sakenotsumami-cowork/schedule/` の一覧を読み、その日の動画（リール・TikTok）と火・木のカルーセルを上げる。MACROHACKの12時の回とChromeを取り合わないよう時間をずらしている。2026-10-02にShiryuの指示で予定（10/5）より早く投稿を始めたので、一覧は日付ではなく上から順番に使う（まだ出していない最初の日の欄を、その日の分にする）。Threads・X・YouTubeは、アカウントができたらルーティーンに足す。
+- **SNSの投稿頻度はMACROHACKと同じ**（2026-10-03にShiryuが指示）：Instagramはリール1日1本（＋カルーセル）、Threadsは1日5本、TikTokは1日1本。
+- **InstagramとThreadsは、投稿管理ツール（Postboard https://sns-scheduler.mhack.workers.dev/ 、リポジトリ `~/dev/sns-scheduler`、ブランドID 2）の予約で出す**（2026-10-03から）。リールは毎日18時、カルーセルは12時5分、Threadsは11:05・15:05・17:05・19:05・21:00。予約の入れ方は `~/sakenotsumami-cowork/postboard/`（`schedule_instagram.py`、入れたものの記録は `registered.json`）。Instagramの画像はJPEGしか受け付けない。
+- **TikTokだけは、Coworkのルーティーン「サケノツマミ｜投稿｜TikTok（毎日12時45分）」でブラウザから出す**（ツールのTikTok対応が審査待ちのため）。ウェブ版で動画が入らないのは、Chromeのウィンドウが隠れているとページの読み込みが止まるためで、前に出してから渡せば出せる（2026-10-02に判明）。
 - **SNSのプロフィール画像は、黄色の地に文字ロゴを横1行で置いたもの**（2026-09-30にShiryuが「ロゴは1行で表示して」と指示）。アプリアイコンの2行版（サケノ／ツマミ）は使わない。
   - 画像は `brand/sakenotsumami-profile-logotype-1080.png`（元は同じフォルダの `.svg`）。オサケノミタイのプロフィール画像と同じ作りで、1080px四方に左右1割の余白をとって文字ロゴを置いている。
   - 2026-09-30時点のアカウント：Instagramは `@sakenotsumami.12`（`sakenotsumami` が取れなかった。2026-10-02にShiryuがこの名前で確定）、TikTokも `@sakenotsumami.12`（2026-10-02に `@user4308507770454` から変更。次に変えられるのは30日後）。
