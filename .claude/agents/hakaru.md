@@ -41,6 +41,17 @@ SELECT t.account_id, t.status, COUNT(*) AS n, MAX(p.scheduled_at) AS last_at FRO
 - 予約の一番遅い日（`last_at`）が、今日から21日より手前なら「作り足しが要る」と書く。
 - TikTok の数字は、現場のルーティーン（ブラウザ）が事業部ボードの「現場の実行記録」に書いた分を使う。
 
+### カルーセルとリールの比較（2026-10-03・Shiryu の指示）
+
+Instagram には、予約済みのカルーセルが10/29まで火・木に出る。Shiryu が数字を見たいと言っているので、週次報告には必ず次の比較を載せる。
+
+```sql
+SELECT media_type, COUNT(*) AS n, ROUND(AVG(views)) AS views, ROUND(AVG(reach)) AS reach, ROUND(AVG(saves),1) AS saves, ROUND(AVG(shares),1) AS shares, ROUND(AVG(likes),1) AS likes FROM media_stats WHERE account_id = 4 AND posted_at <= datetime('now', '-2 day') GROUP BY media_type
+```
+
+- 公開から2日以上たった投稿だけを比べる（公開直後の数字は伸びる途中で、比べられないため）。
+- 件数が少ないうちは「参考」と書く。カルーセルは3件、リールは7件たまってから、どちらが良いかを書く。
+
 ### 取れないもの（2026-10-03 時点）
 
 - **会員数・保存数**：Firebase を読むためのアカウントの準備が途中で止まっている。届くまでは「取得不可（準備中）」と書く。
