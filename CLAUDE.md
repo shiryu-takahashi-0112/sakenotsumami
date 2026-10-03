@@ -36,6 +36,7 @@
   - ビルド確認（`.github/workflows/build-check.yml`）は、JavaScriptの書き方の誤り・検索用ページのずれ・お酒の量や勢いをすすめる言い回し・20歳の注意表示の4つを見る。
   - 例外：`firestore.rules` を変えるPRは自動でマージしない。Firebaseのコンソールへの反映とあわせてShiryuがマージする。
   - 自分で `gh pr merge` を実行しない。マージは仕組みに任せる。
+  - 2026-10-03に、このPR自体を使って、自動マージと公開の起動が動くことを確かめた（sakenotsumami#4）。
 
 ## 構成
 
