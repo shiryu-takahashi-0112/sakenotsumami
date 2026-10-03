@@ -1,5 +1,8 @@
 images/raw/
 .DS_Store
-.claude/
+# .claude はローカルの設定だけ除く。チームの役割の定義（agents・commands）は記録に残す（2026-10-03）
+.claude/*
+!.claude/agents/
+!.claude/commands/
 __pycache__/
 .cf-web-analytics-token
