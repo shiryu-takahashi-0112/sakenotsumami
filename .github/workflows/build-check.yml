@@ -1,0 +1,55 @@
+# PRごとに、本番に出してよいかを機械で確かめる。
+# 2026-10-03 に自動マージを入れた（Shiryu の指示）。ここが通ったPRは人のレビュー無しで本番に出るので、
+# 「壊れていない」「お酒を扱うアプリとしての決まりを破っていない」の2つをここで止める。
+name: Build Check
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JavaScript の書き方の誤り
+        run: |
+          node --check recipes.js
+          node --check firebase-config.js
+          # index.html の中に直接書いた <script> も確かめる
+          node -e '
+            const fs=require("fs");
+            const html=fs.readFileSync("index.html","utf8");
+            const re=/<script>([\s\S]*?)<\/script>/g; let m,i=0;
+            while((m=re.exec(html))){ fs.writeFileSync(`/tmp/inline-${i++}.js`, m[1]); }
+            console.log(`inline scripts: ${i}`);
+          '
+          for f in /tmp/inline-*.js; do node --check "$f"; done
+          echo "JavaScript OK"
+
+      - name: 検索用ページが recipes.js と合っているか
+        run: |
+          python3 tools/build_pages.py > /dev/null
+          if ! git diff --quiet || [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            echo "::error::recipes.js を変えたら python3 tools/build_pages.py を実行して、書き出したページも同じPRに入れてください。"
+            exit 1
+          fi
+          echo "pages OK"
+
+      - name: お酒の量や勢いをすすめる言い回しが無いか
+        run: |
+          # CLAUDE.md の「決めごと」にある禁止の言い回し。「箸が止まらない」のように、つまみについて言うのはよい。
+          if grep -nE "が進む|止まらなくなる|もう一杯|一杯目|ちびちびやる|ぐいっと|で流す|追いかけたくなる|を呼ぶ|飲むのにいい" recipes.js; then
+            echo "::error::recipes.js に、お酒の量や勢いをすすめる言い回しがあります。「〜とよく合う」と、味の相性で書いてください。"
+            exit 1
+          fi
+          echo "wording OK"
+
+      - name: 20歳の注意表示が消えていないか
+        run: |
+          if ! grep -q "20歳" index.html; then
+            echo "::error::index.html から「お酒は20歳になってから」の注意表示が消えています。"
+            exit 1
+          fi
+          echo "notice OK"
