@@ -1,0 +1,84 @@
+# チームの従業員（灯・築・響・測）が作ったPRを、Build Check 通過後に自動でマージし、本番に出す。
+#
+# 2026-10-03 / Shiryu の指示で入れた（MACROHACK と同じ仕組み）。
+# 自動でマージする条件は次の4つ:
+#   1. Build Check が success
+#   2. Draft ではない（迷うものは Draft で出す。Draft が唯一のブレーキ）
+#   3. ブランチが claude/ kizuku/ hibiki/ akari/ hakaru/ で始まる（人のブランチは対象外）
+#   4. base が main
+# 例外: firestore.rules を変えるPRは自動でマージしない。ルールは Firebase のコンソールにも
+#       手で反映する必要があり、マージだけ進むと本番とずれるため。
+#
+# GITHUB_TOKEN でマージしたときは、main への push をきっかけにする他のワークフロー
+# （deploy-site.yml）が動かない。そのため、マージのあとで公開のワークフローを直接起こす。
+name: Auto Merge
+
+on:
+  workflow_run:
+    workflows: ["Build Check"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  automerge:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge if safe
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+
+          PR=$(gh api "repos/$REPO/commits/$SHA/pulls" \
+                 -H "Accept: application/vnd.github+json" \
+                 -q '[.[] | select(.state=="open" and .base.ref=="main")][0].number // empty')
+          if [ -z "$PR" ]; then
+            echo "対象のオープンPRが無いので何もしない（SHA=$SHA）"
+            exit 0
+          fi
+
+          DRAFT=$(gh pr view "$PR" --repo "$REPO" --json isDraft -q .isDraft)
+          HEAD=$(gh pr view "$PR" --repo "$REPO" --json headRefName -q .headRefName)
+          echo "PR #$PR / branch=$HEAD / draft=$DRAFT"
+
+          if [ "$DRAFT" = "true" ]; then
+            echo "ドラフトなので何もしない"
+            exit 0
+          fi
+
+          case "$HEAD" in
+            claude/*|kizuku/*|hibiki/*|akari/*|hakaru/*) ;;
+            *) echo "チームの作業ブランチではないので何もしない（$HEAD）"; exit 0 ;;
+          esac
+
+          gh api "repos/$REPO/pulls/$PR/files" --paginate \
+            -q '.[] | "\(.status)\t\(.filename)"' > /tmp/files.tsv
+          echo "変更ファイル:"
+          cat /tmp/files.tsv
+
+          if awk -F'\t' '$2 == "firestore.rules" { found=1 } END { exit !found }' /tmp/files.tsv; then
+            gh pr comment "$PR" --repo "$REPO" --body "firestore.rules を変えているので、自動ではマージしません。Firebase のコンソールへの反映とあわせて、Shiryu がマージしてください。"
+            echo "firestore.rules を含むので何もしない"
+            exit 0
+          fi
+
+          CONTROL=$(awk -F'\t' '$2 ~ /^(\.github\/|CLAUDE\.md|\.claude\/)/ { print $2 }' /tmp/files.tsv || true)
+          if [ -n "$CONTROL" ]; then
+            echo "::notice::規範・役割の定義・CIのファイルを含むPRを無人でマージします"
+            printf '%s\n' "$CONTROL"
+          fi
+
+          echo "自動マージします"
+          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch
+
+          echo "本番への公開を起こします"
+          gh workflow run deploy-site.yml --repo "$REPO" --ref main
