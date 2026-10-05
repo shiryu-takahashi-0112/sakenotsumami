@@ -107,6 +107,7 @@
 - **InstagramとThreadsは、投稿管理ツール（Postboard https://sns-scheduler.mhack.workers.dev/ 、リポジトリ `~/dev/sns-scheduler`、ブランドID 2）の予約で出す**（2026-10-03から）。リールは毎日18時、Threadsは11:05・15:05・17:05・19:05・21:00。予約の入れ方は `~/sakenotsumami-cowork/postboard/`（`schedule_instagram.py`、入れたものの記録は `registered.json`）。Instagramの画像はJPEGしか受け付けない。
 - **縦動画には表紙を付ける**（2026-10-03に、TikTokの表紙が黄色一色になっているとShiryuから指摘）。TikTokは何もしないと動画の最初のコマが表紙になり、見出しが出る前の黄色だけのコマだった。
   - 表紙は料理の写真と見出しの1枚（型は `~/sakenotsumami-cowork/video/cover.html`）。プロフィールの一覧で切り抜かれる縦3:4の範囲に、写真の主役と見出しを収める。
+  - **TikTokの表紙は、Instagramのリールと同じ `cover.jpg` を投稿画面の「カバーを編集」→「アップロード」で明示して入れる**（2026-10-04にShiryuが「TikTokのサムネイルをインスタグラムに合わせて」と指示）。先頭0.5秒に絵を置いていても、TikTokは別のコマを表紙に選ぶことがある。
   - 同じ絵を動画の先頭0.5秒にも置く。表紙を選べないSNSでも、これが表紙になる。`make_reel.py`・`make_list_reel.py` で作る動画には自動で入る。作り直しは `python3 make_cover.py <フォルダ>`。
 - **TikTokだけは、Coworkのルーティーン「サケノツマミ｜投稿｜TikTok（毎日12時45分）」でブラウザから出す**（ツールのTikTok対応が審査待ちのため）。ウェブ版で動画が入らないのは、Chromeのウィンドウが隠れているとページの読み込みが止まるためで、前に出してから渡せば出せる（2026-10-02に判明）。
 - **SNSのプロフィール画像は、黄色の地に文字ロゴを横1行で置いたもの**（2026-09-30にShiryuが「ロゴは1行で表示して」と指示）。アプリアイコンの2行版（サケノ／ツマミ）は使わない。
