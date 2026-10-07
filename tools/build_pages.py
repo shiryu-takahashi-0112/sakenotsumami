@@ -106,7 +106,7 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <div class="wrap">
 <div class="top"><a href="{up}" aria-label="サケノツマミ トップ">{LOGO}</a><a class="open" href="{up}">アプリで探す</a></div>
 {body}
-<p class="note">お酒は20歳になってから。飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
+<p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="{up}terms.html">利用規約</a><a href="{up}privacy.html">プライバシーポリシー</a></p>
 </div>
 </body>
