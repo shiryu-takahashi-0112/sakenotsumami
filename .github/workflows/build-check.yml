@@ -1,6 +1,7 @@
 # PRごとに、本番に出してよいかを機械で確かめる。
 # 2026-10-03 に自動マージを入れた（Shiryu の指示）。ここが通ったPRは人のレビュー無しで本番に出るので、
 # 「壊れていない」「お酒を扱うアプリとしての決まりを破っていない」の2つをここで止める。
+# 20歳の注意表示の確認は、2026-10-07 に Shiryu の指示でアプリから注意表示と年齢確認を外したのにあわせてやめた。
 name: Build Check
 on:
   pull_request:
@@ -46,10 +47,3 @@ jobs:
           fi
           echo "wording OK"
 
-      - name: 20歳の注意表示が消えていないか
-        run: |
-          if ! grep -q "20歳" index.html; then
-            echo "::error::index.html から「お酒は20歳になってから」の注意表示が消えています。"
-            exit 1
-          fi
-          echo "notice OK"
