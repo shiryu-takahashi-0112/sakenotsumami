@@ -93,7 +93,7 @@
 
 2026-09-29にShiryuと決めた。運用方針の全文は https://claude.ai/artifact/X8hZavqnBU56yUkdpauZL4
 
-- アカウントは専用のものを5つ（Instagram・Threads・X・TikTok・YouTube）。MACROHACKと同じく、Coworkが毎日12時にまとめて作成し、公開は予約で18時。
+- アカウントは専用のものを5つ（Instagram・Threads・X・TikTok・YouTube）。MACROHACKと同じく、Coworkが毎日まとめて作成し、予約で公開する（リールは12時。2026-10-08にShiryuが「リール投稿も12時に」と指示）。
 - **話し方は案A「ブランドとして淡々と、温度は居酒屋のカウンター程度」。** 一人称は使わず、アプリの `catch`・`why` と同じ文体。人格（大将風・AIアンバサダー）は立てない。写真がAI生成なので、「作った・飲んだ」と体験を語らない。
   - **ただし、コメントへの返信と、他のアカウントへのコメントは、「！」や絵文字を使ってフレンドリーに書く**（2026-10-03にShiryuが指示）。投稿の文面は今までどおり淡々と書く。
 - **SNSの投稿（動画・キャプション）には「お酒は20歳になってから」と「※写真はAIで作ったイメージです」を入れない**（2026-10-07にShiryuが「これ必要ないのよ」と指示。Threadsは2026-10-03から付けていなかった。予約済みのInstagram 23本からも外した）。飲む動作、一気・飲みすぎを連想させる言葉、銘柄は出さない。
@@ -104,7 +104,7 @@
 - 動画と画像は `~/sakenotsumami-cowork/` の仕組みで作る。
 - **ストーリーズ用の画像には「※写真はAIで作ったイメージです」「お酒は20歳になってから」の注記を入れない**（2026-10-02にShiryuが「※の表記は無しで」と指示）。オサケノミタイで紹介する画像は `~/sakenotsumami-cowork/brand/story-intro.html`（メンションを置く空きを「▼ フォローはこちら」の下に取っている）。
 - **SNSの投稿頻度はMACROHACKと同じ**（2026-10-03にShiryuが指示）：Instagramはリール1日1本、Threadsは1日5本、TikTokは1日1本。
-- **InstagramとThreadsは、投稿管理ツール（Postboard https://sns-scheduler.mhack.workers.dev/ 、リポジトリ `~/dev/sns-scheduler`、ブランドID 2）の予約で出す**（2026-10-03から）。リールは毎日18時、Threadsは11:05・15:05・17:05・19:05・21:00。予約の入れ方は `~/sakenotsumami-cowork/postboard/`（`schedule_instagram.py`、入れたものの記録は `registered.json`）。Instagramの画像はJPEGしか受け付けない。
+- **InstagramとThreadsは、投稿管理ツール（Postboard https://sns-scheduler.mhack.workers.dev/ 、リポジトリ `~/dev/sns-scheduler`、ブランドID 2）の予約で出す**（2026-10-03から）。リールは毎日12時（2026-10-08に18時から変更。10/9以降の予約21本も12時に移した）、Threadsは11:05・15:05・17:05・19:05・21:00。予約の入れ方は `~/sakenotsumami-cowork/postboard/`（`schedule_instagram.py`、入れたものの記録は `registered.json`）。Instagramの画像はJPEGしか受け付けない。
 - **縦動画には表紙を付ける**（2026-10-03に、TikTokの表紙が黄色一色になっているとShiryuから指摘）。TikTokは何もしないと動画の最初のコマが表紙になり、見出しが出る前の黄色だけのコマだった。
   - 表紙は料理の写真と見出しの1枚（型は `~/sakenotsumami-cowork/video/cover.html`）。プロフィールの一覧で切り抜かれる縦3:4の範囲に、写真の主役と見出しを収める。
   - **TikTokの表紙は、Instagramのリールと同じ `cover.jpg` を投稿画面の「カバーを編集」→「アップロード」で明示して入れる**（2026-10-04にShiryuが「TikTokのサムネイルをインスタグラムに合わせて」と指示）。先頭0.5秒に絵を置いていても、TikTokは別のコマを表紙に選ぶことがある。
