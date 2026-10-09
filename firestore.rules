@@ -9,5 +9,21 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly(['savedAt'])
         && request.resource.data.savedAt == request.time;
     }
+
+    // お問い合わせ（contact.html、2026-10-09）。誰でも送れるが、読む・直す・消すのはコンソールからだけ
+    match /inquiries/{id} {
+      allow read, update, delete: if false;
+      allow create: if request.resource.data.keys().hasOnly(['category', 'name', 'email', 'message', 'createdAt'])
+        && request.resource.data.keys().hasAll(['category', 'email', 'message', 'createdAt'])
+        && request.resource.data.category in ['recipe', 'bug', 'account', 'business', 'other']
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+[.][^@\\s]+$')
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 10
+        && request.resource.data.message.size() <= 2000
+        && (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 50))
+        && request.resource.data.createdAt == request.time;
+    }
   }
 }
