@@ -1,0 +1,658 @@
+{
+ "period": [
+  "2026-10-05",
+  "2026-10-18"
+ ],
+ "post_time": "12:00",
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube",
+   "threads",
+   "x"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-10-05",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "mugen-piman",
+    "title": "1品型：無限ピーマン（ビール）",
+    "drink": "beer",
+    "items": [
+     "mugen-piman"
+    ],
+    "files": {
+     "mp4": "reels/queue/mugen-piman/reel.mp4",
+     "caption": "reels/queue/mugen-piman/caption.txt",
+     "cover": "reels/queue/mugen-piman/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "告知",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": true,
+    "threads": "サケノツマミを公開しました。\nお酒を選ぶと、合うつまみが出てくるレシピアプリです。\n100品、2人分、ほとんど15分以内。\n今夜はなに飲みますか。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。",
+    "x": "サケノツマミを公開しました。\nお酒を選ぶと、合うつまみが出てくるレシピアプリです。\n100品、2人分、ほとんど15分以内。\n今夜はなに飲みますか。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-quick-294931",
+    "title": "◯選型：ビール・quick・3品（はんぺんのチーズ焼き／長芋のバター醤油焼き／もやしのナムル）",
+    "drink": "beer",
+    "items": [
+     "hanpen-cheese",
+     "nagaimo-butter",
+     "moyashi-namul"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-quick-294931/reel.mp4",
+     "caption": "reels/queue/list-beer-quick-294931/caption.txt",
+     "cover": "reels/queue/list-beer-quick-294931/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "tataki-kyuri",
+    "name": "たたききゅうりの梅しそ和え",
+    "files": [
+     "carousel/queue/tataki-kyuri/01.png",
+     "carousel/queue/tataki-kyuri/02.png",
+     "carousel/queue/tataki-kyuri/03.png",
+     "carousel/queue/tataki-kyuri/04.png",
+     "carousel/queue/tataki-kyuri/05.png"
+    ],
+    "caption": "carousel/queue/tataki-kyuri/caption.txt"
+   },
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、はんぺんのチーズ焼き。\nふわふわのはんぺんに、チーズとのり。\nトースターで10分、ビールのそばに。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、はんぺんのチーズ焼き。\nふわふわのはんぺんに、チーズとのり。\nトースターで10分、ビールのそばに。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "edamame-peperoncino",
+    "title": "1品型：枝豆のペペロンチーノ（ハイボール）",
+    "drink": "highball",
+    "items": [
+     "edamame-peperoncino"
+    ],
+    "files": {
+     "mp4": "reels/queue/edamame-peperoncino/reel.mp4",
+     "caption": "reels/queue/edamame-peperoncino/caption.txt",
+     "cover": "reels/queue/edamame-peperoncino/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、枝豆のペペロンチーノ。\n冷凍枝豆で、いつもと違う枝豆。\nフライパンで8分、ハイボールに合わせて。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、枝豆のペペロンチーノ。\n冷凍枝豆で、いつもと違う枝豆。\nフライパンで8分、ハイボールに合わせて。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-wine-all-c641f7",
+    "title": "◯選型：ワイン・all・3品（セロリの浅漬け／明太クリームチーズディップ／キャロットラペ）",
+    "drink": "wine",
+    "items": [
+     "celery-asazuke",
+     "mentai-dip",
+     "carrot-rapee"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-wine-all-c641f7/reel.mp4",
+     "caption": "reels/queue/list-wine-all-c641f7/caption.txt",
+     "cover": "reels/queue/list-wine-all-c641f7/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "camembert-honey",
+    "name": "カマンベールのはちみつ焼き",
+    "files": [
+     "carousel/queue/camembert-honey/01.png",
+     "carousel/queue/camembert-honey/02.png",
+     "carousel/queue/camembert-honey/03.png",
+     "carousel/queue/camembert-honey/04.png",
+     "carousel/queue/camembert-honey/05.png"
+    ],
+    "caption": "carousel/queue/camembert-honey/caption.txt"
+   },
+   "text": {
+    "kind": "どっち派？",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "ワインのつまみ、どっち派？\nセロリの浅漬けか、キャロットラペか。\nどちらも火を使わずに作れます。\nお酒は20歳になってから。",
+    "x": "ワインのつまみ、どっち派？\nセロリの浅漬けか、キャロットラペか。\nどちらも火を使わずに作れます。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-09",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-range-df992e",
+    "title": "◯選型：ハイボール・range・4品（ささみのわさび和え／ブロッコリーのおかかマヨ／スナップえんどうのアンチョビ和え／ヤムウンセン）",
+    "drink": "highball",
+    "items": [
+     "sasami-wasabi",
+     "broccoli-okakamayo",
+     "snap-pea-anchovy",
+     "yum-woonsen"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-range-df992e/reel.mp4",
+     "caption": "reels/queue/list-highball-range-df992e/caption.txt",
+     "cover": "reels/queue/list-highball-range-df992e/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "金曜の夜に",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": true,
+    "threads": "金曜の夜に、ハイボールとレンジのつまみ4品。\nささみのわさび和え、ブロッコリーのおかかマヨ、スナップえんどうのアンチョビ和え、ヤムウンセン。\nどれもレンジだけで作れます。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。",
+    "x": "金曜の夜に、ハイボールとレンジのつまみ4品。\nささみのわさび和え、ブロッコリーのおかかマヨ、スナップえんどうのアンチョビ和え、ヤムウンセン。\nどれもレンジだけで作れます。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-10",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "mushroom-ajillo",
+    "title": "1品型：マッシュルームのアヒージョ（ワイン）",
+    "drink": "wine",
+    "items": [
+     "mushroom-ajillo"
+    ],
+    "files": {
+     "mp4": "reels/queue/mushroom-ajillo/reel.mp4",
+     "caption": "reels/queue/mushroom-ajillo/caption.txt",
+     "cover": "reels/queue/mushroom-ajillo/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、マッシュルームのアヒージョ。\nにんにくの香りが移ったオイルは、白ワインにもビールにも合う。\nフライパンで12分。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、マッシュルームのアヒージョ。\nにんにくの香りが移ったオイルは、白ワインにもビールにも合う。\nフライパンで12分。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-11",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-sake-nofire-acabac",
+    "title": "◯選型：日本酒・nofire・3品（かつおのたたき 香味のせ／冷やしトマトの塩昆布和え／長芋の梅おかか和え）",
+    "drink": "sake",
+    "items": [
+     "katsuo-tataki",
+     "tomato-shiokombu",
+     "nagaimo-ume"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sake-nofire-acabac/reel.mp4",
+     "caption": "reels/queue/list-sake-nofire-acabac/caption.txt",
+     "cover": "reels/queue/list-sake-nofire-acabac/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、冷やしトマトの塩昆布和え。\n塩昆布のうまみとトマトの酸味は、すっきりした冷酒によく合う。\n火を使わず3分。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、冷やしトマトの塩昆布和え。\n塩昆布のうまみとトマトの酸味は、すっきりした冷酒によく合う。\n火を使わず3分。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "buta-kimchi",
+    "title": "1品型：豚キムチ（ビール）",
+    "drink": "beer",
+    "items": [
+     "buta-kimchi"
+    ],
+    "files": {
+     "mp4": "reels/queue/buta-kimchi/reel.mp4",
+     "caption": "reels/queue/buta-kimchi/caption.txt",
+     "cover": "reels/queue/buta-kimchi/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": true,
+    "threads": "今夜の一品は、豚キムチ。\nキムチの辛みと豚肉の脂に、冷えたビール。\nフライパンで10分。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。",
+    "x": "今夜の一品は、豚キムチ。\nキムチの辛みと豚肉の脂に、冷えたビール。\nフライパンで10分。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-sour-quick-9d685d",
+    "title": "◯選型：レモンサワー・quick・3品（カニカマときゅうりの中華和え／ニラ玉／タイ風きゅうりのサラダ）",
+    "drink": "sour",
+    "items": [
+     "kanikama-kyuri",
+     "nira-tama",
+     "thai-cucumber"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sour-quick-9d685d/reel.mp4",
+     "caption": "reels/queue/list-sour-quick-9d685d/caption.txt",
+     "cover": "reels/queue/list-sour-quick-9d685d/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "yodare-dori",
+    "name": "よだれ鶏",
+    "files": [
+     "carousel/queue/yodare-dori/01.png",
+     "carousel/queue/yodare-dori/02.png",
+     "carousel/queue/yodare-dori/03.png",
+     "carousel/queue/yodare-dori/04.png",
+     "carousel/queue/yodare-dori/05.png"
+    ],
+    "caption": "carousel/queue/yodare-dori/caption.txt"
+   },
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、ニラ玉。\nふわふわ卵に、にらの香り。\nフライパンで8分、レモンサワーのお供に。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、ニラ玉。\nふわふわ卵に、にらの香り。\nフライパンで8分、レモンサワーのお供に。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-14",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "saba-lemon",
+    "title": "1品型：サバ缶の玉ねぎレモンマリネ（レモンサワー）",
+    "drink": "sour",
+    "items": [
+     "saba-lemon"
+    ],
+    "files": {
+     "mp4": "reels/queue/saba-lemon/reel.mp4",
+     "caption": "reels/queue/saba-lemon/caption.txt",
+     "cover": "reels/queue/saba-lemon/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、サバ缶の玉ねぎレモンマリネ。\n缶を開けて、玉ねぎとレモンで和えるだけ。\n火を使わず5分、レモンサワーと。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、サバ缶の玉ねぎレモンマリネ。\n缶を開けて、玉ねぎとレモンで和えるだけ。\n火を使わず5分、レモンサワーと。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-range-1155ee",
+    "title": "◯選型：焼酎・range・3品（さつまいものバター醤油／れんこんのきんぴら／ほうれん草のごま和え）",
+    "drink": "shochu",
+    "items": [
+     "satsumaimo-butter",
+     "renkon-kinpira",
+     "horenso-goma"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-range-1155ee/reel.mp4",
+     "caption": "reels/queue/list-shochu-range-1155ee/caption.txt",
+     "cover": "reels/queue/list-shochu-range-1155ee/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "tori-tsukune",
+    "name": "鶏つくねの照り焼き",
+    "files": [
+     "carousel/queue/tori-tsukune/01.png",
+     "carousel/queue/tori-tsukune/02.png",
+     "carousel/queue/tori-tsukune/03.png",
+     "carousel/queue/tori-tsukune/04.png",
+     "carousel/queue/tori-tsukune/05.png"
+    ],
+    "caption": "carousel/queue/tori-tsukune/caption.txt"
+   },
+   "text": {
+    "kind": "どっち派？",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "焼酎のつまみ、どっち派？\nさつまいものバター醤油か、れんこんのきんぴらか。\nどちらもレンジで作れます。\nお酒は20歳になってから。",
+    "x": "焼酎のつまみ、どっち派？\nさつまいものバター醤油か、れんこんのきんぴらか。\nどちらもレンジで作れます。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-all-8a4abd",
+    "title": "◯選型：ビール・all・5品（手羽中の塩焼き／豆腐ステーキ／えのきのベーコン巻き／牛こまのプルコギ／ジャーマンポテト）",
+    "drink": "beer",
+    "items": [
+     "tebanaka-shio",
+     "tofu-steak",
+     "enoki-bacon",
+     "bulgogi",
+     "german-potato"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-all-8a4abd/reel.mp4",
+     "caption": "reels/queue/list-beer-all-8a4abd/caption.txt",
+     "cover": "reels/queue/list-beer-all-8a4abd/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "金曜の夜に",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": true,
+    "threads": "金曜の夜に、ビールに合うつまみ5品。\n手羽中の塩焼き、豆腐ステーキ、えのきのベーコン巻き、牛こまのプルコギ、ジャーマンポテト。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。",
+    "x": "金曜の夜に、ビールに合うつまみ5品。\n手羽中の塩焼き、豆腐ステーキ、えのきのベーコン巻き、牛こまのプルコギ、ジャーマンポテト。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-17",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "camembert-honey",
+    "title": "1品型：カマンベールのはちみつ焼き（ワイン）",
+    "drink": "wine",
+    "items": [
+     "camembert-honey"
+    ],
+    "files": {
+     "mp4": "reels/queue/camembert-honey/reel.mp4",
+     "caption": "reels/queue/camembert-honey/caption.txt",
+     "cover": "reels/queue/camembert-honey/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、カマンベールのはちみつ焼き。\nチーズの塩気とはちみつの甘さが、ワインの果実味を引き出す。\nトースターで10分。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、カマンベールのはちみつ焼き。\nチーズの塩気とはちみつの甘さが、ワインの果実味を引き出す。\nトースターで10分。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-18",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-sake-all-675f3f",
+    "title": "◯選型：日本酒・all・3品（レンジふろふき大根／クリームチーズのおかか醤油／大根とホタテ缶のサラダ）",
+    "drink": "sake",
+    "items": [
+     "furofuki-daikon",
+     "creamcheese-okaka",
+     "daikon-hotate"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sake-all-675f3f/reel.mp4",
+     "caption": "reels/queue/list-sake-all-675f3f/caption.txt",
+     "cover": "reels/queue/list-sake-all-675f3f/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "text": {
+    "kind": "今夜の一品",
+    "platforms": [
+     "threads",
+     "x"
+    ],
+    "has_url": false,
+    "threads": "今夜の一品は、レンジふろふき大根。\nだしのしみた大根と甘い味噌は、燗酒と合わせたい。\nレンジで20分。\nお酒は20歳になってから。",
+    "x": "今夜の一品は、レンジふろふき大根。\nだしのしみた大根と甘い味噌は、燗酒と合わせたい。\nレンジで20分。\nお酒は20歳になってから。"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch",
+    "threads": "https://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+    "x": "https://osakenomitai.com/sakenotsumami/?utm_source=x&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}

@@ -1,0 +1,414 @@
+{
+ "note": "これまで動画・カルーセルに出した（予約した）品の記録。クラウドでは reels/queue・reels/posted が残らないので、品選びはこの記録も見る。作り足したら末尾に足してコミットする。",
+ "items": [
+  {
+   "date": "2026-10-03",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-quick-294931",
+   "drink": "beer",
+   "theme": "quick",
+   "ids": [
+    "hanpen-cheese",
+    "nagaimo-butter",
+    "moyashi-namul"
+   ]
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "tataki-kyuri",
+   "ids": [
+    "tataki-kyuri"
+   ]
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "reel",
+   "type": "single",
+   "folder": "edamame-peperoncino",
+   "ids": [
+    "edamame-peperoncino"
+   ]
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "camembert-honey",
+   "ids": [
+    "camembert-honey"
+   ]
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-wine-all-c641f7",
+   "drink": "wine",
+   "theme": "all",
+   "ids": [
+    "celery-asazuke",
+    "mentai-dip",
+    "carrot-rapee"
+   ]
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-range-df992e",
+   "drink": "highball",
+   "theme": "range",
+   "ids": [
+    "sasami-wasabi",
+    "broccoli-okakamayo",
+    "snap-pea-anchovy",
+    "yum-woonsen"
+   ]
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "reel",
+   "type": "single",
+   "folder": "mushroom-ajillo",
+   "ids": [
+    "mushroom-ajillo"
+   ]
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sake-nofire-acabac",
+   "drink": "sake",
+   "theme": "nofire",
+   "ids": [
+    "katsuo-tataki",
+    "tomato-shiokombu",
+    "nagaimo-ume"
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "kind": "reel",
+   "type": "single",
+   "folder": "buta-kimchi",
+   "ids": [
+    "buta-kimchi"
+   ]
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sour-quick-9d685d",
+   "drink": "sour",
+   "theme": "quick",
+   "ids": [
+    "kanikama-kyuri",
+    "nira-tama",
+    "thai-cucumber"
+   ]
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "yodare-dori",
+   "ids": [
+    "yodare-dori"
+   ]
+  },
+  {
+   "date": "2026-10-11",
+   "kind": "reel",
+   "type": "single",
+   "folder": "saba-lemon",
+   "ids": [
+    "saba-lemon"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-range-1155ee",
+   "drink": "shochu",
+   "theme": "range",
+   "ids": [
+    "satsumaimo-butter",
+    "renkon-kinpira",
+    "horenso-goma"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "tori-tsukune",
+   "ids": [
+    "tori-tsukune"
+   ]
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-all-8a4abd",
+   "drink": "beer",
+   "theme": "all",
+   "ids": [
+    "tebanaka-shio",
+    "tofu-steak",
+    "enoki-bacon",
+    "bulgogi",
+    "german-potato"
+   ]
+  },
+  {
+   "date": "2026-10-14",
+   "kind": "reel",
+   "type": "single",
+   "folder": "camembert-honey",
+   "ids": [
+    "camembert-honey"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sake-all-675f3f",
+   "drink": "sake",
+   "theme": "all",
+   "ids": [
+    "furofuki-daikon",
+    "creamcheese-okaka",
+    "daikon-hotate"
+   ]
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-quick-25c818",
+   "drink": "highball",
+   "theme": "quick",
+   "ids": [
+    "butabara-moyashi",
+    "salmon-marinade",
+    "tako-carpaccio"
+   ]
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "reel",
+   "type": "single",
+   "folder": "bruschetta",
+   "ids": [
+    "bruschetta"
+   ]
+  },
+  {
+   "date": "2026-10-18",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sake-all-0ea4fd",
+   "drink": "sake",
+   "theme": "all",
+   "ids": [
+    "avocado-wasabi",
+    "hakusai-millefeuille",
+    "eringi-butter"
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "kind": "reel",
+   "type": "single",
+   "folder": "nachos",
+   "ids": [
+    "nachos"
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sour-all-0ce4b6",
+   "drink": "sour",
+   "theme": "all",
+   "ids": [
+    "nira-chijimi",
+    "yaki-tomato",
+    "dakgalbi"
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "salmon-foil",
+   "ids": [
+    "salmon-foil"
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "reel",
+   "type": "single",
+   "folder": "shirasu-yakko",
+   "ids": [
+    "shirasu-yakko"
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "garlic-shrimp",
+   "ids": [
+    "garlic-shrimp"
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-wine-all-45dd6c",
+   "drink": "wine",
+   "theme": "all",
+   "ids": [
+    "asparagus-cheese",
+    "negi-grill",
+    "kabocha-cheese-salad"
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-quick-e5e390",
+   "drink": "beer",
+   "theme": "quick",
+   "ids": [
+    "shiodare-cabbage",
+    "onion-okaka",
+    "shungiku-salad"
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "reel",
+   "type": "single",
+   "folder": "iburigakko-cheese",
+   "ids": [
+    "iburigakko-cheese"
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-all-2c831a",
+   "drink": "shochu",
+   "theme": "all",
+   "ids": [
+    "maguro-yukke",
+    "atsuage-miso",
+    "nasu-chukadare"
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "reel",
+   "type": "single",
+   "folder": "zasai-tofu",
+   "ids": [
+    "zasai-tofu"
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-wine-all-9b4879",
+   "drink": "wine",
+   "theme": "all",
+   "ids": [
+    "caprese",
+    "shiitake-mayo",
+    "tomato-marinade"
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "piman-maruyaki",
+   "ids": [
+    "piman-maruyaki"
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "reel",
+   "type": "single",
+   "folder": "chicken-negishio",
+   "ids": [
+    "chicken-negishio"
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-all-306d04",
+   "drink": "highball",
+   "theme": "all",
+   "ids": [
+    "range-mapo",
+    "shogayaki",
+    "ebi-chili"
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "carousel",
+   "type": "single",
+   "folder": "sunagimo-garlic",
+   "ids": [
+    "sunagimo-garlic"
+   ]
+  },
+  {
+   "date": null,
+   "kind": "carousel",
+   "type": "single",
+   "folder": "buta-kimchi",
+   "ids": [
+    "buta-kimchi"
+   ]
+  },
+  {
+   "date": null,
+   "kind": "reel",
+   "type": "single",
+   "folder": "mugen-piman",
+   "ids": [
+    "mugen-piman"
+   ]
+  },
+  {
+   "date": null,
+   "kind": "carousel",
+   "type": "single",
+   "folder": "mugen-piman",
+   "ids": [
+    "mugen-piman"
+   ]
+  }
+ ]
+}

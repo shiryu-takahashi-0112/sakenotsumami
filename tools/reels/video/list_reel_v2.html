@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<!--
+  2026-10-07：Shiryuの指示で「※写真はAIで作ったイメージです」「お酒は20歳になってから」の表記を締めから外した。
+  サケノツマミの「◯◯に合う、つまみ3選」型リール v2（1080×1920・約24秒）。make_list_reel_v2.py が DATA とパスを差し込む。
+  2026-10-07：テンポを上げて中身を詰めた版。旧版 list_reel.html はそのまま残す。
+
+  流れ（秒は動画の中。実際のファイルでは先頭に表紙0.5秒が付く）
+    0〜1.5        つかみ：表紙と同じ絵（写真を並べる＋見出し）から、写真が寄り、各写真に「◯分」が出る
+    1品ごと 5.8秒 写真（寄りながら動く）＋番号・料理名 → 約1秒ごとに「◯分・道具」→ 主な材料3つ → ポイント → 合う理由
+                  （4品以上は1品5秒）
+    ＋3.0         保存カード：写真を上40%に並べ、品ごとに 料理名／時間・道具／主な材料、「保存してあとで使う」
+    ＋1.5         締め（1品型と同じ）
+    ＋0.4         締めが上に抜けて最初の絵（表紙と同じ）に戻る。黒いコマは出さない
+  冒頭のフック（2026-10-09〜。DATA.hook があるときだけ。Shiryuの決定「最初の3秒で離脱させない」）
+    0〜1.8   最初のコマ＝表紙。1品型と同じ配置：黒地、上に「◯◯つまみ3選」とお酒、写真の箱（x60・y372・960×760）に全品を番号つきで並べ、
+             黄色の帯（y1160〜1500）にフック（黒・最大150px）と下の1行（56px）。
+             フックはフェードも文字送りもしない。0〜0.3秒で写真が100%→108%に寄り、そのあとゆっくり寄り続ける。
+    1.8〜    従来の1品目へ。先頭に表紙の静止画は足さない（最初のコマが表紙）。最後は最初のコマ（フックの絵）に戻る。
+  文字の置き場所：x=80〜930、y=250〜1570（2026-10-07に下を1670→1570へ。Instagramの下の約350pxを避ける。表紙と同じ絵のつかみだけは表紙に合わせる）。
+-->
+<style>
+@font-face{font-family:"ZKGN";font-weight:500;src:url("__ROOT__/fonts/ZenKakuGothicNew-Medium.ttf")}
+@font-face{font-family:"ZKGN";font-weight:700;src:url("__ROOT__/fonts/ZenKakuGothicNew-Bold.ttf")}
+@font-face{font-family:"ZKGN";font-weight:900;src:url("__ROOT__/fonts/ZenKakuGothicNew-Black.ttf")}
+:root{--k:#121212;--y:#F2C600;--w:#fff;--g:#f7f7f5;--sub:#6b6b66}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--y)}
+body{font-family:"ZKGN",sans-serif;color:var(--k);font-weight:700;-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden}
+.nowrap{white-space:nowrap}
+.phrase{line-break:strict;text-wrap-style:balance}
+.ph{white-space:nowrap}
+.pill{display:inline-block;border-radius:999px;font-weight:900;line-height:1;white-space:nowrap}
+.dots{position:absolute;inset:-100px;background-image:radial-gradient(rgba(18,18,18,.08) 3px,transparent 3.5px);background-size:44px 44px}
+.cell{position:relative;overflow:hidden;min-height:0}
+.cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+/* つかみ（表紙 video/cover.html と同じ配置） */
+#sH{background:var(--y)}
+#hPhotos{position:absolute;left:0;top:0;width:1080px;height:1110px;display:grid;gap:8px;background:var(--w);overflow:hidden}
+#hPanel{position:absolute;left:110px;width:860px;top:1180px;height:490px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#hPill{background:var(--k);color:var(--y);font-size:44px;padding:16px 34px;margin-bottom:26px}
+#hH1{font-size:96px;font-weight:900;line-height:1.15;white-space:nowrap}
+#hH2{font-size:190px;font-weight:900;line-height:1.08;letter-spacing:-.01em;white-space:nowrap}
+#hBar{height:18px;background:var(--k);border-radius:9px;margin-top:14px}
+.tp{position:absolute;background:var(--y);color:var(--k);border:5px solid var(--k);font-size:50px;padding:12px 24px;transform-origin:0 0}
+
+/* 冒頭のフック（DATA.hook があるとき） */
+/* 冒頭のフック＝表紙（2026-10-09：1品型と◯選型で同じ配置。Instagram・TikTokのプロフィール一覧（中央の3:4＝y240〜1680）に全部入れる） */
+#hkLab{display:none;position:absolute;left:60px;width:960px;top:268px;height:84px;align-items:center;gap:20px;font-feature-settings:"palt"}
+#hkDish{flex:1;min-width:0;color:var(--w);font-size:46px;font-weight:900;line-height:1.1;white-space:nowrap}
+#hkDrink{flex:none;background:var(--y);color:var(--k);font-size:40px;font-weight:900;line-height:1;padding:16px 28px;border-radius:999px;white-space:nowrap}
+#hkBand{display:none;position:absolute;left:0;width:1080px;top:1160px;height:340px;background:var(--y);flex-direction:column;align-items:center;justify-content:center;text-align:center;font-feature-settings:"palt"}
+#hkMain{color:var(--k);font-size:150px;font-weight:900;line-height:1.1;white-space:nowrap}
+#hkSub{margin-top:18px;color:var(--k);font-size:56px;font-weight:900;line-height:1.2;white-space:nowrap}
+#hkPhotos{display:none;position:absolute;left:60px;top:372px;width:960px;height:760px;grid-gap:6px;background:var(--k);border-radius:28px;overflow:hidden}
+.hkn{position:absolute;left:16px;top:16px;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--y);color:var(--k);font-size:40px;font-weight:900;line-height:1;border:4px solid var(--k)}
+
+/* 各品 */
+.item{background:var(--w)}
+.item .pw{position:absolute;left:0;top:0;width:1080px;height:900px;overflow:hidden;background:#222}
+.item .pw img{position:absolute;display:block}
+.item .no{position:absolute;left:80px;top:290px;display:flex;align-items:baseline;gap:6px;background:var(--y);border-radius:28px;padding:18px 30px 14px;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.item .no b{font-size:110px;font-weight:900;line-height:1}
+.item .no span{font-size:46px;font-weight:900}
+.item .meta{position:absolute;left:80px;top:780px;background:var(--k);color:var(--y);font-size:52px;padding:18px 32px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.item .prog{position:absolute;left:0;top:900px;height:12px;background:var(--y)}
+.item .panel{position:absolute;left:80px;width:850px;top:950px;height:620px;display:flex;flex-direction:column;align-items:flex-start}
+.item .nm{font-weight:900;line-height:1.14;letter-spacing:.01em;white-space:nowrap}
+.item .chips{display:flex;gap:20px;margin-top:30px;flex-wrap:nowrap}
+.item .chips span{background:var(--g);border:4px solid var(--k);border-radius:999px;padding:12px 26px;font-weight:900;line-height:1;white-space:nowrap}
+.item .pt,.item .why{margin-top:40px;font-weight:900;line-height:1.5}
+.item .why{font-weight:700}
+.item .pt.phrase,.item .why.phrase{text-wrap-style:pretty}
+.lab{display:inline-block;background:var(--y);border-radius:12px;padding:4px 14px;margin-right:14px;font-weight:900;font-size:.8em;line-height:1.2;vertical-align:.08em}
+.why .lab{background:var(--k);color:var(--y)}
+
+/* 保存カード */
+#sK{background:var(--w)}
+#kPhotos{position:absolute;left:0;top:0;width:1080px;height:720px;display:grid;gap:8px;background:var(--w)}
+#kRows{position:absolute;left:80px;width:850px;top:750px}
+.kr{display:flex;align-items:center;gap:26px;border-bottom:4px solid var(--k)}
+.kr .c{flex:none;display:flex;align-items:center;justify-content:center;width:96px;height:96px;border-radius:50%;background:var(--y);font-size:60px;font-weight:900;line-height:1}
+.kr .tx{min-width:0;flex:1}
+.kr .nm2{font-weight:900;line-height:1.15;white-space:nowrap}
+.kr .sb{margin-top:10px;font-weight:700;color:var(--sub);white-space:nowrap;line-height:1.25}
+.kr .sb b{color:var(--k);font-weight:900}
+#kCta{position:absolute;left:80px;width:850px;top:1450px;display:flex;align-items:center;justify-content:center;gap:22px;background:var(--y);border-radius:999px;height:120px;font-size:60px;font-weight:900;white-space:nowrap}
+#kCta svg{width:58px;height:70px}
+
+/* 締め */
+#E{background:var(--y);z-index:60}
+#eBox{position:absolute;left:150px;width:780px;top:250px;height:1320px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#eLogo{width:760px}
+#eLogo img{display:block;width:100%;height:auto}
+#eCount{margin-top:90px;font-size:74px;font-weight:900}
+#eCta{margin-top:56px;background:var(--k);color:var(--w);font-size:56px;padding:30px 52px}
+</style></head><body>
+
+<div class="scene" id="sH"><div class="dots" id="hDots"></div>
+  <div id="hkLab"><div id="hkDish"></div><div id="hkDrink"></div></div>
+  <div id="hkBand"><div id="hkMain"></div><div id="hkSub"></div></div>
+  <div id="hkPhotos"></div>
+  <div id="hPhotos"></div>
+  <div id="hPanel">
+    <div class="pill" id="hPill"></div>
+    <div id="hH1"></div>
+    <div id="hH2"></div>
+    <div id="hBar"></div>
+  </div>
+</div>
+
+<div id="items"></div>
+
+<div class="scene" id="sK">
+  <div id="kPhotos"></div>
+  <div id="kRows"></div>
+  <div id="kCta"><svg viewBox="0 0 24 30"><path d="M3 2h18v26l-9-7-9 7z" fill="#121212"/></svg><span>保存してあとで使う</span></div>
+</div>
+
+<div class="scene" id="E"><div class="dots" id="eDots"></div>
+  <div id="eBox">
+    <div id="eLogo"><img src="__ROOT__/brand/logotype.svg" alt="サケノツマミ"></div>
+    <div id="eCount" class="nowrap"></div>
+    <div class="pill" id="eCta">プロフィールのリンクから</div>
+  </div>
+</div>
+
+<script src="__ROOT__/lib/phrase.js"></script>
+<script>
+/*__DATA__*/
+const D = window.DATA, IT = D.items, n = IT.length;
+const HK = D.hook || null;          // 冒頭のフック（2026-10-09〜）
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const oq = x => 1 - Math.pow(1 - x, 5);
+const io = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+// ---- 時間割
+const P = n <= 3 ? 5.8 : n === 4 ? 5.0 : 4.6;   // 5品でも30秒以内（表紙込み）
+const F = P / 5.8;                              // 1品の中で文を足す間隔も同じ割合で縮める
+const T = { H: 0, I: HK ? 1.8 : 1.5 };
+T.K = T.I + n * P;
+T.E = T.K + 3.0;
+T.L = T.E + 1.5;
+const DUR = Math.round((T.L + 0.4) * 30) / 30;
+const TR = .38;
+window.TIMELINE = { duration: DUR, marks: [...IT.map((_, k) => T.I + k * P), T.K, T.E, T.L] };
+// 音を合わせる時刻（2026-10-09：BGM v2 が場面の切り替え＝marks と、文字が出る時刻＝accents に音を置く）。下の render() の出し方と同じ時刻
+{
+  const A = [HK ? 0 : .25];
+  IT.forEach((x, k) => { const a = T.I + k * P;
+    A.push(a + .25 * F, a + .35 * F, a + 1.1 * F);
+    x.keyIngs.forEach((_, j) => A.push(a + 2.1 * F + j * .15));
+    A.push(a + 3.2 * F, a + 4.3 * F); });
+  IT.forEach((_, k) => A.push(T.K + .35 + k * .3)); A.push(T.K + .45 + n * .3);
+  A.push(T.E + .2, T.E + .4, T.E + .55);
+  window.TIMELINE.accents = A;
+}
+
+// ---- 中身
+const rows = n === 3 ? [1, 2] : n === 4 ? [2, 2] : [2, 3];
+function grid(el, extra) {
+  el.style.gridTemplateRows = `repeat(${rows.length}, 1fr)`;
+  el.style.gridTemplateColumns = 'repeat(6, 1fr)';
+  let k = 0;
+  el.innerHTML = rows.map(c => Array.from({ length: c }, () => { const x = IT[k], i = k++;
+    return `<div class="cell" style="grid-column:span ${6 / c}"><img src="${x.photo}" alt="">${extra ? extra(x, i) : ''}</div>`; }).join('')).join('');
+}
+grid($('hPhotos'), (x, i) => `<div class="pill tp" style="left:${rows[0] === 1 && i === 0 ? 80 : 40}px;top:${i < rows[0] ? 300 : 40}px">${x.min}分</div>`);
+if (HK) {
+  $('sH').style.background = 'var(--k)';
+  for (const id of ['hDots', 'hPhotos', 'hPanel']) $(id).style.display = 'none';
+  $('hkLab').style.display = 'flex'; $('hkBand').style.display = 'flex'; $('hkPhotos').style.display = 'grid';
+  $('hkDish').textContent = `${D.headMid || ''}つまみ${n}選`; $('hkDrink').textContent = D.drink;
+  $('hkMain').textContent = HK.hook;
+  if (HK.sub) $('hkSub').textContent = HK.sub; else $('hkSub').remove();
+  grid($('hkPhotos'), (x, i) => `<div class="hkn">${i + 1}</div>`);
+}
+if (D.headMid) $('hPill').textContent = D.headMid; else $('hPill').remove();
+$('hH1').textContent = D.head1;
+$('hH2').textContent = D.head2;
+$('items').innerHTML = IT.map((x, k) => `
+<div class="scene item" id="s${k}">
+  <div class="pw"><img src="${x.photo}" alt=""></div>
+  <div class="no"><b>${k + 1}</b><span>/${n}</span></div>
+  <div class="pill meta">${esc(x.min + '分 ・ ' + x.tool)}</div>
+  <div class="prog"></div>
+  <div class="panel">
+    <div class="nm">${esc(x.name)}</div>
+    <div class="chips">${x.keyIngs.map(s => `<span>${esc(s)}</span>`).join('')}</div>
+    <div class="pt phrase"><span class="lab">ポイント</span>${phraseHTML(x.point)}</div>
+    <div class="why phrase"><span class="lab">合う理由</span>${phraseHTML(x.why)}</div>
+  </div>
+</div>`).join('');
+$('kPhotos').style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+$('kPhotos').innerHTML = IT.map(x => `<div class="cell"><img src="${x.photo}" alt=""></div>`).join('');
+const RH = Math.min(225, Math.floor(675 / n));
+$('kRows').innerHTML = IT.map((x, k) => `<div class="kr" style="height:${RH}px"><div class="c">${k + 1}</div><div class="tx">
+  <div class="nm2">${esc(x.name)}</div>${n <= 3 ? `<div class="sb"><b>${esc(x.min + '分・' + x.tool)}</b></div><div class="sb">${esc(x.keyIngs.join('・'))}</div>` : `<div class="sb"><b>${esc(x.min + '分・' + x.tool)}</b>　${esc(x.keyIngs.join('・'))}</div>`}</div></div>`).join('');
+$('eCount').textContent = `${D.count}品のつまみレシピ`;
+
+function fit(el, { w, h = 1e9, max, min = 20, box = el }) {
+  let s = max;
+  for (; s > min; s -= 2) {
+    el.style.fontSize = s + 'px';
+    if (box.scrollWidth <= w + 1 && box.scrollHeight <= h + 1) break;
+  }
+  el.style.fontSize = s + 'px';
+  return s;
+}
+function layout() {
+  document.querySelectorAll('.scene').forEach(e => e.style.display = 'block');
+  if (HK) {
+    const s = fit($('hkMain'), { w: 1010, max: 150, min: 60 });
+    if (s < 120) console.warn(`フックが長いので ${s}px まで小さくした（目安は120〜150px）`);
+    if (HK.sub) fit($('hkSub'), { w: 1010, max: 56, min: 40 });
+    fit($('hkDish'), { w: 960 - 20 - $('hkDrink').offsetWidth, max: 46, min: 30 });
+  }
+  fit($('hH1'), { w: 860, max: 96 });
+  fit($('hH2'), { w: 860, max: 190 });
+  $('hBar').style.width = Math.min(860, $('hH2').scrollWidth) + 'px';
+  IT.forEach((x, k) => {
+    const s = $('s' + k);
+    fit(s.querySelector('.nm'), { w: 850, max: 84, min: 50 });
+    const ch = s.querySelector('.chips');
+    let f = 46; for (; f > 32; f -= 2) { ch.querySelectorAll('span').forEach(e => e.style.fontSize = f + 'px'); if (ch.scrollWidth <= 851) break; }
+    fit(s.querySelector('.pt'), { w: 850, h: 52 * 1.5 * 2 + 6, max: 52, min: 36 });
+    fit(s.querySelector('.why'), { w: 850, h: 46 * 1.5 * 2 + 6, max: 46, min: 34 });
+    // パネルが下端 y=1670 に収まらなければ料理名を小さくする
+    const panel = s.querySelector('.panel'), nm = s.querySelector('.nm');
+    let g = parseFloat(nm.style.fontSize);
+    while (panel.scrollHeight > 620 && g > 50) { g -= 2; nm.style.fontSize = g + 'px'; }
+  });
+  $('kRows').querySelectorAll('.kr').forEach(r => {
+    fit(r.querySelector('.nm2'), { w: 850 - 122, max: Math.min(64, RH * .3), min: 36 });
+    r.querySelectorAll('.sb').forEach(e => fit(e, { w: 850 - 122, max: Math.min(40, RH * .18), min: 30 }));
+  });
+}
+
+// 写真を枠いっぱいに置き、寄り（s）と中心（fx, fy：写真の%）を決める
+function place(img, W, H, s, fx, fy) {
+  const S = Math.max(W, H) * s;
+  let l = W / 2 - fx / 100 * S, tp = H / 2 - fy / 100 * S;
+  l = Math.max(W - S, Math.min(0, l)); tp = Math.max(H - S, Math.min(0, tp));
+  img.style.width = S + 'px'; img.style.height = S + 'px'; img.style.left = l + 'px'; img.style.top = tp + 'px';
+}
+const PANS = [[40, 52, 62, 46], [60, 48, 42, 58], [48, 60, 55, 44], [36, 46, 58, 56], [62, 58, 44, 48]];
+
+const SC = [['sH', T.H], ...IT.map((_, k) => ['s' + k, T.I + k * P]), ['sK', T.K]];
+function scenes(t) {
+  SC.forEach(([id, s], k) => {
+    const e = k + 1 < SC.length ? SC[k + 1][1] : T.E;
+    const el = $(id);
+    const loop = id === 'sH' && t >= T.L;
+    const vis = loop || (t >= s && t < e + TR);
+    el.style.display = vis ? 'block' : 'none';
+    if (!vis) return;
+    el.style.zIndex = loop ? 0 : k;
+    if (loop) { el.style.transform = ''; el.style.filter = ''; return; }
+    const pin = k === 0 ? 1 : io(seg(t, s, s + TR));
+    const pout = io(seg(t, e, e + TR));
+    el.style.transform = `translateX(${(1 - pin) * 1080 - pout * 320}px)`;
+    el.style.filter = pout > 0 ? `brightness(${1 - .25 * pout})` : '';
+  });
+  const E = $('E');
+  const ein = io(seg(t, T.E, T.E + TR)), eout = io(seg(t, T.L, DUR - 2 / 30));   // 最後の2コマは締めが抜けきった状態（最初のコマと同じ絵）
+  E.style.display = t >= T.E && t < DUR - 2 / 30 - 1e-6 ? 'block' : 'none';
+  E.style.transform = `translate(${(1 - ein) * 1080}px,${-eout * 1920}px)`;
+}
+function rise(el, t, a, d = .4, dy = 40) { const p = oq(seg(t, a, a + d)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dy}px)`; }
+function pop(el, t, a, d = .35) { const p = seg(t, a, a + d); const e = 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2); el.style.opacity = cl(p * 3); el.style.transform = `scale(${p ? e : 0})`; }
+
+window.render = function (t) {
+  scenes(t);
+  // つかみ（最後に戻ったときは最初のコマの状態＝表紙と同じ）
+  const th = t >= T.L ? 0 : t;
+  $('hDots').style.transform = `translate(${th * 14}px,${-th * 22}px)`;
+  // フック：0.3秒で100%→108%に一気に寄せ、そのあとゆっくり（最初の動き）
+  if (HK) $('hkPhotos').querySelectorAll('img').forEach(im => { im.style.transform = `scale(${1 + .08 * (1 - Math.pow(1 - seg(th, 0, .3), 3)) + .06 * seg(th, .3, T.I + TR)})`; });
+  $('hPhotos').querySelectorAll('img').forEach((im, i) => { im.style.transform = `scale(${1 + .1 * seg(th, .05 + i * .1, T.I + TR)})`; });
+  $('hPhotos').querySelectorAll('.tp').forEach((p, i) => pop(p, th, .25 + i * .18, .3));
+  $('hH2').style.transform = `scale(${1 + .03 * Math.sin(seg(th, .8, 1.45) * Math.PI)})`;
+  // 各品：約1秒ごとに1つずつ足す
+  IT.forEach((_, k) => {
+    const s = $('s' + k), a = T.I + k * P;
+    const p = seg(t, a, a + P + TR), [x0, y0, x1, y1] = PANS[k % PANS.length];
+    place(s.querySelector('.pw img'), 1080, 900, 1.12 + .22 * p, x0 + (x1 - x0) * io(p), y0 + (y1 - y0) * io(p));
+    s.querySelector('.prog').style.width = (seg(t, a, a + P) * 1080) + 'px';
+    pop(s.querySelector('.no'), t, a + .25 * F, .3);
+    rise(s.querySelector('.nm'), t, a + .35 * F, .35, 40);
+    pop(s.querySelector('.meta'), t, a + 1.1 * F, .3);
+    [...s.querySelectorAll('.chips span')].forEach((c, j) => pop(c, t, a + 2.1 * F + j * .15, .3));
+    rise(s.querySelector('.pt'), t, a + 3.2 * F, .35, 30);
+    rise(s.querySelector('.why'), t, a + 4.3 * F, .35, 30);
+  });
+  // 保存カード
+  $('kPhotos').querySelectorAll('img').forEach((im, i) => { im.style.transform = `scale(${1.02 + .1 * seg(t, T.K, T.E + TR)})`; });
+  [...$('kRows').children].forEach((r, k) => rise(r, t, T.K + .35 + k * .3, .35, 30));
+  pop($('kCta'), t, T.K + .45 + n * .3, .35);
+  if (t > T.K + .8 + n * .3) $('kCta').style.transform = `scale(${1 + .04 * Math.sin((t - T.K - .8 - n * .3) * 7)})`;
+  // 締め（注記は締めが出ている間ずっと出す）
+  $('eDots').style.transform = `translate(${t * 14}px,${-t * 22}px)`;
+  $('eLogo').style.clipPath = `inset(0 ${100 - oq(seg(t, T.E + .2, T.E + .55)) * 100}% 0 0)`;
+  rise($('eCount'), t, T.E + .4, .3, 26);
+  pop($('eCta'), t, T.E + .55, .3);
+};
+
+window.prepare = async function () {
+  await Promise.all([500, 700, 900].map(w => document.fonts.load(`${w} 40px "ZKGN"`, 'あ')));
+  await document.fonts.ready;
+  for (const w of [500, 700, 900]) if (!document.fonts.check(`${w} 40px "ZKGN"`, 'あ')) throw new Error('フォントが読み込めていません: ' + w);
+  layout();
+  window.render(0);
+  return window.TIMELINE;
+};
+</script>
+</body></html>

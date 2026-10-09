@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<!--
+  2026-10-07：Shiryuの指示で「※写真はAIで作ったイメージです」「お酒は20歳になってから」の表記を締めから外した。
+  サケノツマミのリール v2（1品型・1080×1920・約24秒）。make_reel_v2.py が DATA とパスを差し込んで work/v2_<id>/reel.html に書き出す。
+  2026-10-07：再生は付くが見返し・保存が無い（全リール保存0）ため、テンポを上げて中身を詰めた版として作った。旧版 reel.html はそのまま残す。
+
+  流れ（秒は動画の中。実際のファイルでは先頭に表紙0.5秒が付く）
+    0〜1.5   つかみ：表紙と同じ絵（写真＋「◯◯に合う、◯分つまみ」）から写真が寄り、「材料◯品・◯ステップ」が出る
+    1.5〜4.5 材料：写真を右上に小さく残し、材料を並べる。主な材料3つに黄色の線
+    4.5〜    作り方：手順ごとに写真の別の部分へ寄って動かす。文は2拍で出す
+    ＋2.5    ここがポイント：作り方の文の一部（make_reel_v2.py が選ぶ。レシピに無いことは書かない）
+    ＋2.5    合う理由（why。見出しのお酒とずれるときは catch）
+    ＋3.0    保存カード：写真を上40%、材料／時間／合うお酒 を大きく3行、「保存してあとで使う」
+    ＋1.5    締め：ロゴ・100品のつまみレシピ・プロフィールのリンクから
+    ＋0.4    締めが上に抜けて、最初の絵（表紙と同じ）に戻る。ループしてもつながる。黒いコマは出さない
+  1.5秒より長く止まるコマを作らない（写真は常にゆっくり動かす）。
+
+  冒頭のフック（2026-10-09〜。DATA.hook があるときだけ。Shiryuの決定「最初の3秒で離脱させない」）
+    0〜1.8   最初のコマ＝表紙。◯選型と同じ配置：黒地、上に料理名とお酒、写真の箱（x60・y372・960×760）、
+             黄色の帯（y1160〜1500）にフック（黒・最大150px）と下の1行（56px）。
+             フックはフェードも文字送りもしない。0〜0.3秒で写真が100%→108%に寄り、そのあとゆっくり寄り続ける。
+    1.8〜    従来の材料へ。先頭に表紙の静止画は足さない（最初のコマが表紙。make_reel.build_video の lead_cover=False）。
+    文字は y=268〜1500 の中（プロフィール一覧の3:4の切り抜き y240〜1680 と、下のUIを避ける）。最後は従来どおり最初のコマ（フックの絵）に戻る。
+
+  文字の置き場所：x=80〜930、y=250〜1570（2026-10-07に下を1670→1570へ。Instagramの下の約350pxを避ける。表紙と同じ絵のつかみだけは表紙に合わせる）。中央ぞろえは x=150〜930。
+-->
+<style>
+@font-face{font-family:"ZKGN";font-weight:500;src:url("__ROOT__/fonts/ZenKakuGothicNew-Medium.ttf")}
+@font-face{font-family:"ZKGN";font-weight:700;src:url("__ROOT__/fonts/ZenKakuGothicNew-Bold.ttf")}
+@font-face{font-family:"ZKGN";font-weight:900;src:url("__ROOT__/fonts/ZenKakuGothicNew-Black.ttf")}
+:root{--k:#121212;--y:#F2C600;--w:#fff;--g:#f7f7f5;--sub:#6b6b66}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--y)}
+body{font-family:"ZKGN",sans-serif;color:var(--k);font-weight:700;-webkit-font-smoothing:antialiased}
+.L{position:absolute;inset:0;overflow:hidden}
+.nowrap{white-space:nowrap}
+.phrase{line-break:strict;text-wrap-style:balance}
+.ph{white-space:nowrap}
+.pill{display:inline-block;border-radius:999px;font-weight:900;line-height:1;white-space:nowrap}
+.dots{position:absolute;inset:-100px;background-image:radial-gradient(rgba(18,18,18,.08) 3px,transparent 3.5px);background-size:44px 44px}
+.ch{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+.ch>i{display:inline-block;font-style:normal}
+
+/* 写真（全場面で1枚を動かす） */
+#pf{position:absolute;overflow:hidden;background:#222;z-index:20}
+#pi{position:absolute;display:block}
+
+/* つかみ（表紙 video/cover.html と同じ配置） */
+#bgH{background:var(--y);z-index:1}
+#fgH{z-index:30}
+#hPanel{position:absolute;left:110px;width:860px;top:1180px;height:490px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#hPill{background:var(--k);color:var(--y);font-size:44px;padding:16px 34px;margin-bottom:26px}
+#hH1{font-size:96px;font-weight:900;line-height:1.15;white-space:nowrap}
+#hH2{font-size:190px;font-weight:900;line-height:1.08;letter-spacing:-.01em;white-space:nowrap}
+#hBar{height:18px;background:var(--k);border-radius:9px;margin-top:14px}
+#hName{position:absolute;left:80px;bottom:calc(1920px - 1110px - 44px);max-width:860px;background:var(--w);border:6px solid var(--k);border-radius:24px;padding:16px 34px;font-size:64px;font-weight:900;line-height:1.15;white-space:nowrap}
+/* 冒頭のフック（DATA.hook があるとき） */
+/* 冒頭のフック＝表紙（2026-10-09：1品型と◯選型で同じ配置。Instagram・TikTokのプロフィール一覧（中央の3:4＝y240〜1680）に全部入れる） */
+#hkLab{display:none;position:absolute;left:60px;width:960px;top:268px;height:84px;align-items:center;gap:20px;font-feature-settings:"palt"}
+#hkDish{flex:1;min-width:0;color:var(--w);font-size:46px;font-weight:900;line-height:1.1;white-space:nowrap}
+#hkDrink{flex:none;background:var(--y);color:var(--k);font-size:40px;font-weight:900;line-height:1;padding:16px 28px;border-radius:999px;white-space:nowrap}
+#hkBand{display:none;position:absolute;left:0;width:1080px;top:1160px;height:340px;background:var(--y);flex-direction:column;align-items:center;justify-content:center;text-align:center;font-feature-settings:"palt"}
+#hkMain{color:var(--k);font-size:150px;font-weight:900;line-height:1.1;white-space:nowrap}
+#hkSub{margin-top:18px;color:var(--k);font-size:56px;font-weight:900;line-height:1.2;white-space:nowrap}
+#hStick{position:absolute;left:80px;top:300px;background:var(--y);color:var(--k);border:6px solid var(--k);border-radius:26px;padding:18px 30px;font-size:58px;font-weight:900;line-height:1;white-space:nowrap;transform-origin:0 50%}
+
+/* 材料 */
+#bgI{background:var(--g);z-index:2}
+#fgI{z-index:31}
+#iHead{position:absolute;left:80px;top:300px;width:490px}
+#iDish{font-size:40px;color:var(--sub);font-weight:700}
+#iTitle{display:flex;align-items:baseline;gap:22px;margin-top:4px}
+#iTitle b{font-size:128px;font-weight:900;line-height:1.1}
+#iTitle span{font-size:44px;font-weight:900;background:var(--y);padding:8px 18px;border-radius:12px}
+#iRows{position:absolute;left:80px;width:850px;top:640px;border-top:5px solid var(--k)}
+.row{display:flex;align-items:baseline;gap:24px;padding:30px 4px;border-bottom:3px solid #dcdcd6;font-size:70px}
+.row .n{font-weight:900;white-space:nowrap;background-image:linear-gradient(transparent 62%,var(--y) 62%);background-repeat:no-repeat;background-size:0% 100%}
+.row .a{margin-left:auto;font-weight:700;white-space:nowrap}
+
+/* 作り方 */
+#bgS{background:var(--w);z-index:3}
+#fgS{z-index:32}
+#sProg{position:absolute;left:0;top:880px;height:12px;background:var(--y);width:0}
+#sHead{position:absolute;left:80px;width:850px;top:930px;display:flex;align-items:center;gap:24px}
+#sHead b{font-size:72px;font-weight:900}
+#sDots{display:flex;gap:14px;margin-left:auto}
+#sDots i{display:block;width:26px;height:26px;border-radius:50%;background:#e2e2dc}
+#sDots i.on{background:var(--k)}
+.step{position:absolute;left:80px;width:850px;top:1050px;height:520px;display:flex;flex-direction:column;justify-content:flex-start}
+.step .no{display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:var(--y);font-size:76px;font-weight:900;line-height:1}
+.step .tx{margin-top:36px;font-weight:900;line-height:1.5;letter-spacing:.01em}
+
+/* ここがポイント（写真を全面に） */
+#bgP{background:var(--k);z-index:4}
+#fgP{z-index:33}
+#pShade{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.55) 40%,rgba(0,0,0,.62) 70%,rgba(0,0,0,.3))}
+#pBox{position:absolute;left:150px;width:780px;top:250px;height:1320px;padding:0 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--w)}
+#pPill{background:var(--y);color:var(--k);font-size:52px;padding:20px 40px}
+#pFrom{margin-top:26px;font-size:38px;font-weight:700;opacity:.9}
+#pText{margin-top:44px;font-weight:900;line-height:1.5}
+#pText .mk{background-image:linear-gradient(transparent 70%,rgba(242,198,0,.85) 70%);background-repeat:no-repeat;background-size:0% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* 合う理由 */
+#bgW{background:var(--y);z-index:5}
+#fgW{z-index:34}
+#wBox{position:absolute;left:80px;width:850px;top:800px;height:770px;display:flex;flex-direction:column;justify-content:center}
+#wPill{align-self:flex-start;background:var(--k);color:var(--y);font-size:42px;padding:16px 30px}
+#wHead{margin-top:24px;font-size:96px;font-weight:900;line-height:1.12;white-space:nowrap}
+#wText{margin-top:44px;font-weight:900;line-height:1.55}
+
+/* 保存カード */
+#bgK{background:var(--w);z-index:6}
+#fgK{z-index:35}
+#kRows{position:absolute;left:80px;width:850px;top:740px}
+.kr{display:flex;align-items:center;gap:32px;height:225px;border-bottom:4px solid var(--k)}
+.kr .vv{min-width:0;flex:1}
+.kr .sb{margin-top:16px;font-size:38px;font-weight:700;color:var(--sub);white-space:nowrap;line-height:1.2}
+.kr .lb{flex:none;width:210px;text-align:center;background:var(--k);color:var(--y);font-size:40px;padding:14px 0;border-radius:999px;font-weight:900;white-space:nowrap}
+.kr .v{font-size:144px;font-weight:900;line-height:1;white-space:nowrap}
+.kr .v small{font-size:.3em;font-weight:900;margin-left:.3em;color:var(--sub)}
+#kCta{position:absolute;left:80px;width:850px;top:1440px;display:flex;align-items:center;justify-content:center;gap:22px;background:var(--y);border-radius:999px;height:120px;font-size:60px;font-weight:900;white-space:nowrap}
+#kCta svg{width:58px;height:70px}
+
+/* 締め */
+#E{background:var(--y);z-index:60}
+#eBox{position:absolute;left:150px;width:780px;top:250px;height:1320px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#eLogo{width:760px}
+#eLogo img{display:block;width:100%;height:auto}
+#eCount{margin-top:90px;font-size:74px;font-weight:900}
+#eCta{margin-top:56px;background:var(--k);color:var(--w);font-size:56px;padding:30px 52px}
+</style></head><body>
+
+<div class="L" id="bgH"><div class="dots" id="hDots"></div></div>
+<div class="L" id="bgI"></div>
+<div class="L" id="bgS"></div>
+<div class="L" id="bgP"></div>
+<div class="L" id="bgW"><div class="dots" id="wDots"></div></div>
+<div class="L" id="bgK"></div>
+
+<div id="pf"><img id="pi" alt=""></div>
+
+<div class="L" id="fgH">
+  <div id="hkLab"><div id="hkDish"></div><div id="hkDrink"></div></div>
+  <div id="hkBand"><div id="hkMain"></div><div id="hkSub"></div></div>
+  <div class="pill" id="hStick"></div>
+  <div id="hPanel">
+    <div class="pill" id="hPill"></div>
+    <div id="hH1"></div>
+    <div id="hH2"></div>
+    <div id="hBar"></div>
+  </div>
+  <div id="hName"></div>
+</div>
+
+<div class="L" id="fgI">
+  <div id="iHead"><div id="iDish" class="nowrap"></div><div id="iTitle"><b>材料</b><span>2人分</span></div></div>
+  <div id="iRows"></div>
+</div>
+
+<div class="L" id="fgS">
+  <div id="sProg"></div>
+  <div id="sHead"><b>作り方</b><div id="sDots"></div></div>
+  <div id="sSteps"></div>
+</div>
+
+<div class="L" id="fgP"><div id="pShade"></div>
+  <div id="pBox">
+    <div class="pill" id="pPill">ここがポイント</div>
+    <div id="pFrom"></div>
+    <div id="pText" class="phrase"></div>
+  </div>
+</div>
+
+<div class="L" id="fgW">
+  <div id="wBox">
+    <div class="pill" id="wPill"></div>
+    <div id="wHead"></div>
+    <div id="wText" class="phrase"></div>
+  </div>
+</div>
+
+<div class="L" id="fgK">
+  <div id="kRows"></div>
+  <div id="kCta"><svg viewBox="0 0 24 30"><path d="M3 2h18v26l-9-7-9 7z" fill="#121212"/></svg><span>保存してあとで使う</span></div>
+</div>
+
+<div class="L" id="E"><div class="dots" id="eDots"></div>
+  <div id="eBox">
+    <div id="eLogo"><img src="__ROOT__/brand/logotype.svg" alt="サケノツマミ"></div>
+    <div id="eCount" class="nowrap"></div>
+    <div class="pill" id="eCta">プロフィールのリンクから</div>
+  </div>
+</div>
+
+<script src="__ROOT__/lib/phrase.js"></script>
+<script>
+/*__DATA__*/
+const D = window.DATA, R = D.recipe, V = D.v2;
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const oq = x => 1 - Math.pow(1 - x, 5);
+const oc = x => 1 - Math.pow(1 - x, 3);
+const io = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+// ---- 時間割
+const HK = D.hook || null;          // 冒頭のフック（2026-10-09〜）
+const n = R.steps.length;
+// 手順：2拍で出す手順は約3秒、1拍で出る短い手順は2秒（文が3秒止まらないように）
+const STEP2 = Math.max(2.2, Math.min(3.0, 9 / n));
+const SL = V.stepBeats.map(bs => bs.length > 1 ? STEP2 : 2.0);
+const SS = []; SL.reduce((acc, d, k) => (SS[k] = acc, acc + d), 0);
+const stepsTotal = SL.reduce((a, b) => a + b, 0);
+// 「ここがポイント」は、レシピにコツの欄ができるまで出さない。空いた分は材料・合う理由・保存カードに回す（最大2.4秒）。
+// 回しても動画（表紙0.5秒込み）が22秒に届かないときだけ、作り方の文の一部を出すポイントの場面を残す。
+const MIN = HK ? 22.1 : 21.6;                      // ＋表紙0.5秒で22.1秒（フック版は表紙を足さないのでそのまま22.1秒）
+const HOOK_LEN = HK ? 1.8 : 1.5;                   // フックを出しておく長さ
+let dI = 3.0, dP = 0, dW = 2.5, dK = 3.0;
+const base = HOOK_LEN + dI + stepsTotal + dW + dK + 1.5 + 0.4;
+let pad = Math.max(0, MIN - base);
+if (pad > 2.4) { dP = 2.5; pad = Math.max(0, Math.min(2.4, MIN - base - dP)); }
+dI += pad * .3; dW += pad * .35; dK += pad * .35;
+const USE_P = dP > 0;
+const T = { H: 0, I: HOOK_LEN };
+T.S = T.I + dI;
+SS.forEach((v, k) => SS[k] = T.S + v);
+T.P = T.S + stepsTotal;
+T.W = T.P + dP;
+T.K = T.W + dW;
+T.E = T.K + dK;
+T.L = T.E + 1.5;
+const DUR = Math.round((T.L + 0.4) * 30) / 30;
+const TR = .38;
+window.TIMELINE = { duration: DUR, marks: [T.I, ...SS, ...(USE_P ? [T.P] : []), T.W, T.K, T.E, T.L] };
+// 音を合わせる時刻（2026-10-09：BGM v2 が場面の切り替え＝marks と、文字が出る時刻＝accents に音を置く）。下の render() の出し方と同じ時刻
+{
+  const nRows = R.ing.length > 6 ? 6 : R.ing.length, A = [];
+  if (HK) A.push(0); else A.push(.3);
+  A.push(T.I + .15); for (let k = 0; k < nRows; k++) A.push(T.I + .35 + k * .22);
+  SS.forEach((a, k) => { A.push(a + .05); if (V.stepBeats[k].length > 1) A.push(a + SL[k] * .45); });
+  if (USE_P) A.push(T.P + .3, T.P + .6);
+  A.push(T.W + .3, T.W + .4, T.W + .7); if (V.whyBeats.length > 1) A.push(T.W + 1.45);
+  for (let k = 0; k < 3; k++) A.push(T.K + .35 + k * .28); A.push(T.K + 1.5);
+  A.push(T.E + .2, T.E + .4, T.E + .55);
+  window.TIMELINE.accents = A;
+}
+
+// ---- 中身
+$('pi').src = D.photo;
+if (HK) {
+  for (const id of ['hStick', 'hPanel', 'hName']) $(id).style.display = 'none';
+  $('bgH').style.background = 'var(--k)'; $('hDots').style.display = 'none';
+  $('hkLab').style.display = 'flex'; $('hkBand').style.display = 'flex';
+  $('hkDish').textContent = R.name; $('hkDrink').textContent = D.drink;
+  $('hkMain').textContent = HK.hook;
+  if (HK.sub) $('hkSub').textContent = HK.sub; else $('hkSub').remove();
+}
+$('hPill').textContent = D.tool;
+$('hH1').textContent = D.head1;
+$('hH2').textContent = D.head2;
+if (!HK) {
+$('hName').textContent = R.name;
+$('hStick').textContent = `材料${R.ing.length}品・${n}ステップ`;
+}
+$('iDish').textContent = R.name;
+const ING = R.ing.length > 6 ? [...R.ing.slice(0, 5), ['ほか' + (R.ing.length - 5) + '品', '']] : R.ing;
+$('iRows').innerHTML = ING.map(([a, b]) => `<div class="row"><span class="n">${esc(a)}</span><span class="a">${esc(b)}</span></div>`).join('');
+$('sDots').innerHTML = R.steps.map(() => '<i></i>').join('');
+const twoBeat = bs => bs.map((b, j) => `<span class="b${j}">${phraseHTML(b)}</span>`).join('<wbr>');
+$('sSteps').innerHTML = V.stepBeats.map((bs, k) => `<div class="step" id="st${k}"><div class="no">${k + 1}</div><div class="tx phrase">${twoBeat(bs)}</div></div>`).join('');
+$('pFrom').textContent = `手順${V.pointStep + 1}より`;
+$('pText').innerHTML = `<span class="mk">${phraseHTML(V.point)}</span>`;
+$('wPill').textContent = D.whyIsCatch ? `${D.drink}と一緒に` : `${D.drink}に合う理由`;
+$('wHead').textContent = R.name;
+$('wText').innerHTML = twoBeat(V.whyBeats);
+const others = D.drinkNames.filter(x => x !== D.drink);
+const krow = (lb, id, v, sb) => `<div class="kr"><span class="lb">${lb}</span><div class="vv"><div class="v" id="${id}">${v}</div>${sb ? `<div class="sb">${esc(sb)}</div>` : ''}</div></div>`;
+$('kRows').innerHTML =
+  krow('材料', 'kv0', `${R.ing.length}品<small>2人分</small>`, V.keyIngs.join('・') + (R.ing.length > V.keyIngs.length ? ' ほか' : '')) +
+  krow('時間', 'kv1', `${R.min}分`, D.tool) +
+  krow('合うお酒', 'kv2', esc(D.drink), others.length ? others.join('・') + 'も' : '');
+$('eCount').textContent = `${D.count}品のつまみレシピ`;
+document.querySelectorAll('#hH1,#hH2').forEach(el => {
+  el.innerHTML = [...el.textContent].map(c => `<span class="ch"><i>${c === ' ' ? '&nbsp;' : c}</i></span>`).join('');
+});
+
+function fit(el, { w, h = 1e9, max, min = 20, box = el }) {
+  let s = max;
+  for (; s > min; s -= 2) {
+    el.style.fontSize = s + 'px';
+    if (box.scrollWidth <= w + 1 && box.scrollHeight <= h + 1) break;
+  }
+  el.style.fontSize = s + 'px';
+  return s;
+}
+function layout() {
+  document.querySelectorAll('.L').forEach(e => e.style.display = 'block');
+  document.querySelectorAll('.step').forEach(e => e.style.display = 'flex');
+  fit($('hH1'), { w: 860, max: 96 });
+  fit($('hH2'), { w: 860, max: 190 });
+  if (HK) {
+    const s = fit($('hkMain'), { w: 1010, max: 150, min: 60 });
+    if (s < 120) console.warn(`フックが長いので ${s}px まで小さくした（目安は120〜150px）`);
+    if (HK.sub) fit($('hkSub'), { w: 1010, max: 56, min: 40 });
+    fit($('hkDish'), { w: 960 - 20 - $('hkDrink').offsetWidth, max: 46, min: 30 });
+  } else {
+  fit($('hName'), { w: 860 - 80, max: 64 });
+  fit($('hStick'), { w: 850, max: 58 });
+  }
+  $('hBar').style.width = Math.min(860, $('hH2').scrollWidth) + 'px';
+  fit($('iDish'), { w: 490, max: 40 });
+  let rs = 70;
+  for (; rs > 30; rs -= 2) {
+    $('iRows').querySelectorAll('.row').forEach(r => r.style.fontSize = rs + 'px');
+    if ([...$('iRows').children].every(r => r.scrollWidth <= 851) && 640 + $('iRows').scrollHeight <= 1570) break;
+  }
+  R.steps.forEach((_, k) => { const tx = $('st' + k).querySelector('.tx'); fit(tx, { w: 850, h: 520 - 160, max: 80, min: 40, box: tx }); });
+  if (USE_P) fit($('pText'), { w: 700, h: 640, max: 92, min: 50 });
+  fit($('wHead'), { w: 850, max: 96 });
+  fit($('wText'), { w: 850, h: 770 - 300, max: 72, min: 40 });
+  ['kv0', 'kv1', 'kv2'].forEach(id => fit($(id), { w: 850 - 242, max: 144, min: 60 }));
+  $('kRows').querySelectorAll('.sb').forEach(e => fit(e, { w: 850 - 242, max: 38, min: 30 }));
+}
+
+// ---- 写真の動き：キーフレーム（場所・大きさ・寄り・中心）。間は ease（io）か一定の速さ（lin）
+const HOOK0 = { x: 0, y: 0, w: 1080, h: 1110, r: 0, s: 1.0, fx: 50, fy: 55 };
+const CROPS = [
+  { s: 1.7, fx: 36, fy: 50, dx: 9, dy: -3 },
+  { s: 1.9, fx: 64, fy: 44, dx: -9, dy: 5 },
+  { s: 1.6, fx: 48, fy: 64, dx: 7, dy: -7 },
+  { s: 2.0, fx: 30, fy: 56, dx: 10, dy: -4 },
+  { s: 1.8, fx: 60, fy: 60, dx: -8, dy: -5 },
+  { s: 1.5, fx: 50, fy: 46, dx: 6, dy: 6 },
+];
+// フック版：写真を全面に置き、0.3秒で100%→108%に一気に寄せ（最初の動き）、そのあとゆっくり寄り続ける
+const HOOKF = { x: 60, y: 372, w: 960, h: 760, r: 28, s: 1.0, fx: 50, fy: 50 };   // 写真の箱（◯選型と同じ位置・大きさ）
+const FIRST = HK ? HOOKF : HOOK0;
+const KF = [];
+const kf = (t, st, e = 'io') => KF.push([t, st, e]);
+kf(0, FIRST);
+if (HK) { kf(.3, { ...HOOKF, s: 1.08 }, 'oc'); kf(T.I, { ...HOOKF, s: 1.13 }, 'lin'); }
+else kf(T.I, { ...HOOK0, s: 1.12 }, 'lin');
+const ING0 = { x: 590, y: 270, w: 340, h: 340, r: 28, s: 1.15, fx: 50, fy: 52 };
+kf(T.I + .45, ING0);
+kf(T.S, { ...ING0, s: 1.45 }, 'lin');
+R.steps.forEach((_, k) => {
+  const a = SS[k], c = CROPS[k % CROPS.length];
+  const st = { x: 0, y: 0, w: 1080, h: 880, r: 0, s: c.s, fx: c.fx, fy: c.fy };
+  kf(a + .4, st);
+  kf(a + SL[k], { ...st, s: c.s * 1.08, fx: c.fx + c.dx, fy: c.fy + c.dy }, 'lin');
+});
+const TIP0 = { x: 0, y: 0, w: 1080, h: 1920, r: 0, s: 1.15, fx: 50, fy: 52 };
+if (USE_P) { kf(T.P + .45, TIP0); kf(T.W, { ...TIP0, s: 1.32, fx: 54 }, 'lin'); }
+const WHY0 = { x: 0, y: 0, w: 1080, h: 760, r: 0, s: 1.3, fx: 58, fy: 46 };
+kf(T.W + .45, WHY0);
+kf(T.K, { ...WHY0, s: 1.4, fx: 44 }, 'lin');
+const KEEP0 = { x: 0, y: 0, w: 1080, h: 720, r: 0, s: 1.0, fx: 50, fy: 52 };
+kf(T.K + .45, KEEP0);
+kf(T.E + TR, { ...KEEP0, s: 1.1 }, 'lin');
+kf(T.E + TR + .01, FIRST, 'lin');      // 締めの裏で最初の絵に戻しておく
+kf(DUR + 1, FIRST, 'lin');
+const lerp = (a, b, p) => a + (b - a) * p;
+function photoAt(t) {
+  let i = 0;
+  while (i < KF.length - 1 && KF[i + 1][0] <= t) i++;
+  if (i >= KF.length - 1) return KF[KF.length - 1][1];
+  const [ta, A] = KF[i], [tb, B, e] = KF[i + 1];
+  let p = seg(t, ta, tb);
+  if (e === 'io') p = io(p);
+  else if (e === 'oc') p = oc(p);
+  const o = {};
+  for (const k in A) o[k] = lerp(A[k], B[k], p);
+  return o;
+}
+function setPhoto(st) {
+  const pf = $('pf'), pi = $('pi');
+  pf.style.left = st.x + 'px'; pf.style.top = st.y + 'px';
+  pf.style.width = st.w + 'px'; pf.style.height = st.h + 'px';
+  pf.style.borderRadius = st.r + 'px';
+  const S = Math.max(st.w, st.h) * st.s;
+  let l = st.w / 2 - st.fx / 100 * S, tp = st.h / 2 - st.fy / 100 * S;
+  l = Math.max(st.w - S, Math.min(0, l)); tp = Math.max(st.h - S, Math.min(0, tp));
+  pi.style.width = S + 'px'; pi.style.height = S + 'px';
+  pi.style.left = l + 'px'; pi.style.top = tp + 'px';
+}
+
+// ---- 場面の入れ替え（背景と文字の層を、右から押し出すように入れる）
+const SEC = [['H', T.H], ['I', T.I], ['S', T.S], ...(USE_P ? [['P', T.P]] : []), ['W', T.W], ['K', T.K]];
+if (!USE_P) { $('bgP').remove(); $('fgP').remove(); }
+function layers(t) {
+  SEC.forEach(([id, s], k) => {
+    const e = k + 1 < SEC.length ? SEC[k + 1][1] : T.E;
+    let vis = t >= s && t < e + TR;
+    const loop = id === 'H' && t >= T.L;          // 最後に最初の絵へ戻る
+    if (loop) vis = true;
+    for (const el of [$('bg' + id), $('fg' + id)]) {
+      el.style.display = vis ? 'block' : 'none';
+      if (!vis) continue;
+      if (loop) { el.style.transform = ''; el.style.opacity = 1; continue; }
+      const pin = k === 0 ? 1 : io(seg(t, s, s + TR));
+      const pout = io(seg(t, e, e + TR));
+      const isFg = el.id.startsWith('fg');
+      el.style.transform = `translateX(${(1 - pin) * 1080 - pout * (isFg ? 420 : 320)}px)`;
+      el.style.opacity = isFg ? 1 - pout : 1;
+    }
+  });
+  // 写真：つかみ〜保存カードの間と、最後に戻ったあと
+  $('pf').style.display = (t < T.E + TR || t >= T.L) ? 'block' : 'none';
+  // 締め：右から入り、最後に上へ抜ける
+  const E = $('E');
+  const ein = io(seg(t, T.E, T.E + TR)), eout = io(seg(t, T.L, DUR - 2 / 30));   // 最後の2コマは締めが抜けきった状態（最初のコマと同じ絵）
+  E.style.display = t >= T.E && t < DUR - 2 / 30 - 1e-6 ? 'block' : 'none';
+  E.style.transform = `translate(${(1 - ein) * 1080}px,${-eout * 1920}px)`;
+}
+
+function rise(el, t, a, d = .4, dy = 40) { const p = oq(seg(t, a, a + d)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dy}px)`; }
+function pop(el, t, a, d = .35) { const p = seg(t, a, a + d); const e = 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2); el.style.opacity = cl(p * 3); el.style.transform = `scale(${p ? e : 0})`; }
+function chars(el, t, a, st = .03, d = .38) {
+  el.querySelectorAll('.ch>i').forEach((c, k) => { const p = oq(seg(t, a + k * st, a + k * st + d)); c.style.transform = `translateY(${(1 - p) * 110}%)`; });
+}
+function fade(el, t, a, d = .3) { el.style.opacity = oq(seg(t, a, a + d)); }
+
+window.render = function (t) {
+  layers(t);
+  setPhoto(photoAt(t));
+  // つかみ：最初のコマは表紙と同じ。写真が寄り、「材料◯品・◯ステップ」が出る。最後に戻ったときは最初のコマの状態
+  const th = t >= T.L ? 0 : t;
+  $('hDots').style.transform = `translate(${th * 14}px,${-th * 22}px)`;
+  if (!HK) {
+  pop($('hStick'), th, .3, .35);
+  if (th === 0) $('hStick').style.opacity = 0;
+  }
+  $('hH2').style.transform = `scale(${1 + .03 * Math.sin(seg(th, .7, 1.4) * Math.PI)})`;
+  chars($('hH1'), th, -1); chars($('hH2'), th, -1);
+  // 材料
+  rise($('iHead'), t, T.I + .15, .35, 30);
+  const rows = [...$('iRows').children];
+  rows.forEach((r, k) => { const p = oq(seg(t, T.I + .35 + k * .22, T.I + .75 + k * .22)); r.style.opacity = p; r.style.transform = `translateX(${(1 - p) * 60}px)`; });
+  const keyT = T.I + .35 + rows.length * .22 + .2;
+  rows.forEach((r, k) => {
+    const isKey = V.keyIngIdx.includes(k), j = V.keyIngIdx.indexOf(k);
+    r.querySelector('.n').style.backgroundSize = isKey ? `${oq(seg(t, keyT + j * .3, keyT + j * .3 + .35)) * 100}% 100%` : '0% 100%';
+  });
+  // 作り方
+  let cur = 0; SS.forEach((a, k) => { if (t >= a) cur = k; });
+  [...$('sDots').children].forEach((d, k) => d.classList.toggle('on', k <= cur));
+  $('sProg').style.width = (seg(t, SS[cur], SS[cur] + SL[cur]) * 1080) + 'px';
+  R.steps.forEach((_, k) => {
+    const st = $('st' + k), a = SS[k], b = a + SL[k];
+    const pin = oq(seg(t, a + .05, a + .35)), pout = k === n - 1 ? 0 : seg(t, b - .02, b + .2);
+    st.style.display = t >= a && t < b + .2 ? 'flex' : 'none';
+    st.style.opacity = cl(pin) * (1 - pout);
+    st.style.transform = `translateX(${(1 - pin) * 140 - oc(pout) * 140}px)`;
+    const b1 = st.querySelector('.b1');
+    if (b1) fade(b1, t, a + SL[k] * .45, .3);
+  });
+  // ポイント
+  if (USE_P) {
+  pop($('pPill'), t, T.P + .3, .35);
+  fade($('pFrom'), t, T.P + .45, .3);
+  rise($('pText'), t, T.P + .6, .4, 40);
+  $('pText').querySelector('.mk').style.backgroundSize = `${oq(seg(t, T.P + 1.2, T.P + 1.9)) * 100}% 100%`;
+  }
+  // 合う理由
+  $('wDots').style.transform = `translate(${t * 14}px,${-t * 22}px)`;
+  pop($('wPill'), t, T.W + .3, .35);
+  rise($('wHead'), t, T.W + .4, .35, 30);
+  fade($('wText').querySelector('.b0'), t, T.W + .7, .35);
+  const w1 = $('wText').querySelector('.b1');
+  if (w1) fade(w1, t, T.W + 1.45, .35);
+  // 保存カード
+  [...$('kRows').children].forEach((r, k) => rise(r, t, T.K + .35 + k * .28, .35, 30));
+  pop($('kCta'), t, T.K + 1.5, .35);
+  const cta = $('kCta');
+  if (t > T.K + 1.85) cta.style.transform = `scale(${1 + .04 * Math.sin((t - T.K - 1.85) * 7)})`;
+  // 締め（注記は締めが出ている間ずっと出す）
+  $('eDots').style.transform = `translate(${t * 14}px,${-t * 22}px)`;
+  $('eLogo').style.clipPath = `inset(0 ${100 - oq(seg(t, T.E + .2, T.E + .55)) * 100}% 0 0)`;
+  rise($('eCount'), t, T.E + .4, .3, 26);
+  pop($('eCta'), t, T.E + .55, .3);
+};
+
+window.prepare = async function () {
+  await Promise.all([500, 700, 900].map(w => document.fonts.load(`${w} 40px "ZKGN"`, 'あ')));
+  await document.fonts.ready;
+  for (const w of [500, 700, 900]) if (!document.fonts.check(`${w} 40px "ZKGN"`, 'あ')) throw new Error('フォントが読み込めていません: ' + w);
+  layout();
+  window.render(0);
+  return window.TIMELINE;
+};
+</script>
+</body></html>

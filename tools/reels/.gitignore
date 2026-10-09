@@ -1,0 +1,7 @@
+# 作ったものと作業用は入れない（クラウドでは実行のたびに作り、Postboard に上げる）
+node_modules/
+work/
+review/
+reels/queue/
+reels/posted/
+__pycache__/
