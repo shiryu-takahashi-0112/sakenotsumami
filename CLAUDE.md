@@ -37,6 +37,10 @@
   - 例外：`firestore.rules` を変えるPRは自動でマージしない。Firebaseのコンソールへの反映とあわせてShiryuがマージする。
   - 自分で `gh pr merge` を実行しない。マージは仕組みに任せる。
   - 2026-10-03に、このPR自体を使って、自動マージと公開の起動が動くことを確かめた（sakenotsumami#4）。
+- **stg（確認用の環境）**（2026-10-09にShiryuが指示）：PRを開く・pushするたびに、そのPRの中身を Cloudflare の Worker `sakenotsumami-stg`（workers.dev）に出し、URLをPRにコメントする（`.github/workflows/deploy-stg.yml`）。
+  - **本番に出す前に stg で見てもらうときは、PRを下書き（Draft）で出す。** 見てもらってOKなら「Ready for review」にすると、自動でマージされて本番に出る。
+  - stg はひとつだけで、最後に動いたPRの中身になる。画面の左上に「STG」とブランチ名が出る。検索エンジンには載せない（noindex）。
+  - ログインと保存は、Firebase の承認済みドメインに stg のドメインを足すまで使えない。
 
 ## 構成
 
