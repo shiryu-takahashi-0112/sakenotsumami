@@ -13,7 +13,22 @@ if (!html || !out) { console.error("使い方: node video/render.mjs <page.html>
 // Mac では入っている Google Chrome を使う。クラウド（Linux）では playwright の chromium を使う（npx playwright install chromium）。
 // PLAYWRIGHT_CHANNEL で上書きできる（空文字なら同梱の chromium）。
 const channel = process.env.PLAYWRIGHT_CHANNEL ?? (process.platform === "darwin" ? "chrome" : "");
-const browser = await chromium.launch(channel ? { channel } : {});
+// クラウドの環境には、決まった版の Chromium が /opt/pw-browsers に最初から入っていて、新しい版は取りに行けない
+// （cdn.playwright.dev が通信の許可に無い。2026-10-09 の試験で確認）。
+// そのため、PW_EXECUTABLE か、/opt/pw-browsers の中にある Chromium があれば、それを使う。
+import { existsSync, readdirSync } from "node:fs";
+function bundledChromium() {
+  if (process.env.PW_EXECUTABLE) return process.env.PW_EXECUTABLE;
+  const root = process.env.PLAYWRIGHT_BROWSERS_PATH || "/opt/pw-browsers";
+  if (!existsSync(root)) return "";
+  const dirs = readdirSync(root).filter((d) => /^chromium-\d+$/.test(d)).sort((a, b) => Number(b.split("-")[1]) - Number(a.split("-")[1]));
+  for (const d of dirs) {
+    for (const p of [`${root}/${d}/chrome-linux/chrome`, `${root}/${d}/chrome-linux64/chrome`]) if (existsSync(p)) return p;
+  }
+  return "";
+}
+const exe = channel ? "" : bundledChromium();
+const browser = await chromium.launch(channel ? { channel } : exe ? { executablePath: exe } : {});
 try {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   const errors = [];
