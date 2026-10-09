@@ -121,3 +121,30 @@
 | mochi-cheese-nori | お餅のチーズのり焼き | `Small toasted puffed mochi rice cake pieces with melted cheese and soy sauce, each wrapped with a strip of nori` |
 | tunamayo-piman | ツナマヨのピーマン詰め焼き | `Halved green bell peppers stuffed with tuna mayonnaise and topped with bubbling golden cheese, black pepper` |
 | nachos | ナチョス | `Mexican nachos, tortilla chips covered with melted cheese and topped with fresh diced tomato and onion salsa` |
+
+## 2026-10-09 に足した20品（写真はまだ無い）
+
+写真を置いたら、`python3 tools/photos.py` で変換したあと、`python3 tools/build_pages.py` も実行する（検索用ページは、写真が無いあいだ黄色の地を出している）。
+
+| id | 料理 | 指示文 |
+|---|---|---|
+| kinoko-marinade | きのこのレンジマリネ | `Steamed shimeji and sliced king oyster mushrooms marinated in olive oil and vinegar, glossy, sprinkled with black pepper and dried parsley` |
+| maitake-ponzu | 舞茸のバターポン酢 | `Hand-torn maitake mushrooms pan-seared golden brown with butter and ponzu sauce, topped with chopped green onions` |
+| gyu-shigure | 牛肉のしぐれ煮 | `Japanese beef shigureni, thinly sliced beef simmered in sweet soy sauce with julienned ginger, glossy and dark, piled in a small mound` |
+| gyu-garlic | 牛こまのガーリックペッパー炒め | `Stir-fried thin beef slices and onion wedges with coarse black pepper, topped with crispy golden garlic chips` |
+| tomato-tamago | トマトと卵の中華炒め | `Chinese tomato and egg stir-fry, soft fluffy scrambled egg with juicy tomato wedges, glossy` |
+| uzura-bacon | うずら卵のベーコン巻き | `Quail eggs wrapped in crispy bacon strips, held with toothpicks, toasted, sprinkled with black pepper` |
+| tofu-shiokombu | 豆腐の塩昆布ごま油がけ | `Chilled silken tofu cubes topped with shio kombu kelp strips, chopped green onions, sesame oil and white sesame seeds` |
+| aburaage-negiponzu | カリカリ油揚げのねぎポン酢 | `Crispy toasted fried tofu pouches (aburaage) cut into squares, topped with chopped green onions, ponzu sauce and shichimi pepper` |
+| torikawa | 鶏皮のパリパリ焼き | `Crispy pan-fried chicken skin pieces, golden and crunchy like crackers, sprinkled with salt and black pepper, a lemon wedge on the side` |
+| sasami-umeshiso | ささみの梅しそチーズ焼き | `Butterflied chicken tenderloins topped with umeboshi paste, green shiso leaves and melted golden cheese, toasted` |
+| buta-negishio-lemon | 豚バラのねぎ塩レモン | `Pan-seared pork belly slices topped with chopped green onion salt sauce with sesame oil and lemon, a lemon slice on the side` |
+| range-butashabu | レンジ豚しゃぶの香味サラダ | `Thin sliced cooked pork shabu-shabu on a bed of torn lettuce, julienned myoga ginger and shiso leaves, drizzled with ponzu sauce` |
+| aji-namerou | あじのなめろう | `Japanese aji namerou, finely chopped raw horse mackerel mixed with miso, ginger and green onions, shaped into a small mound on a shiso leaf` |
+| ebi-avocado | えびとアボカドのわさびマヨ | `Cubed avocado and boiled peeled shrimp tossed in a creamy wasabi mayonnaise dressing` |
+| chikuwa-kyuri | ちくわときゅうりのごまポン酢 | `Sliced chikuwa fish cake rings and thin cucumber slices dressed with ground sesame and ponzu sauce` |
+| potato-galette | じゃがいものチーズガレット | `Crispy golden potato galette made of shredded potato and melted cheese, cut into wedges, sprinkled with black pepper` |
+| gobo-chips | ごぼうチップス | `Crispy thin burdock root chips sprinkled with salt and green aonori seaweed flakes` |
+| zucchini-namul | ズッキーニのナムル | `Korean-style zucchini namul, half-moon slices of zucchini dressed with sesame oil and garlic, sprinkled with white sesame seeds` |
+| cheese-senbei | チーズせんべい | `Crispy golden cheese crisps, small lacy squares, some sprinkled with black pepper and some with green aonori seaweed` |
+| gyoza-pizza | 餃子の皮ピザ | `Mini pizzas made on round gyoza wrappers with ketchup, bacon, thin green bell pepper rings and melted golden cheese, crispy edges` |

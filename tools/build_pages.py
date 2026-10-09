@@ -29,6 +29,8 @@ e = html.escape
 LOGO = (ROOT / 'brand' / 'sakenotsumami-logotype.svg').read_text()
 LOGO = re.sub(r'<svg ', '<svg class="logo" ', LOGO, count=1)
 TODAY = datetime.date.today().isoformat()
+# 写真がまだ無いレシピ（足したばかりの品）は、写真の代わりに黄色の地を出し、共有画像はアプリの共有画像にする
+has_photo = lambda r: (ROOT / 'images' / f"{r['id']}.jpg").exists()
 
 CSS = '''
 :root{--white:#fff;--ink:#121212;--main:#F2C600;--main-soft:rgba(242,198,0,.16);--soft:#f7f7f5;--line:rgba(18,18,18,.12);--muted:rgba(18,18,18,.55);}
@@ -64,7 +66,7 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .cta{display:block;margin:28px 0 0;text-align:center;background:var(--main);border:1.5px solid var(--ink);border-radius:999px;padding:14px;font-weight:900;text-decoration:none;}
 .list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
 .card{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px;text-decoration:none;}
-.card img{width:72px;height:72px;border-radius:12px;object-fit:cover;flex:none;background:var(--main-soft);}
+.card img,.card i{width:72px;height:72px;border-radius:12px;object-fit:cover;flex:none;background:var(--main-soft);}
 .card b{display:block;font-size:15px;line-height:1.4;}
 .card span{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
 .lead{font-size:14px;color:var(--muted);margin:8px 0 18px;}
@@ -118,9 +120,9 @@ def recipe_page(r):
     drinks = '・'.join(DNAME[d] for d in r['drinks'])
     title = f"{r['name']}｜{drinks}に合うつまみ｜サケノツマミ"
     desc = f"{r['catch']}{r['min']}分・{TOOLS[r['tool']]['name']}で作れる、{drinks}に合うつまみのレシピ（2人分）。{r['why']}"
-    img = f"{BASE}images/{r['id']}.jpg"
+    img = f"{BASE}images/{r['id']}.jpg" if has_photo(r) else f'{BASE}og-image.jpg'
     body = f'''<p class="crumb"><a href="../../">サケノツマミ</a> ／ <a href="../../drinks/{r['drinks'][0]}/">{e(DNAME[r['drinks'][0]])}に合うつまみ</a></p>
-<img class="hero" src="../../images/{r['id']}.jpg" alt="{e(r['name'])}" width="800" height="600">
+{f'<img class="hero" src="../../images/{r["id"]}.jpg" alt="{e(r["name"])}" width="800" height="600">' if has_photo(r) else ''}
 <h1>{e(r['name'])}</h1>
 <p class="catch">{e(r['catch'])}</p>
 <dl class="meta"><div><dt>時間</dt><dd>{r['min']}分</dd></div><div><dt>道具</dt><dd>{e(TOOLS[r['tool']]['name'])}</dd></div><div><dt>分量</dt><dd>2人分</dd></div></dl>
@@ -152,7 +154,7 @@ def drink_page(d):
     body = f'''<p class="crumb"><a href="../../">サケノツマミ</a> ／ {e(d['name'])}に合うつまみ</p>
 <h1>{e(d['name'])}に合うつまみ {len(items)}品</h1>
 <p class="lead">作る時間の短い順に並べています。</p>
-<ul class="list">{''.join(f'<li><a class="card" href="../../recipes/{r["id"]}/"><img src="../../images/{r["id"]}.jpg" alt="" loading="lazy" width="72" height="72"><div><b>{e(r["name"])}</b><span>{r["min"]}分・{e(TOOLS[r["tool"]]["name"])}｜{e(r["catch"])}</span></div></a></li>' for r in items)}</ul>
+<ul class="list">{''.join(f'<li><a class="card" href="../../recipes/{r["id"]}/">{f'<img src="../../images/{r["id"]}.jpg" alt="" loading="lazy" width="72" height="72">' if has_photo(r) else '<i></i>'}<div><b>{e(r["name"])}</b><span>{r["min"]}分・{e(TOOLS[r["tool"]]["name"])}｜{e(r["catch"])}</span></div></a></li>' for r in items)}</ul>
 <a class="cta" href="../../#{d['id']}">アプリで{e(d['name'])}のつまみを探す</a>
 <div class="drinks">{''.join(f'<a href="../{o["id"]}/">{e(o["name"])}に合うつまみ</a>' for o in DRINKS if o['id'] != d['id'])}</div>'''
     jsonld = {

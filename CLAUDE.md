@@ -43,7 +43,7 @@
 | ファイル | 中身 |
 |---|---|
 | `index.html` | 画面のすべて（さがす・保存・マイページ、ログイン） |
-| `recipes.js` | お酒・道具・レシピ100品のデータ（すべて2人分） |
+| `recipes.js` | お酒・道具・食材の分類・レシピ120品のデータ（すべて2人分） |
 | `firebase-config.js` | Firebaseのウェブ設定（プロジェクト `sakenotsumami`。公開して問題ない値） |
 | `firestore.rules` | 保存データのルール。本人だけが `users/{uid}/saves/{レシピid}` を読み書きできる |
 | `images/<id>.jpg` | アプリで使う料理写真（800px） |
