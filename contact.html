@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+// 旧URL（GitHub Pages）で開かれたら、新しいドメインへ移す（2026-09-29にosakenomitai.comへ移転）
+if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('https://osakenomitai.com'+location.pathname+location.search+location.hash);
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>お問い合わせ｜サケノツマミ</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#121212;--muted:rgba(18,18,18,.6);--line:rgba(18,18,18,.12);--soft:#f7f7f5;--main:#F2C600;--main-soft:rgba(242,198,0,0.16);--err:#c0392b;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#fff;color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;font-size:15px;line-height:1.9;}
+  .page{max-width:720px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top,0px)) 16px calc(64px + env(safe-area-inset-bottom,0px));}
+  .back{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;margin-bottom:20px;}
+  h1{font-size:24px;font-weight:900;margin:0 0 6px;}
+  .lead{font-size:13.5px;color:var(--muted);line-height:1.8;margin:0 0 22px;}
+  .row{margin:0 0 18px;}
+  .label{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;margin:0 0 6px;}
+  .req,.opt{font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;line-height:1.6;}
+  .req{background:var(--main);}
+  .opt{background:var(--soft);color:var(--muted);}
+  .field{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:inherit;font-size:16px;color:var(--ink);background:#fff;outline:none;line-height:1.6;}
+  .field:focus{border-color:var(--ink);}
+  .field.bad{border-color:var(--err);}
+  select.field{appearance:none;-webkit-appearance:none;height:50px;padding:0 40px 0 14px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 15l-5-5h10z' fill='%23121212'/%3E%3C/svg%3E") no-repeat right 12px center/20px;}
+  input.field{height:50px;}
+  textarea.field{min-height:180px;resize:vertical;}
+  .hint{display:flex;justify-content:space-between;gap:12px;margin:4px 2px 0;font-size:12px;color:var(--muted);}
+  .hint .err{color:var(--err);font-weight:700;}
+  /* 機械による送信を見分けるための欄。人には見えない */
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .legal{font-size:12px;color:var(--muted);line-height:1.7;margin:4px 0 16px;}
+  a{color:inherit;text-decoration-color:var(--main);text-decoration-thickness:2px;text-underline-offset:3px;}
+  .btn{appearance:none;width:100%;height:52px;border-radius:999px;border:1.5px solid var(--ink);background:var(--main);font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
+  .btn:disabled{opacity:.5;cursor:default;}
+  .btn-sub{background:#fff;text-decoration:none;}
+  .msg{margin:12px 0 0;font-size:13px;line-height:1.7;color:var(--err);}
+  .msg[hidden]{display:none;}
+  .done{text-align:center;padding:36px 0 8px;}
+  .done[hidden],form[hidden]{display:none;}
+  .done i{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--main);font-size:32px;}
+  .done h2{font-size:20px;font-weight:900;margin:16px 0 8px;}
+  .done p{font-size:14px;color:var(--muted);line-height:1.8;margin:0 0 24px;}
+</style>
+</head>
+<body>
+<main class="page">
+<a class="back" href="./">← サケノツマミへもどる</a>
+<h1>お問い合わせ</h1>
+<p class="lead">サケノツマミへのご意見・不具合のご報告・アカウントの削除のご依頼などは、こちらからお送りください。<br>
+内容を確認し、必要に応じて、ご入力のメールアドレスへご連絡します。</p>
+
+<form id="form" novalidate>
+  <div class="row">
+    <label class="label" for="category">お問い合わせの種類<span class="req">必須</span></label>
+    <select class="field" id="category" name="category" required>
+      <option value="">選んでください</option>
+      <option value="recipe">レシピについて</option>
+      <option value="bug">アプリの不具合</option>
+      <option value="account">会員・アカウント（削除のご依頼など）</option>
+      <option value="business">取材・お仕事のご相談</option>
+      <option value="other">その他</option>
+    </select>
+    <p class="hint"><span class="err" data-err="category"></span></p>
+  </div>
+  <div class="row">
+    <label class="label" for="name">お名前<span class="opt">任意</span></label>
+    <input class="field" id="name" name="name" type="text" maxlength="50" autocomplete="name">
+  </div>
+  <div class="row">
+    <label class="label" for="email">メールアドレス<span class="req">必須</span></label>
+    <input class="field" id="email" name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" required>
+    <p class="hint"><span class="err" data-err="email"></span></p>
+  </div>
+  <div class="row">
+    <label class="label" for="message">内容<span class="req">必須</span></label>
+    <textarea class="field" id="message" name="message" maxlength="2000" required></textarea>
+    <p class="hint"><span class="err" data-err="message"></span><span id="counter">0 / 2000</span></p>
+  </div>
+  <div class="hp" aria-hidden="true">
+    <label for="website">このらんは空のままにしてください</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+  </div>
+  <p class="legal">送信すると、<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなします。</p>
+  <button class="btn" id="send" type="submit"><i class="ri-send-plane-line"></i>送信する</button>
+  <p class="msg" id="msg" role="alert" hidden></p>
+</form>
+
+<section class="done" id="done" hidden>
+  <i class="ri-check-line"></i>
+  <h2>送信しました</h2>
+  <p>お問い合わせありがとうございます。<br>内容を確認し、必要に応じてご連絡します。</p>
+  <a class="btn btn-sub" href="./">サケノツマミへもどる</a>
+</section>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script>
+// お問い合わせは Firestore の inquiries に書き込むだけ。読めるのは運営者（Firebaseのコンソール）だけで、
+// 送った本人を含め、ページからは読めない（firestore.rules）。2026-10-09 に追加。
+const $ = id => document.getElementById(id);
+const form = $('form');
+const LIMITS = {name: 50, email: 254, message: [10, 2000]};
+const CATEGORIES = ['recipe', 'bug', 'account', 'business', 'other'];
+let db = null;
+if(window.FIREBASE_CONFIG && window.firebase){
+  firebase.initializeApp(window.FIREBASE_CONFIG);
+  db = firebase.firestore();
+}
+
+function setErr(key, text){
+  form.querySelector(`[data-err="${key}"]`).textContent = text;
+  form.elements[key].classList.toggle('bad', !!text);
+}
+
+function validate(){
+  const v = {
+    category: form.elements.category.value,
+    name: form.elements.name.value.trim(),
+    email: form.elements.email.value.trim(),
+    message: form.elements.message.value.trim(),
+  };
+  let ok = true;
+  setErr('category', CATEGORIES.includes(v.category) ? '' : (ok = false, '種類を選んでください'));
+  setErr('email', /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email) && v.email.length <= LIMITS.email ? '' : (ok = false, v.email ? 'メールアドレスの形が正しくありません' : 'メールアドレスを入力してください'));
+  const n = v.message.length;
+  setErr('message', n >= LIMITS.message[0] && n <= LIMITS.message[1] ? '' : (ok = false, n ? `${LIMITS.message[0]}文字以上で書いてください` : '内容を書いてください'));
+  v.name = v.name.slice(0, LIMITS.name);
+  return ok ? v : null;
+}
+
+form.elements.message.addEventListener('input', () => { $('counter').textContent = `${form.elements.message.value.trim().length} / ${LIMITS.message[1]}`; });
+form.addEventListener('input', e => { if(e.target.classList.contains('bad')) validate(); });
+
+function showDone(){
+  form.hidden = true;
+  $('done').hidden = false;
+  window.scrollTo({top: 0});
+}
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  $('msg').hidden = true;
+  const v = validate();
+  if(!v) return;
+  // 見えない欄に入力があるのは機械による送信。送ったふりをして何もしない
+  if(form.elements.website.value) return showDone();
+  if(!db){
+    $('msg').textContent = '今は送信できません。時間をおいてもう一度お試しください。';
+    $('msg').hidden = false;
+    return;
+  }
+  const btn = $('send');
+  btn.disabled = true;
+  try{
+    const data = {category: v.category, email: v.email, message: v.message, createdAt: firebase.firestore.FieldValue.serverTimestamp()};
+    if(v.name) data.name = v.name;
+    await Promise.race([
+      db.collection('inquiries').add(data),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 15000)),
+    ]);
+    showDone();
+  }catch(err){
+    $('msg').textContent = '送信できませんでした。通信の状態を確かめて、もう一度お試しください。';
+    $('msg').hidden = false;
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
