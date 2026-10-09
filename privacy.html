@@ -38,7 +38,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <main class="page">
 <a class="back" href="./">← サケノツマミへもどる</a>
 <h1>プライバシーポリシー</h1>
-<p class="date">最終改定日：2026年9月29日（配信とアクセス計測をCloudflareに変更）</p>
+<p class="date">最終改定日：2026年10月9日（お問い合わせフォームと「ホーム画面に追加」の案内を追加）</p>
 <p>サケノツマミ（以下「当サービス」）は、お酒の種類に合うつまみのレシピを紹介する無料のWebサービスです。<br>
 当サービスの運営者（以下「運営者」）は、個人情報の保護に関する法律その他の関係法令を守り、利用者の情報を次のとおり取り扱います。</p>
 
@@ -48,13 +48,17 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <tbody>
 <tr><td>アカウント情報</td><td>メールアドレス。Googleでログインした場合は、Googleアカウントの識別子・表示名・プロフィール写真のURL。パスワードは使いません。</td><td>会員登録・ログイン</td></tr>
 <tr><td>保存データ</td><td>保存したレシピと、保存した日時</td><td>レシピを保存したとき</td></tr>
+<tr><td>お問い合わせ</td><td>お問い合わせの種類・内容、メールアドレス、お名前（入力した場合のみ）、送信日時</td><td>お問い合わせフォームから送信したとき</td></tr>
 <tr><td>アクセス情報</td><td>IPアドレス、ブラウザの種類、閲覧日時など、ページを配信するサーバーが自動で記録する情報</td><td>ページを開いたとき</td></tr>
 </tbody></table></div>
+<p>お問い合わせの内容は、Cloud Firestore（下の4.）に保管します。<br>
+読めるのは運営者だけで、送った本人を含め、ほかの利用者が読むことはできません。</p>
 <p>次の情報は、利用者の端末（ブラウザのローカルストレージ）にだけ保存します。<br>
 運営者は直接見ることができず、ブラウザの設定からいつでも削除できます。</p>
 <ul>
 <li><code>sakenotsumami.emailForSignIn</code>：メールでログインするときに、リンクを開くまで一時的に覚えておくメールアドレス</li>
 <li><code>sakenotsumami.pendingSave</code>：ログイン前に押した保存を、ログイン後に反映するための記録</li>
+<li><code>sakenotsumami.installDismissed</code>：「ホーム画面に追加」の案内を閉じた、または追加した日時。案内を何度も出さないための記録</li>
 </ul>
 
 <h2>2. 利用目的</h2>
@@ -74,7 +78,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <div class="scroll"><table>
 <thead><tr><th>サービス</th><th>提供事業者</th><th>役割</th></tr></thead>
 <tbody>
-<tr><td>Firebase Authentication / Cloud Firestore</td><td>Google LLC</td><td>アカウントの認証、保存データの保管</td></tr>
+<tr><td>Firebase Authentication / Cloud Firestore</td><td>Google LLC</td><td>アカウントの認証、保存データとお問い合わせの保管</td></tr>
 <tr><td>Cloudflare Workers / Cloudflare Web Analytics</td><td>Cloudflare, Inc.</td><td>ページの配信、アクセス状況の集計（Cookieを使わず、個人を特定しない形）</td></tr>
 <tr><td>Google Fonts / jsDelivr</td><td>Google LLC ほか</td><td>書体・アイコンの配信</td></tr>
 </tbody></table></div>
@@ -85,12 +89,14 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <ul>
 <li>通信はすべて暗号化（HTTPS）しています。</li>
 <li>保存データは、ログインした本人だけが読み書きできるよう、アクセスを制限しています。</li>
+<li>お問い合わせは、送信だけができ、運営者以外は読めないよう、アクセスを制限しています。</li>
 </ul>
 
 <h2>6. 保管期間と削除</h2>
 <p>アカウント情報と保存データは、利用者が当サービスを使っている間、または削除の申し出があるまで保管します。<br>
 アカウントの削除を希望する場合は、下のお問い合わせ先からご連絡ください。<br>
-法令で保管が必要なものを除き、速やかに削除します。</p>
+法令で保管が必要なものを除き、速やかに削除します。<br>
+お問い合わせの内容は、対応に必要な間だけ保管し、不要になったら削除します。</p>
 
 <h2>7. 改定</h2>
 <p>このポリシーは、必要に応じて改定します。<br>
@@ -98,8 +104,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 
 <h2>お問い合わせ</h2>
 <p>運営者：高橋 子竜（Shiryu Takahashi）<br>
-お問い合わせは、運営者のサイトのフォームからお願いします。<br>
-<a href="https://shiryu-takahashi.com/contact" target="_blank" rel="noopener">https://shiryu-takahashi.com/contact</a></p>
+お問い合わせは、当サービスの<a href="contact.html">お問い合わせフォーム</a>からお願いします。</p>
 </main>
 </body>
 </html>
