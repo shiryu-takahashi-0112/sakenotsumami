@@ -1,0 +1,492 @@
+{
+ "period": [
+  "2026-10-16",
+  "2026-10-29"
+ ],
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "post_time": {
+  "reel": "18:00",
+  "carousel": "12:05"
+ },
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-10-16",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-quick-25c818",
+    "title": "◯選型：ハイボール・10分以内・3品（豚バラともやしのレンジ蒸し／サーモンのレモンマリネ／タコのカルパッチョ）",
+    "drink": "highball",
+    "items": [
+     "butabara-moyashi",
+     "salmon-marinade",
+     "tako-carpaccio"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-quick-25c818/reel.mp4",
+     "caption": "reels/queue/list-highball-quick-25c818/caption.txt",
+     "cover": "reels/queue/list-highball-quick-25c818/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-17",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "bruschetta",
+    "title": "1品型：トマトのブルスケッタ（ワイン）",
+    "drink": "wine",
+    "items": [
+     "bruschetta"
+    ],
+    "files": {
+     "mp4": "reels/queue/bruschetta/reel.mp4",
+     "caption": "reels/queue/bruschetta/caption.txt",
+     "cover": "reels/queue/bruschetta/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-18",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-sake-all-0ea4fd",
+    "title": "◯選型：日本酒・全部・3品（アボカドのわさび醤油／白菜と豚バラのミルフィーユ蒸し／エリンギのバター醤油）",
+    "drink": "sake",
+    "items": [
+     "avocado-wasabi",
+     "hakusai-millefeuille",
+     "eringi-butter"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sake-all-0ea4fd/reel.mp4",
+     "caption": "reels/queue/list-sake-all-0ea4fd/caption.txt",
+     "cover": "reels/queue/list-sake-all-0ea4fd/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "nachos",
+    "title": "1品型：ナチョス（ビール）",
+    "drink": "beer",
+    "items": [
+     "nachos"
+    ],
+    "files": {
+     "mp4": "reels/queue/nachos/reel.mp4",
+     "caption": "reels/queue/nachos/caption.txt",
+     "cover": "reels/queue/nachos/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-sour-all-0ce4b6",
+    "title": "◯選型：レモンサワー・全部・3品（にらチヂミ／焼きトマトのパン粉焼き／チーズタッカルビ）",
+    "drink": "sour",
+    "items": [
+     "nira-chijimi",
+     "yaki-tomato",
+     "dakgalbi"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sour-all-0ce4b6/reel.mp4",
+     "caption": "reels/queue/list-sour-all-0ce4b6/caption.txt",
+     "cover": "reels/queue/list-sour-all-0ce4b6/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "salmon-foil",
+    "name": "鮭のきのこホイル焼き",
+    "drink": "wine",
+    "files": [
+     "carousel/queue/salmon-foil/01.png",
+     "carousel/queue/salmon-foil/02.png",
+     "carousel/queue/salmon-foil/03.png",
+     "carousel/queue/salmon-foil/04.png",
+     "carousel/queue/salmon-foil/05.png"
+    ],
+    "caption": "carousel/queue/salmon-foil/caption.txt"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-21",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "shirasu-yakko",
+    "title": "1品型：しらすと大葉の冷奴（焼酎）",
+    "drink": "shochu",
+    "items": [
+     "shirasu-yakko"
+    ],
+    "files": {
+     "mp4": "reels/queue/shirasu-yakko/reel.mp4",
+     "caption": "reels/queue/shirasu-yakko/caption.txt",
+     "cover": "reels/queue/shirasu-yakko/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-wine-all-45dd6c",
+    "title": "◯選型：ワイン・全部・3品（アスパラの粉チーズ焼き／長ねぎのオーブン焼き／かぼちゃとクリームチーズのサラダ）",
+    "drink": "wine",
+    "items": [
+     "asparagus-cheese",
+     "negi-grill",
+     "kabocha-cheese-salad"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-wine-all-45dd6c/reel.mp4",
+     "caption": "reels/queue/list-wine-all-45dd6c/caption.txt",
+     "cover": "reels/queue/list-wine-all-45dd6c/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "garlic-shrimp",
+    "name": "ガーリックシュリンプ",
+    "drink": "beer",
+    "files": [
+     "carousel/queue/garlic-shrimp/01.png",
+     "carousel/queue/garlic-shrimp/02.png",
+     "carousel/queue/garlic-shrimp/03.png",
+     "carousel/queue/garlic-shrimp/04.png",
+     "carousel/queue/garlic-shrimp/05.png"
+    ],
+    "caption": "carousel/queue/garlic-shrimp/caption.txt"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-23",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-quick-e5e390",
+    "title": "◯選型：ビール・10分以内・3品（塩だれキャベツ／オニオンスライスのおかか醤油／春菊とのりの韓国風サラダ）",
+    "drink": "beer",
+    "items": [
+     "shiodare-cabbage",
+     "onion-okaka",
+     "shungiku-salad"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-quick-e5e390/reel.mp4",
+     "caption": "reels/queue/list-beer-quick-e5e390/caption.txt",
+     "cover": "reels/queue/list-beer-quick-e5e390/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-24",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "iburigakko-cheese",
+    "title": "1品型：いぶりがっこクリームチーズ（日本酒）",
+    "drink": "sake",
+    "items": [
+     "iburigakko-cheese"
+    ],
+    "files": {
+     "mp4": "reels/queue/iburigakko-cheese/reel.mp4",
+     "caption": "reels/queue/iburigakko-cheese/caption.txt",
+     "cover": "reels/queue/iburigakko-cheese/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-25",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-all-2c831a",
+    "title": "◯選型：焼酎・全部・3品（まぐろのユッケ風／厚揚げのねぎ味噌焼き／レンジ蒸しなすの中華だれ）",
+    "drink": "shochu",
+    "items": [
+     "maguro-yukke",
+     "atsuage-miso",
+     "nasu-chukadare"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-all-2c831a/reel.mp4",
+     "caption": "reels/queue/list-shochu-all-2c831a/caption.txt",
+     "cover": "reels/queue/list-shochu-all-2c831a/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "zasai-tofu",
+    "title": "1品型：ザーサイ豆腐（ハイボール）",
+    "drink": "highball",
+    "items": [
+     "zasai-tofu"
+    ],
+    "files": {
+     "mp4": "reels/queue/zasai-tofu/reel.mp4",
+     "caption": "reels/queue/zasai-tofu/caption.txt",
+     "cover": "reels/queue/zasai-tofu/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-wine-all-9b4879",
+    "title": "◯選型：ワイン・全部・3品（カプレーゼ／しいたけのマヨチーズ焼き／ミニトマトのマリネ）",
+    "drink": "wine",
+    "items": [
+     "caprese",
+     "shiitake-mayo",
+     "tomato-marinade"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-wine-all-9b4879/reel.mp4",
+     "caption": "reels/queue/list-wine-all-9b4879/caption.txt",
+     "cover": "reels/queue/list-wine-all-9b4879/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "piman-maruyaki",
+    "name": "ピーマンの丸焼き",
+    "drink": "shochu",
+    "files": [
+     "carousel/queue/piman-maruyaki/01.png",
+     "carousel/queue/piman-maruyaki/02.png",
+     "carousel/queue/piman-maruyaki/03.png",
+     "carousel/queue/piman-maruyaki/04.png",
+     "carousel/queue/piman-maruyaki/05.png"
+    ],
+    "caption": "carousel/queue/piman-maruyaki/caption.txt"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "chicken-negishio",
+    "title": "1品型：鶏もものねぎ塩焼き（レモンサワー）",
+    "drink": "sour",
+    "items": [
+     "chicken-negishio"
+    ],
+    "files": {
+     "mp4": "reels/queue/chicken-negishio/reel.mp4",
+     "caption": "reels/queue/chicken-negishio/caption.txt",
+     "cover": "reels/queue/chicken-negishio/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-10-29",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-all-306d04",
+    "title": "◯選型：ハイボール・全部・3品（レンジ麻婆豆腐／豚こまのしょうが焼き／えびチリ）",
+    "drink": "highball",
+    "items": [
+     "range-mapo",
+     "shogayaki",
+     "ebi-chili"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-all-306d04/reel.mp4",
+     "caption": "reels/queue/list-highball-all-306d04/caption.txt",
+     "cover": "reels/queue/list-highball-all-306d04/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": {
+    "folder": "sunagimo-garlic",
+    "name": "砂肝のにんにく炒め",
+    "drink": "sour",
+    "files": [
+     "carousel/queue/sunagimo-garlic/01.png",
+     "carousel/queue/sunagimo-garlic/02.png",
+     "carousel/queue/sunagimo-garlic/03.png",
+     "carousel/queue/sunagimo-garlic/04.png",
+     "carousel/queue/sunagimo-garlic/05.png"
+    ],
+    "caption": "carousel/queue/sunagimo-garlic/caption.txt"
+   },
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}

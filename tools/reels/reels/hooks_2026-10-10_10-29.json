@@ -1,0 +1,182 @@
+[
+ {
+  "post_id": 12,
+  "date": "2026-10-10",
+  "folder": "list-sour-quick-9d685d",
+  "type": "数字で約束",
+  "hook": "3品とも10分以内",
+  "sub": "3品中2品は火を使わない",
+  "facts": "kanikama-kyuri min5/tool none、nira-tama min8/tool pan、thai-cucumber min5/tool none"
+ },
+ {
+  "post_id": 14,
+  "date": "2026-10-11",
+  "folder": "saba-lemon",
+  "type": "ツッコミ",
+  "hook": "これ、サバ缶です",
+  "sub": "火を使わず5分",
+  "facts": "ing サバ水煮缶 1缶、min5、tool none"
+ },
+ {
+  "post_id": 15,
+  "date": "2026-10-12",
+  "folder": "list-shochu-range-1155ee",
+  "type": "結論を先に",
+  "hook": "3品とも、レンジだけ",
+  "sub": "焼酎に合う3品",
+  "facts": "satsumaimo-butter・renkon-kinpira・horenso-goma すべて tool range、手順に火を使う工程なし"
+ },
+ {
+  "post_id": 17,
+  "date": "2026-10-13",
+  "folder": "list-beer-all-8a4abd",
+  "type": "問いかけ",
+  "hook": "ビールに合うのは、どれ？",
+  "sub": "5品から選ぶなら",
+  "facts": "meta.json ids 5品（手羽中・豆腐ステーキ・えのきベーコン・プルコギ・ジャーマンポテト）、drinks すべて beer を含む"
+ },
+ {
+  "post_id": 18,
+  "date": "2026-10-14",
+  "folder": "camembert-honey",
+  "type": "失敗に気づかせる",
+  "hook": "そのまま焼いてない？",
+  "sub": "上面に浅く格子の切り込み",
+  "facts": "steps 1「上面に、浅く格子の切り込みを入れる」"
+ },
+ {
+  "post_id": 19,
+  "date": "2026-10-15",
+  "folder": "list-sake-all-675f3f",
+  "type": "ツッコミ",
+  "hook": "ふろふき大根、煮込まない",
+  "sub": "レンジでやわらかく",
+  "facts": "furofuki-daikon tool range、catch「煮込まずに、レンジでやわらか大根」"
+ },
+ {
+  "post_id": 90,
+  "date": "2026-10-16",
+  "folder": "list-highball-quick-25c818",
+  "type": "結論を先に",
+  "hook": "タコ、火を使わない",
+  "sub": "ハイボールに合う3品",
+  "facts": "tako-carpaccio catch「薄く切って並べるだけで」、steps そぎ切りにして並べ、のせてかける（創が修正：tako-carpaccio は tool:none）"
+ },
+ {
+  "post_id": 91,
+  "date": "2026-10-17",
+  "folder": "bruschetta",
+  "type": "失敗に気づかせる",
+  "hook": "にんにく、刻んでない？",
+  "sub": "切り口をこすりつけるだけ",
+  "facts": "steps 3「半分に切ったにんにくの切り口をバゲットの表面にこすりつけ」"
+ },
+ {
+  "post_id": 92,
+  "date": "2026-10-18",
+  "folder": "list-sake-all-0ea4fd",
+  "type": "問いかけ",
+  "hook": "日本酒に合うのは、どれ？",
+  "sub": "3品中2品は5分以内",
+  "facts": "avocado-wasabi min3、eringi-butter min5、hakusai-millefeuille min20"
+ },
+ {
+  "post_id": 93,
+  "date": "2026-10-19",
+  "folder": "nachos",
+  "type": "数字で約束",
+  "hook": "ナチョス、10分で",
+  "sub": "チーズは3〜4分でとける",
+  "facts": "min10、steps 3「トースターで3〜4分、チーズがとけるまで焼く」"
+ },
+ {
+  "post_id": 94,
+  "date": "2026-10-20",
+  "folder": "list-sour-all-0ce4b6",
+  "type": "結論を先に",
+  "hook": "トマトは、焼くと甘い",
+  "sub": "レモンサワーに合う3品",
+  "facts": "yaki-tomato catch「加熱したトマトは、甘みが増す」、why「焼いて甘みが出たトマト」"
+ },
+ {
+  "post_id": 96,
+  "date": "2026-10-21",
+  "folder": "shirasu-yakko",
+  "type": "失敗に気づかせる",
+  "hook": "冷奴、水っぽくない？",
+  "sub": "先に水気を切ってから",
+  "facts": "steps 1「豆腐は水気を切って器に盛る」"
+ },
+ {
+  "post_id": 97,
+  "date": "2026-10-22",
+  "folder": "list-wine-all-45dd6c",
+  "type": "問いかけ",
+  "hook": "ワインに合うのは、どれ？",
+  "sub": "長ねぎ、アスパラ、かぼちゃ",
+  "facts": "ids asparagus-cheese・negi-grill・kabocha-cheese-salad、drinks すべて wine を含む"
+ },
+ {
+  "post_id": 99,
+  "date": "2026-10-23",
+  "folder": "list-beer-quick-e5e390",
+  "type": "数字で約束",
+  "hook": "3品とも5分以内",
+  "sub": "3品とも火を使わない",
+  "facts": "shiodare-cabbage min3、onion-okaka min5、shungiku-salad min5、すべて tool none"
+ },
+ {
+  "post_id": 100,
+  "date": "2026-10-24",
+  "folder": "iburigakko-cheese",
+  "type": "ツッコミ",
+  "hook": "切ってのせるだけ",
+  "sub": "いぶりがっことクリームチーズ",
+  "facts": "steps 薄切り→切ってのせる→黒こしょう、tool none、min3"
+ },
+ {
+  "post_id": 101,
+  "date": "2026-10-25",
+  "folder": "list-shochu-all-2c831a",
+  "type": "問いかけ",
+  "hook": "焼酎に合うのは、どれ？",
+  "sub": "3品とも10分以内",
+  "facts": "maguro-yukke min5、atsuage-miso min10、nasu-chukadare min8"
+ },
+ {
+  "post_id": 102,
+  "date": "2026-10-26",
+  "folder": "zasai-tofu",
+  "type": "数字で約束",
+  "hook": "3分、火を使わない",
+  "sub": "刻んでのせて、かけるだけ",
+  "facts": "min3、tool none、steps 盛る→みじん切り→のせてかける"
+ },
+ {
+  "post_id": 103,
+  "date": "2026-10-27",
+  "folder": "list-wine-all-9b4879",
+  "type": "結論を先に",
+  "hook": "カプレーゼは、並べるだけ",
+  "sub": "ワインに合う3品",
+  "facts": "caprese catch「交互に並べるだけ」、tool none（輪切り→並べる→ふってかける）"
+ },
+ {
+  "post_id": 105,
+  "date": "2026-10-28",
+  "folder": "chicken-negishio",
+  "type": "失敗に気づかせる",
+  "hook": "身から焼いてない？",
+  "sub": "鶏ももは皮目から7〜8分",
+  "facts": "steps 3「鶏肉を皮目から入れ、中火で7〜8分、皮がパリッとするまで焼く」"
+ },
+ {
+  "post_id": 106,
+  "date": "2026-10-29",
+  "folder": "list-highball-all-306d04",
+  "type": "ツッコミ",
+  "hook": "麻婆豆腐、レンジです",
+  "sub": "フライパンいらずで15分",
+  "facts": "range-mapo tool range、min15、catch「フライパンいらずで」"
+ }
+]

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<!--
+  縦動画の表紙（1080×1920）。make_cover.py が、動画を撮ったときと同じ DATA を差し込んで書き出す。
+  1品型（DATA.recipe あり）と◯選型（DATA.items あり）の両方をこの1枚で描く。
+  2026-10-03に、TikTokの表紙が黄色一色（動画の最初のコマ）になっていたため作った。
+  動画の先頭0.5秒にもこの画像を置くので、表紙を選べないSNSでもこの絵が表紙になる。
+
+  置き場所：プロフィールの一覧では縦3:4（y=240〜1680）に切り抜かれるので、
+  写真の主役と見出しはこの範囲に収める。見出しは下の黄色い帯の中（y=1150〜1670）。
+-->
+<style>
+@font-face{font-family:"ZKGN";font-weight:700;src:url("__ROOT__/fonts/ZenKakuGothicNew-Bold.ttf")}
+@font-face{font-family:"ZKGN";font-weight:900;src:url("__ROOT__/fonts/ZenKakuGothicNew-Black.ttf")}
+:root{--k:#121212;--y:#F2C600;--w:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--y)}
+body{font-family:"ZKGN",sans-serif;color:var(--k);font-weight:900;-webkit-font-smoothing:antialiased;position:relative}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(18,18,18,.08) 3px,transparent 3.5px);background-size:44px 44px}
+#photos{position:absolute;left:0;top:0;width:1080px;height:1110px;display:grid;gap:8px;background:var(--w);overflow:hidden}
+#photos img{width:100%;height:100%;object-fit:cover;display:block;min-height:0}
+#name{position:absolute;left:80px;bottom:calc(1920px - 1110px - 44px);max-width:860px;background:var(--w);border:6px solid var(--k);border-radius:24px;padding:16px 34px;font-size:64px;line-height:1.15;white-space:nowrap}
+#panel{position:absolute;left:110px;width:860px;top:1180px;height:490px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.pill{display:inline-block;border-radius:999px;line-height:1;white-space:nowrap;background:var(--k);color:var(--y);font-size:44px;padding:16px 34px;margin-bottom:26px}
+#h1{font-size:96px;line-height:1.15;white-space:nowrap}
+#h2{font-size:190px;line-height:1.08;letter-spacing:-.01em;white-space:nowrap}
+#bar{height:18px;background:var(--k);border-radius:9px;margin-top:14px}
+</style></head>
+<body>
+<div class="dots"></div>
+<div id="photos"></div>
+<div id="panel">
+  <div class="pill" id="pill"></div>
+  <div id="h1"></div>
+  <div id="h2"></div>
+  <div id="bar"></div>
+</div>
+<div id="name"></div>
+<script>
+/*__DATA__*/
+const D = window.DATA;
+const $ = id => document.getElementById(id);
+const P = $('photos');
+if (D.items) {
+  // ◯選型：写真を並べる（3品＝上1・下2、4品＝2×2、5品＝上2・下3）
+  const n = D.items.length;
+  const rows = n === 3 ? [1, 2] : n === 4 ? [2, 2] : [2, 3];
+  P.style.gridTemplateRows = `repeat(${rows.length}, 1fr)`;
+  P.style.gridTemplateColumns = 'repeat(6, 1fr)';
+  let k = 0;
+  P.innerHTML = rows.map(c => Array.from({ length: c }, () =>
+    `<img src="${D.items[k++].photo}" style="grid-column:span ${6 / c}" alt="">`).join('')).join('');
+  if (D.headMid) $('pill').textContent = D.headMid; else $('pill').remove();
+  $('h1').textContent = D.head1;
+  $('h2').textContent = D.head2;
+  $('name').remove();
+} else {
+  P.style.gridTemplateRows = '1fr';
+  P.innerHTML = `<img src="${D.photo}" style="object-position:50% 55%" alt="">`;
+  $('pill').textContent = D.tool;
+  $('h1').textContent = D.head1;
+  $('h2').innerHTML = D.head2;
+  $('name').textContent = D.recipe.name;
+}
+// 幅に収まらない見出しは文字を小さくする
+const fit = (el, w, max) => { let f = max; el.style.fontSize = f + 'px'; while (el.scrollWidth > w && f > 40) { f -= 2; el.style.fontSize = f + 'px'; } };
+fit($('h1'), 860, 96);
+fit($('h2'), 860, 190);
+if ($('name')) fit($('name'), 860 - 80, 64);
+$('bar').style.width = Math.min(860, $('h2').scrollWidth) + 'px';
+</script>
+</body></html>
