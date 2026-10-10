@@ -223,7 +223,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   .tabbar{
     position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--white);border-top:1px solid var(--line);
     height:var(--tab-total);padding-bottom:var(--safe-b);box-shadow:0 -4px 18px rgba(18,18,18,0.05);
-    display:grid;grid-template-columns:repeat(3,1fr);
+    display:grid;grid-template-columns:repeat(4,1fr);
   }
   .tab{
     appearance:none;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -236,8 +236,11 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 
   .legal{margin:14px 0 0;font-size:11.5px;color:var(--muted);line-height:1.7;}
   .legal a,.links a{color:inherit;}
-  .ft-top{display:block;margin:0 16px;padding:0 0 32px;}
-  .ft-top .ft-h:first-child{margin-top:8px;}
+  /* ---------- ホーム（2026-10-10） ---------- */
+  .home{padding:0 16px 32px;}
+  .home .list{padding:0;}
+  .home > .ft-h:first-child{margin-top:12px;}
+  .count .preset-x{appearance:none;border:1.5px solid var(--line);background:var(--white);border-radius:999px;font-size:12px;font-weight:700;padding:2px 10px;margin-left:8px;cursor:pointer;vertical-align:1px;}
   .links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin:24px 16px 0;font-size:12px;color:var(--muted);}
   .d-actions{display:flex;gap:8px;margin:18px 0 0;}
   .d-actions button{flex:1;appearance:none;height:44px;border-radius:999px;border:1.5px solid var(--ink);background:var(--white);font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
@@ -268,11 +271,28 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 </head>
 <body>
 <div class="wrap">
-<section class="view" id="viewSearch">
-  <header class="head">
+  <header class="head" id="appHead">
     <h1 class="logo"><svg viewBox="0 0 5845 905" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="サケノツマミ"><path d="M352 890Q335 862 307.5 829.0Q280 796 251 776Q379 723 445.0 632.0Q511 541 517 395H363V587H215V397Q146 398 88.0 399.0Q30 400 0 402V253Q22 254 82.0 255.0Q142 256 215 258Q214 174 213.0 125.5Q212 77 208 46H369Q366 76 364.5 126.5Q363 177 363 259Q382 260 400.5 260.0Q419 260 435 260Q455 260 475.5 260.0Q496 260 518 259Q517 199 515.0 138.0Q513 77 510 27H666V258Q733 257 791.0 255.5Q849 254 883 253V402Q851 400 792.0 399.0Q733 398 665 397Q659 581 580.5 698.5Q502 816 352 890Z"/><path d="M1374.0 889Q1353.0 858 1321.5 824.0Q1290.0 790 1259.0 771Q1379.0 706 1444.0 613.0Q1509.0 520 1522.0 396H1350.0Q1315.0 439 1275.0 476.5Q1235.0 514 1191.0 544Q1171.0 520 1139.0 490.0Q1107.0 460 1076.0 442Q1150.0 393 1208.5 325.5Q1267.0 258 1308.0 180.5Q1349.0 103 1371.0 26L1521.0 70Q1492.0 167 1446.0 251H1913.0V396H1678.0Q1665.0 557 1589.0 677.5Q1513.0 798 1374.0 889Z"/><path d="M2210.0 819Q2200.0 800 2181.5 774.5Q2163.0 749 2142.5 725.0Q2122.0 701 2104.0 685Q2244.0 630 2352.0 545.0Q2460.0 460 2533.5 351.0Q2607.0 242 2643.0 117L2795.0 170Q2750.0 318 2665.0 441.0Q2580.0 564 2464.5 659.5Q2349.0 755 2210.0 819Z"/><path d="M3230.0 843Q3217.0 807 3192.0 764.0Q3167.0 721 3144.0 693Q3386.0 638 3523.0 499.0Q3660.0 360 3694.0 116L3847.0 142Q3826.0 296 3775.0 409.0Q3724.0 522 3645.5 603.5Q3567.0 685 3463.0 742.5Q3359.0 800 3230.0 843ZM3141.0 422Q3138.0 402 3129.0 371.0Q3120.0 340 3107.5 307.0Q3095.0 274 3082.5 245.0Q3070.0 216 3059.0 200L3204.0 146Q3218.0 171 3235.0 212.0Q3252.0 253 3267.0 295.0Q3282.0 337 3288.0 368ZM3365.0 370Q3363.0 350 3355.0 319.0Q3347.0 288 3336.5 254.5Q3326.0 221 3314.5 191.5Q3303.0 162 3293.0 146L3439.0 97Q3452.0 123 3467.5 164.5Q3483.0 206 3496.0 248.5Q3509.0 291 3514.0 322Z"/><path d="M4607.0 790Q4581.0 753 4545.0 712.5Q4509.0 672 4468.0 633.5Q4427.0 595 4385.0 562.0Q4343.0 529 4305.0 507L4411.0 407Q4469.0 442 4531.0 489Q4572.0 454 4619.5 410.0Q4667.0 366 4708.0 324Q4649.0 326 4578.5 328.5Q4508.0 331 4436.5 334.0Q4365.0 337 4301.5 340.0Q4238.0 343 4190.5 346.0Q4143.0 349 4122.0 351L4111.0 195Q4148.0 197 4208.0 197.5Q4268.0 198 4341.0 197.5Q4414.0 197 4491.0 195.5Q4568.0 194 4639.5 191.5Q4711.0 189 4768.0 186.0Q4825.0 183 4858.0 180L4948.0 262Q4915.0 308 4864.0 365.0Q4813.0 422 4755.0 479.0Q4697.0 536 4642.0 584Q4694.0 633 4730.0 681Q4713.0 692 4690.0 711.0Q4667.0 730 4645.0 751.0Q4623.0 772 4607.0 790Z"/><path d="M5750.0 897Q5730.0 879 5688.5 851.5Q5647.0 824 5595.0 792.5Q5543.0 761 5488.5 730.5Q5434.0 700 5387.5 676.5Q5341.0 653 5311.0 643L5407.0 521Q5441.0 534 5487.0 554.5Q5533.0 575 5584.0 600.0Q5635.0 625 5684.0 652.0Q5733.0 679 5775.0 705.0Q5817.0 731 5845.0 753ZM5754.0 298Q5737.0 284 5706.0 265.5Q5675.0 247 5637.0 227.0Q5599.0 207 5560.5 189.0Q5522.0 171 5488.5 157.5Q5455.0 144 5433.0 138L5526.0 16Q5559.0 26 5602.0 43.0Q5645.0 60 5690.0 81.0Q5735.0 102 5774.5 123.0Q5814.0 144 5839.0 161ZM5670.0 530Q5653.0 516 5622.0 497.5Q5591.0 479 5553.5 459.0Q5516.0 439 5477.0 421.0Q5438.0 403 5404.5 389.5Q5371.0 376 5349.0 370L5442.0 249Q5475.0 259 5518.5 276.5Q5562.0 294 5607.5 315.5Q5653.0 337 5693.0 358.0Q5733.0 379 5758.0 396Z"/></svg></h1>
     <p class="lead">今夜のお酒に合わせて、ちょうどいいつまみを。</p>
   </header>
+
+<section class="view" id="viewHome" hidden>
+  <div class="home">
+    <p class="ft-h">今日の一品</p>
+    <ul class="list" id="todayPick"></ul>
+<!-- home:start（tools/build_pages.py が書き出す。手で直さない） -->
+<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="week/"><div><b>今週のリールのつまみ</b><span>10月10日〜10月16日に紹介する19品</span></div></a>
+<p class="ft-h">お酒からさがす</p><div class="ft-chips"><a href="#beer">ビール</a><a href="#highball">ハイボール</a><a href="#sour">レモンサワー</a><a href="#sake">日本酒</a><a href="#shochu">焼酎</a><a href="#wine">ワイン</a></div>
+<p class="ft-h">作り方からさがす</p><div class="ft-chips"><a href="#c-no-fire">火を使わない</a><a href="#c-5min">5分以内</a><a href="#c-range">レンジだけ</a><a href="#c-pan">フライパンひとつ</a></div>
+<p class="ft-h">食材からさがす</p><div class="ft-chips"><a href="#i-cheese">チーズ</a><a href="#i-onion">玉ねぎ</a><a href="#i-egg">卵</a><a href="#i-chicken">鶏肉</a><a href="#i-pork">豚肉</a><a href="#i-beef">牛肉</a><a href="#i-bacon">ベーコン</a><a href="#i-ham">ハム・生ハム</a><a href="#i-tomato">トマト</a><a href="#i-mushroom">きのこ</a><a href="#i-tofu">豆腐</a><a href="#i-aburaage">油揚げ・厚揚げ</a><a href="#i-piman">ピーマン</a><a href="#i-cabbage">キャベツ</a><a href="#i-cucumber">きゅうり</a><a href="#i-potato">じゃがいも</a><a href="#i-carrot">にんじん</a><a href="#i-daikon">大根</a><a href="#i-shrimp">えび</a><a href="#i-nerimono">ちくわ・練り物</a><a href="#i-tuna">ツナ・サバ缶</a></div>
+<p class="ft-h">お知らせ</p><ul class="ft-news"><li><a href="news/#2026-10-11-home"><time datetime="2026-10-11">10月11日</time><b>ホームができて、作り方や食材からもさがせるようになりました</b></a></li><li><a href="news/#2026-10-11-save"><time datetime="2026-10-11">10月11日</time><b>ログインしなくても保存できるようになりました</b></a></li><li><a href="news/#2026-10-11-200"><time datetime="2026-10-11">10月11日</time><b>レシピが200品になり、絞り込みと並び替えができるようになりました</b></a></li></ul><a class="ft-more" href="news/" data-news="2026-10-11">お知らせをすべて見る</a>
+<script>document.querySelectorAll('[data-news]').forEach(function(a){var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();if(d<7*864e5&&!a.querySelector('.ft-new'))a.insertAdjacentHTML('beforeend','<span class=\'ft-new\'>NEW</span>');});</script>
+<script>const HOME = {"presets":{"c-no-fire":{"label":"火を使わないつまみ","ids":["shiodare-cabbage","tataki-kyuri","avocado-wasabi","tomato-marinade","namaham-cheese","shirasu-yakko","iburigakko-cheese","saba-lemon","kimchi-yakko","tako-carpaccio","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","salmon-marinade","nagaimo-ume","celery-asazuke","carrot-rapee","zasai-tofu","katsuo-tataki","shungiku-salad","mentai-dip","daikon-hotate","thai-cucumber","tofu-shiokombu","aji-namerou","ebi-avocado","chikuwa-kyuri","myoga-amazu","radish-butter","kabu-lemon","somtam-daikon","pajeori","saladchicken-bangbangji","negi-chashu","roastbeef-yukke","cornedbeef-onion","namaham-kaki","tako-kimchi","salmon-poke","shimesaba-yakumi","ika-mekabu","ikura-oroshi","deviled-egg","pitan-tofu","natto-takuan","gorgonzola-honey","creamcheese-gochujang"]},"c-5min":{"label":"5分以内のつまみ","ids":["mugen-piman","shiodare-cabbage","tataki-kyuri","avocado-wasabi","tomato-marinade","namaham-cheese","shirasu-yakko","iburigakko-cheese","moyashi-namul","saba-lemon","kimchi-yakko","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","nagaimo-ume","zasai-tofu","shungiku-salad","mentai-dip","thai-cucumber","okura-okaka","eringi-butter","tofu-shiokombu","ebi-avocado","zucchini-namul","cheese-senbei","radish-butter","saladchicken-bangbangji","negi-chashu","roastbeef-yukke","cornedbeef-onion","namaham-kaki","tako-kimchi","shimesaba-yakumi","ika-mekabu","ikura-oroshi","eihire-aburi","natto-takuan","gorgonzola-honey","creamcheese-gochujang"]},"c-range":{"label":"レンジだけのつまみ","ids":["mugen-piman","shiokara-jagabutter","moyashi-namul","yodare-dori","butabara-moyashi","nasu-chukadare","kabocha-cheese-salad","mentai-potesala","asari-sakamushi","broccoli-okakamayo","horenso-goma","okura-okaka","eringi-butter","range-mapo","sasami-wasabi","satsumaimo-butter","furofuki-daikon","sausage-cabbage","yum-woonsen","enoki-nametake","hakusai-millefeuille","renkon-kinpira","snap-pea-anchovy","kinoko-marinade","range-butashabu","gobo-chips","zucchini-namul","cheese-senbei","satoimo-yuzumiso","chingensai-oyster","shintama-range","tataki-gobo","corn-butter","tori-yuzukosho-mushi","range-shumai","butamaki-okura","range-japchae","ham-macaroni-salad","ebi-broccoli","tai-negiyu","saba-tomato","seafood-marinade","tarako-shirataki","keranchim","ontama-kimchi","range-yudofu","atsuage-oyster","range-fondue"]},"c-pan":{"label":"フライパンひとつのつまみ","ids":["nagaimo-butter","chikuwa-isobe","sunagimo-garlic","mushroom-ajillo","aburaage-natto","chicken-negishio","edamame-peperoncino","buta-kimchi","nira-tama","nira-chijimi","garlic-shrimp","german-potato","goya-champuru","shogayaki","tori-tsukune","dashimaki","yaki-shishito","asparagus-bacon","ika-butter","buri-teriyaki","hotate-butter","konnyaku-pirikara","gapao-lettuce","samgyeopsal","dakgalbi","komatsuna-nampla","ebi-chili","tofu-steak","bulgogi","maitake-ponzu","gyu-shigure","gyu-garlic","tomato-tamago","torikawa","buta-negishio-lemon","potato-galette","mushroom-balsamic","jaga-sanra","renkon-steak","ingen-sichuan","ninjin-shirishiri","tebamoto-sujoyu","tori-negima","hoikoro","gyu-cumin","ham-steak","salmon-chanchan","tara-meuniere","ika-gochujang","ebi-mayo","jako-piman","spanish-omelet","yam-khai-dao","koya-karaage","tofu-mochi","cheese-isobe"]},"i-cheese":{"label":"チーズのつまみ","ids":["iburigakko-cheese","creamcheese-okaka","caprese","creamcheese-gochujang","cheese-senbei","mentai-dip","namaham-cheese","cheese-isobe","sanma-cheese","gyoza-pizza","kabocha-cheese-salad","shiitake-mayo","hanpen-cheese","camembert-honey","corn-cheese","nachos","range-fondue","aburaage-pizza","mochi-cheese-nori","avocado-egg","zucchini-cheese","sasami-umeshiso","potato-galette","tunamayo-piman","spanish-omelet","dakgalbi"]},"i-onion":{"label":"玉ねぎのつまみ","ids":["onion-okaka","cornedbeef-onion","saba-lemon","katsuo-tataki","salmon-poke","salmon-marinade","tako-carpaccio","saba-tomato","nachos","aburaage-pizza","gyu-garlic","gyu-cumin","ika-gochujang","gapao-lettuce","yum-woonsen","yam-khai-dao","shogayaki","seafood-marinade","german-potato","ham-macaroni-salad","bulgogi","spanish-omelet","range-shumai","salmon-foil","salmon-chanchan","dakgalbi"]},"i-egg":{"label":"卵のつまみ","ids":["maguro-yukke","roastbeef-yukke","tomato-tamago","nira-tama","keranchim","ontama-kimchi","uzura-bacon","ninjin-shirishiri","dashimaki","avocado-egg","yam-khai-dao","nira-chijimi","sugomori-tamago","goya-champuru","spanish-omelet","tori-tsukune"]},"i-chicken":{"label":"鶏肉のつまみ","ids":["sasami-wasabi","gapao-lettuce","sunagimo-garlic","sasami-umeshiso","tori-negima","tori-yuzukosho-mushi","chicken-negishio","torikawa","yodare-dori","tebanaka-shio","tori-tsukune","mune-panko-yaki","dakgalbi","tebamoto-sujoyu","chicken-misomayo","tandoori-chicken"]},"i-pork":{"label":"豚肉のつまみ","ids":["range-butashabu","buta-kimchi","butabara-moyashi","buta-negishio-lemon","butamaki-okura","shogayaki","goya-champuru","samgyeopsal","range-mapo","hoikoro","range-shumai","hakusai-millefeuille","buta-sate","buta-misozuke"]},"i-beef":{"label":"牛肉のつまみ","ids":["gyu-garlic","gyu-cumin","range-japchae","bulgogi","gyu-shigure","gyu-negimaki"]},"i-bacon":{"label":"ベーコンのつまみ","ids":["asparagus-bacon","gyoza-pizza","uzura-bacon","enoki-bacon","sugomori-tamago","german-potato"]},"i-ham":{"label":"ハム・生ハムのつまみ","ids":["namaham-kaki","namaham-cheese","ham-steak","aburaage-pizza","ham-macaroni-salad"]},"i-tomato":{"label":"トマトのつまみ","ids":["tomato-shiokombu","caprese","tomato-marinade","tomato-tamago","bruschetta","nachos","range-fondue","somtam-daikon","mozzarella-panko","yum-woonsen","yam-khai-dao","yaki-tomato"]},"i-mushroom":{"label":"きのこのつまみ","ids":["eringi-butter","maitake-ponzu","enoki-nametake","kinoko-marinade","mushroom-balsamic","shiitake-mayo","eringi-gochujang","mushroom-ajillo","mushroom-escargot","enoki-bacon","tori-yuzukosho-mushi","salmon-foil"]},"i-tofu":{"label":"豆腐のつまみ","ids":["shirasu-yakko","kimchi-yakko","zasai-tofu","tofu-shiokombu","range-yudofu","pitan-tofu","goya-champuru","range-mapo","tofu-mochi","tofu-steak"]},"i-aburaage":{"label":"油揚げ・厚揚げのつまみ","ids":["aburaage-negiponzu","atsuage-miso","atsuage-oyster","aburaage-natto","aburaage-pizza"]},"i-piman":{"label":"ピーマンのつまみ","ids":["mugen-piman","jako-piman","deviled-egg","gyoza-pizza","gyu-cumin","jaga-sanra","gapao-lettuce","seafood-marinade","tunamayo-piman","piman-maruyaki","range-japchae","hoikoro","paprika-marinade"]},"i-cabbage":{"label":"キャベツのつまみ","ids":["shiodare-cabbage","ham-steak","sausage-cabbage","shogayaki","sugomori-tamago","hoikoro","salmon-chanchan","dakgalbi"]},"i-cucumber":{"label":"きゅうりのつまみ","ids":["tataki-kyuri","kanikama-kyuri","saladchicken-bangbangji","thai-cucumber","chikuwa-kyuri","sasami-wasabi","ham-macaroni-salad"]},"i-potato":{"label":"じゃがいものつまみ","ids":["shiokara-jagabutter","jaga-sanra","mentai-potesala","potato-galette","german-potato","spanish-omelet"]},"i-carrot":{"label":"にんじんのつまみ","ids":["ninjin-shirishiri","carrot-rapee","somtam-daikon","ika-gochujang","range-japchae","bulgogi"]},"i-daikon":{"label":"大根のつまみ","ids":["ikura-oroshi","enoki-nametake","daikon-hotate","somtam-daikon","dashimaki","furofuki-daikon"]},"i-shrimp":{"label":"えびのつまみ","ids":["ebi-avocado","ebi-broccoli","garlic-shrimp","yum-woonsen","ebi-chili","ebi-mayo"]},"i-nerimono":{"label":"ちくわ・練り物のつまみ","ids":["kanikama-kyuri","satsumaage-aburi","chikuwa-kyuri","chikuwa-isobe","hanpen-cheese"]},"i-tuna":{"label":"ツナ・サバ缶のつまみ","ids":["saba-lemon","mugen-piman","ninjin-shirishiri","oil-sardine","saba-tomato","tunamayo-piman"]}},"photos":["mugen-piman","shiodare-cabbage","tataki-kyuri","nagaimo-butter","avocado-wasabi","chikuwa-isobe","atsuage-miso","sunagimo-garlic","tebanaka-shio","camembert-honey","tomato-marinade","mushroom-ajillo","namaham-cheese","shirasu-yakko","iburigakko-cheese","aburaage-natto","shiokara-jagabutter","chicken-negishio","yakinasu","edamame-peperoncino","moyashi-namul","saba-lemon","kimchi-yakko","tako-carpaccio","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","salmon-marinade","nagaimo-ume","celery-asazuke","carrot-rapee","zasai-tofu","katsuo-tataki","shungiku-salad","mentai-dip","daikon-hotate","thai-cucumber","yodare-dori","butabara-moyashi","nasu-chukadare","kabocha-cheese-salad","mentai-potesala","asari-sakamushi","broccoli-okakamayo","horenso-goma","okura-okaka","eringi-butter","range-mapo","sasami-wasabi","satsumaimo-butter","furofuki-daikon","sausage-cabbage","yum-woonsen","enoki-nametake","hakusai-millefeuille","renkon-kinpira","snap-pea-anchovy","buta-kimchi","nira-tama","nira-chijimi","garlic-shrimp","german-potato","goya-champuru","shogayaki","tori-tsukune","dashimaki","yaki-shishito","asparagus-bacon","ika-butter","buri-teriyaki","hotate-butter","konnyaku-pirikara","gapao-lettuce","samgyeopsal","dakgalbi","komatsuna-nampla","ebi-chili","tofu-steak","bulgogi","shiitake-mayo","hanpen-cheese","oil-sardine","aburaage-pizza","shishamo","satsumaage-aburi","asparagus-cheese","zucchini-cheese","salmon-foil","enoki-bacon","yaki-tomato","bruschetta","piman-maruyaki","chicken-misomayo","negi-grill","mochi-cheese-nori","tunamayo-piman","nachos","kinoko-marinade","maitake-ponzu","gyu-shigure","gyu-garlic","tomato-tamago","uzura-bacon","tofu-shiokombu","aburaage-negiponzu","torikawa"]};</script>
+<!-- home:end -->
+  </div>
+</section>
+
+<section class="view" id="viewSearch">
 
   <nav class="drinks" aria-label="お酒の種類">
     <p class="drinks-q">今夜のお酒は？</p>
@@ -289,16 +309,6 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 
   <p class="count" id="count"></p>
   <ul class="list" id="list"></ul>
-  <nav class="ft ft-top" aria-label="つまみの一覧">
-<!-- ft:start（tools/build_pages.py が書き出す。手で直さない） -->
-<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="week/"><div><b>今週のリールのつまみ</b><span>10月10日〜10月16日に紹介する19品</span></div></a>
-<p class="ft-h">お酒からさがす</p><div class="ft-chips"><a href="drinks/beer/">ビール</a><a href="drinks/highball/">ハイボール</a><a href="drinks/sour/">レモンサワー</a><a href="drinks/sake/">日本酒</a><a href="drinks/shochu/">焼酎</a><a href="drinks/wine/">ワイン</a></div>
-<p class="ft-h">作り方からさがす</p><div class="ft-chips"><a href="conditions/no-fire/">火を使わない</a><a href="conditions/5min/">5分以内</a><a href="conditions/range/">レンジだけ</a><a href="conditions/pan/">フライパンひとつ</a></div>
-<p class="ft-h">食材からさがす</p><div class="ft-chips"><a href="ingredients/cheese/">チーズ</a><a href="ingredients/onion/">玉ねぎ</a><a href="ingredients/egg/">卵</a><a href="ingredients/chicken/">鶏肉</a><a href="ingredients/pork/">豚肉</a><a href="ingredients/beef/">牛肉</a><a href="ingredients/bacon/">ベーコン</a><a href="ingredients/ham/">ハム・生ハム</a><a href="ingredients/tomato/">トマト</a><a href="ingredients/mushroom/">きのこ</a><a href="ingredients/tofu/">豆腐</a><a href="ingredients/aburaage/">油揚げ・厚揚げ</a><a href="ingredients/piman/">ピーマン</a><a href="ingredients/cabbage/">キャベツ</a><a href="ingredients/cucumber/">きゅうり</a><a href="ingredients/potato/">じゃがいも</a><a href="ingredients/carrot/">にんじん</a><a href="ingredients/daikon/">大根</a><a href="ingredients/shrimp/">えび</a><a href="ingredients/nerimono/">ちくわ・練り物</a><a href="ingredients/tuna/">ツナ・サバ缶</a></div>
-<p class="ft-h">サケノツマミから</p><div class="ft-chips"><a href="news/" data-news="2026-10-11">お知らせ</a></div>
-<script>document.querySelectorAll('[data-news]').forEach(function(a){var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();if(d<7*864e5&&!a.querySelector('.ft-new'))a.insertAdjacentHTML('beforeend','<span class=\'ft-new\'>NEW</span>');});</script>
-<!-- ft:end -->
-  </nav>
 </section>
 
 <section class="view" id="viewSaved" hidden>
@@ -321,6 +331,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 </div>
 
 <nav class="tabbar" id="tabbar" aria-label="メニュー">
+  <button class="tab" data-view="home"><i class="ri-home-5-line"></i><span>ホーム</span></button>
   <button class="tab" data-view="search"><i class="ri-search-line"></i><span>さがす</span></button>
   <button class="tab" data-view="saved"><i class="ri-bookmark-line"></i><span>保存</span></button>
   <button class="tab" data-view="mypage"><i class="ri-user-3-line"></i><span>マイページ</span></button>
@@ -727,7 +738,10 @@ function renderChips(){
   $('chips').scrollLeft = on.offsetLeft - ($('chips').clientWidth - on.offsetWidth) / 2;
 }
 
+// ホームの「作り方・食材からさがす」から来たときの条件（#c-5min・#i-cabbage）。中身は HOME.presets（build_pages.py が書き出す）
+let preset = null;
 const matches = (r, f) => (current === 'all' || r.drinks.includes(current))
+  && (!preset || HOME.presets[preset].ids.includes(r.id))
   && (!f.tool.size || f.tool.has(r.tool))
   && (!f.food.size || r.foods.some(x => f.food.has(x)));
 
@@ -741,10 +755,13 @@ function renderList(){
   const items = RECIPES.filter(r => matches(r, filter)).sort(SORTS[sortBy]);
   const names = k => FILTERS[k].items.filter(x => filter[k].has(x.id)).map(x => x.name);
   const cond = [...names('tool'), ...names('food')].join('・');
-  $('count').innerHTML = (current === 'all'
+  $('count').innerHTML = (preset
+    ? `<span class="drink-name">${esc(HOME.presets[preset].label)}</span>`
+    : current === 'all'
     ? 'つまみ'
     : `<span class="drink-name">${drinkName(current)}</span>に合うつまみ`)
-    + (cond ? `（${esc(cond)}）` : '') + ` <b>${items.length}</b>品`;
+    + (cond ? `（${esc(cond)}）` : '') + ` <b>${items.length}</b>品`
+    + (preset ? '<button class="preset-x" data-preset-clear aria-label="条件を外す">外す ×</button>' : '');
   $('list').innerHTML = items.length ? items.map(cardHTML).join('')
     : `<li class="empty"><i class="ri-search-line"></i>この組み合わせのつまみは、まだありません。<br><button data-clear>絞り込みを外す</button></li>`;
   const n = filter.tool.size + filter.food.size;
@@ -854,29 +871,41 @@ function closeRecipe(){
 
 /* ---------- 画面の切り替え ---------- */
 // URLのハッシュで状態を持つ。共有や戻るボタンに対応するため
-//   #beer / #beer/mugen-piman … さがす（お酒・レシピ）
+//   （なし）/ #home / #home/mugen-piman … ホーム（開いたときの画面。2026-10-10から）
+//   #all / #beer / #beer/mugen-piman … さがす（お酒・レシピ）
+//   #c-5min / #i-cabbage … さがす（ホームの作り方・食材から。HOME.presets）
 //   #saved / #saved/mugen-piman … 保存
 //   #mypage … マイページ
 function applyHash(){
   const [head, recipe] = location.hash.slice(1).split('/');
-  view = head === 'saved' || head === 'mypage' ? head : 'search';
-  if(view === 'search') current = DRINKS.some(d => d.id === head) ? head : 'all';
+  view = head === 'saved' || head === 'mypage' ? head : !head || head === 'home' ? 'home' : 'search';
+  if(view === 'search'){
+    current = DRINKS.some(d => d.id === head) ? head : 'all';
+    preset = HOME.presets[head] ? head : null;
+  }
+  $('appHead').hidden = view !== 'search' && view !== 'home';
+  $('viewHome').hidden = view !== 'home';
   $('viewSearch').hidden = view !== 'search';
   $('viewSaved').hidden = view !== 'saved';
   $('viewMypage').hidden = view !== 'mypage';
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.view === view));
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('on', t.dataset.view === view);
+    t.toggleAttribute('aria-current', t.dataset.view === view);
+  });
+  if(view === 'home') renderHome();
   if(view === 'search'){ renderChips(); renderList(); }
   if(view === 'saved') renderSaved();
   if(view === 'mypage') renderMypage();
   recipe ? openRecipe(recipe) : closeRecipe();
 }
-const baseHash = () => view === 'search' ? (current === 'all' ? '' : current) : view;
+const searchHash = () => preset || (current === 'all' ? 'all' : current);
+const baseHash = () => view === 'search' ? searchHash() : view === 'home' ? '' : view;
 
 $('tabbar').addEventListener('click', e => {
   const t = e.target.closest('.tab');
   if(!t) return;
   const v = t.dataset.view;
-  location.hash = v === 'search' ? (current === 'all' ? '' : current) : v;
+  location.hash = v === 'search' ? searchHash() : v === 'home' ? '' : v;
   if(v === view && !openId) window.scrollTo({top: 0, behavior: 'smooth'});
 });
 $('filterBtn').addEventListener('click', () => {
@@ -912,13 +941,14 @@ $('list').addEventListener('click', e => {
 });
 $('chips').addEventListener('click', e => {
   const b = e.target.closest('.chip');
-  if(b) location.hash = b.dataset.id === 'all' ? '' : b.dataset.id;
+  if(b) location.hash = b.dataset.id;
 });
 document.querySelector('.wrap').addEventListener('click', e => {
   const s = e.target.closest('.save-btn');
   if(s) return toggleSave(s.dataset.id);
   const c = e.target.closest('.card');
-  if(c) location.hash = `${baseHash() || 'all'}/${c.dataset.id}`;
+  if(c) location.hash = `${baseHash() || 'home'}/${c.dataset.id}`;
+  if(e.target.closest('[data-preset-clear]')) location.hash = current === 'all' ? 'all' : current;
   const go = e.target.closest('[data-go]');
   if(go) location.hash = go.dataset.go;
   if(e.target.closest('#logoutBtn')) $('logoutModal').hidden = false;
@@ -997,7 +1027,16 @@ updateInstallUI();
 if('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('sw.js').catch(() => {});
 
 // マイページの「お知らせ」にも、下の一覧と同じ「NEW」を付ける（いちばん新しいお知らせが7日以内のとき）
-if(document.querySelector('.ft-top [data-news] .ft-new')) $('newsMenu').insertAdjacentHTML('beforeend', '<span class="ft-new">NEW</span>');
+if(document.querySelector('.home [data-news] .ft-new')) $('newsMenu').insertAdjacentHTML('beforeend', '<span class="ft-new">NEW</span>');
+
+/* ---------- ホーム（2026-10-10） ---------- */
+// 今日の一品：日本時間の日付で決める（同じ日はだれが開いても同じ品）。写真のある品から選ぶ
+function renderHome(){
+  const day = Math.floor((Date.now() + 9 * 3600e3) / 864e5);
+  const ids = HOME.photos.length ? HOME.photos : RECIPES.map(r => r.id);
+  const r = byId(ids[day % ids.length]);
+  $('todayPick').innerHTML = r ? cardHTML(r) : '';
+}
 
 window.addEventListener('hashchange', applyHash);
 applyHash();

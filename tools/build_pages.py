@@ -275,9 +275,7 @@ def footer(up, here=''):
     """どのページも同じ形で終える：今週のリール・お酒・作り方・食材。here は今いるページのパス（自分へのリンクは出さない）"""
     out = []
     if WEEK_DATA and here != 'week/':
-        n = sum(len(it['ids']) for it in WEEK_DATA['items'])
-        out.append(f'''<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="{up}week/"><div><b>今週のリールのつまみ</b>'''
-                   f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
+        out.append(week_card(up))
     out.append(chips('お酒からさがす', [f'<a href="{up}drinks/{d["id"]}/">{e(d["name"])}</a>' for d in DRINKS if here != f"drinks/{d['id']}/"]))
     out.append(chips('作り方からさがす', [f'<a href="{up}conditions/{c["slug"]}/">{e(c["name"])}</a>' for c in CONDS if here != f"conditions/{c['slug']}/"]))
     out.append(chips('食材からさがす', [f'<a href="{up}ingredients/{g["slug"]}/">{e(g["name"])}</a>' for g in INGS if here != f"ingredients/{g['slug']}/"]))
@@ -406,13 +404,36 @@ def news_page():
     return page(path='news/', title=title, desc=desc, image=f'{BASE}og-image.jpg', body=body, jsonld=jsonld, up='../')
 
 
-def write_app_footer():
-    """アプリのトップ（index.html）の下の一覧も、同じ footer() で書き出す。印の間だけを置き換える"""
+def week_card(up):
+    n = sum(len(it['ids']) for it in WEEK_DATA['items'])
+    return (f'''<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="{up}week/"><div><b>今週のリールのつまみ</b>'''
+            f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
+
+
+def write_app_home():
+    """アプリのホーム（index.html の home:start〜home:end の間）を書き出す（2026-10-10）。
+    検索用ページの下の一覧（footer）と同じ並び・同じ見た目で、リンク先だけをアプリの中の「さがす」にする。
+    作り方・食材で絞るための品の一覧（HOME.presets）と、今日の一品に使う写真のある品（HOME.photos）もここで渡す"""
+    presets = {f"c-{c['slug']}": {'label': f"{c['mod']}つまみ", 'ids': [r['id'] for r in RECIPES if c['test'](r)]} for c in CONDS}
+    presets.update({f"i-{g['slug']}": {'label': f"{g['name']}のつまみ", 'ids': [r['id'] for r in g['items']]} for g in INGS})
+    home = {'presets': presets, 'photos': [r['id'] for r in RECIPES if has_photo(r)]}
+    out = []
+    if WEEK_DATA:
+        out.append(week_card(''))
+    out.append(chips('お酒からさがす', [f'<a href="#{d["id"]}">{e(d["name"])}</a>' for d in DRINKS]))
+    out.append(chips('作り方からさがす', [f'<a href="#c-{c["slug"]}">{e(c["name"])}</a>' for c in CONDS]))
+    out.append(chips('食材からさがす', [f'<a href="#i-{g["slug"]}">{e(g["name"])}</a>' for g in INGS]))
+    if NEWS:
+        out.append('<p class="ft-h">お知らせ</p><ul class="ft-news">' + ''.join(
+            f'<li><a href="news/#{e(n["id"])}"><time datetime="{n["date"]}">{jp_date(n["date"], False)}</time><b>{e(n["title"])}</b></a></li>'
+            for n in NEWS[:3]) + f'</ul><a class="ft-more" href="news/" data-news="{NEWS[0]["date"]}">お知らせをすべて見る</a>')
+        out.append(NEWS_JS)
+    out.append(f'<script>const HOME = {json.dumps(home, ensure_ascii=False, separators=(",", ":"))};</script>')
     p = ROOT / 'index.html'
-    s = p.read_text(encoding='utf-8')
-    a, b = '<!-- ft:start（tools/build_pages.py が書き出す。手で直さない） -->', '<!-- ft:end -->'
-    i, j = s.index(a) + len(a), s.index(b)
-    p.write_text(s[:i] + '\n' + footer('') + '\n' + s[j:], encoding='utf-8')
+    src = p.read_text(encoding='utf-8')
+    a, b = '<!-- home:start（tools/build_pages.py が書き出す。手で直さない） -->', '<!-- home:end -->'
+    i, j = src.index(a) + len(a), src.index(b)
+    p.write_text(src[:i] + '\n' + '\n'.join(out) + '\n' + src[j:], encoding='utf-8')
 
 
 WEEKDAY = '月火水木金土日'
@@ -488,7 +509,7 @@ week = WEEK_DATA
 if week:
     write('week/index.html', week_page(week))
 write('news/index.html', news_page())
-write_app_footer()
+write_app_home()
 
 urls = ([BASE] + [f"{BASE}drinks/{d['id']}/" for d in DRINKS]
         + [f"{BASE}drinks/{d['id']}/{c['slug']}/" for d, c in DRINK_CONDS]
