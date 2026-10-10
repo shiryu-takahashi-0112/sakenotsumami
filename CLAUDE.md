@@ -54,6 +54,7 @@
 | `images/raw/` | 生成したままの写真。重いのでgitに入れない |
 | `images/PROMPTS.md` | 写真の生成指示（共通文＋料理ごとの文） |
 | `tools/photos.py` | `raw/` から `images/<id>.jpg` を作る |
+| `tools/gen_photos.py` | 写真の無い品の写真を Gemini で生成して `raw/` に置く（`GEMINI_API_KEY` が要る。指示文は `images/PROMPTS.md`） |
 | `tools/build_pages.py` | 検索用のページ（`recipes/<id>/`・`drinks/<id>/`）と `sitemap.xml` を書き出す |
 | `privacy.html`・`terms.html` | プライバシーポリシーと利用規約 |
 | `contact.html` | お問い合わせフォーム。Firestore の `inquiries` に書き込むだけ（読めるのは Firebase のコンソールからだけ） |
