@@ -59,7 +59,9 @@
 | `images/PROMPTS.md` | 写真の生成指示（共通文＋料理ごとの文） |
 | `tools/photos.py` | `raw/` から `images/<id>.jpg` を作る |
 | `tools/gen_photos.py` | 写真の無い品の写真を Gemini で生成して `raw/` に置く（`GEMINI_API_KEY` が要る。指示文は `images/PROMPTS.md`） |
-| `tools/build_pages.py` | 検索用のページ（`recipes/<id>/`・`drinks/<id>/`）と `sitemap.xml` を書き出す |
+| `tools/build_pages.py` | 検索用のページ（`recipes/<id>/`・`drinks/<id>/`・`drinks/<id>/<作り方>/`・`ingredients/<食材>/`・`week/`）と `sitemap.xml` を書き出す |
+| `data/reels_week.json` | 今週のリールで紹介する品（日付・見出し・レシピのid）。`week/` の元データ |
+| `tools/build_week.py` | `data/reels_week.json` を投稿管理ツールの記録から作り直し、ページを書き出す |
 | `privacy.html`・`terms.html` | プライバシーポリシーと利用規約 |
 | `contact.html` | お問い合わせフォーム。Firestore の `inquiries` に書き込むだけ（読めるのは Firebase のコンソールからだけ） |
 | `manifest.webmanifest`・`sw.js` | ホーム画面に追加するための設定。サービスワーカーはページを毎回ネットから取り、つながらないときだけ前回のトップを出す |
@@ -71,7 +73,10 @@
 - **`recipes.js` を変えたら、必ず `python3 tools/build_pages.py` を実行してからコミットする。** アプリはJavaScriptで画面を描くため、検索エンジンと共有時のプレビュー用に、同じ内容を素のHTMLでも持っている。公開URLが変わったら、このスクリプトの `BASE` と `index.html` の `canonical`・`og:` を直す。
 - アクセス数は Cloudflare Web Analytics（自動設定、osakenomitai.com）で見る。
 
-- **レシピは誰でも見られる。保存だけ会員にする**（2026-09-28にShiryuが決定）。ログインは Google とメールリンク（パスワードなし）。
+- **レシピは誰でも見られる。保存はログインしなくてもできる**（2026-09-28に「保存だけ会員」と決め、2026-10-10にShiryuの承認で、ログインしない保存を足した）。ログインは Google とメールリンク（パスワードなし）。
+  - ログインしないで保存した品は、その端末のブラウザ（`sakenotsumami.guestSaves`）にだけ残り、みんなの保存数（Firestore の `stats`）には入れない。数を正直に保つため。
+  - 3品目を保存したときに一度だけ、会員登録の案内を出す（「あとで」で閉じられる。出した記録は `sakenotsumami.guestPromptShown`）。
+  - ログイン・会員登録すると、端末の保存を会員の保存に移し、そのときに保存数を +1 する。すでに会員の保存にある品は書かない（二重に数えない）。
 - レシピを足すときは、既存と同じ書き方（常体、手順3〜5、お酒2〜3個）にする。鶏肉・豚肉は火の通りを確かめる手順を入れる。
 - **`catch`・`why` に、お酒の量や勢いをすすめる言い回しを書かない**（「〜が進む」「止まらなくなる」「もう一杯」「一杯目」「ちびちびやる」「ぐいっと」「〜で流す」「追いかけたくなる」「〜を呼ぶ」「飲むのにいい」など）。「〜とよく合う」と、味の相性で書く。「箸が止まらない」のように、つまみについて言うのはよい（2026-09-30〜10-03に19か所を書き換えた）。
 - 写真はGeminiで生成し、`python3 tools/photos.py` で変換する。生成画像は背景の端に酒瓶の文字や人物が入りやすいので、中央やや下に寄せて切り抜いている。
@@ -81,6 +86,27 @@
 - **さがす画面の絞り込みと並び順**（2026-10-10にShiryuが指示）。「絞り込み」ボタンでモーダルを開き、調理方法と食材を選ぶ（それぞれ複数選べる）。並び順は、調理時間が短い順（はじめの表示）・新着順・人気順（保存数の多い順）。
 - **保存数**（2026-10-10にShiryuが指示。「人が使用している感を出したい」）。一覧と詳細に、レシピごとの保存数を出す（0のときは出さない）。数は Firestore の `stats/{レシピid}` に持ち、保存・保存を外すたびに ±1 する。2026-10-10より前の保存は数に入っていない。数を作って水増ししない。
 - マネタイズの検討は https://claude.ai/artifact/FKV4KTo1wEVTgr59R8DLPC
+
+## 検索から来る人を増やすページ（2026-10-10・Shiryu承認）
+
+- **お酒×作り方**：`drinks/<お酒>/<no-fire|5min|range|pan>/`（火を使わない・5分以内・レンジだけ・フライパンひとつ）。4品以上ある組み合わせだけ作る（2026-10-10時点で24ページ）。
+- **食材**：`ingredients/<食材>/`。よく使う食材（調味料・薬味は除く）のうち、5品以上あるものだけ作る（同21ページ）。食材の決め方は `tools/build_pages.py` の `INGREDIENTS`。
+- 紹介文はデータ（品数・時間・例）から作る。お酒の量や勢いに触れる言い回しは入れない。
+- レシピのページから、その品が載っているお酒×作り方・食材のページへリンクする。お酒のページからは作り方と食材のページへ。
+- どれも `python3 tools/build_pages.py` で書き出す。`recipes.js` を変えたときに一緒に作り直される。
+
+## 今週のリールのつまみ（`week/`、2026-10-10）
+
+Instagramのプロフィールのリンク先にするページ（ https://osakenomitai.com/sakenotsumami/week/ ）。
+リールを見て来た人が、その週に紹介する品の材料と作り方をすぐ開けるようにする。
+
+- 中身は `data/reels_week.json`（`start`・`end`・`items:[{date, title, ids}]`）。`title` はリールのキャプションの2行目（「レモンサワーに合う、10分以内のつまみ3選」の形）、`ids` は紹介する順のレシピのid。
+- **毎週、リールの予約を入れるルーティーン（日曜の「投稿の作り足しと定例の準備」）が、翌週分に作り直す。** Shiryu の Mac で次を実行し、`data/reels_week.json` と `week/index.html`・`sitemap.xml` をPRにする。
+  ```plain text
+  python3 tools/build_week.py --from-cowork <翌週の開始日 YYYY-MM-DD>
+  ```
+  投稿管理ツールに入れた記録（`~/sakenotsumami-cowork/postboard/registered.json` の `reel:<フォルダ>`）から7日分を拾い、各フォルダの `meta.json`（◯選型の `ids`）と `caption.txt` を読む。JSONを手で直したときは `python3 tools/build_week.py` だけでよい。
+- ページは日本時間で今日のリールに「今日」、まだ出ていない日に「これから」の印を付ける。
 
 ## Firestoreのルールの反映
 

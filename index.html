@@ -209,6 +209,11 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   .confirm{padding:24px 16px 8px;}
   .confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
   .btn-sub{border:1.5px solid var(--line);background:var(--white);}
+  .later{margin-top:12px;}
+  .menu-top{margin-top:16px;}
+  .guest-note{margin:16px;padding:14px;background:var(--surface-soft);border-radius:14px;font-size:13px;line-height:1.7;}
+  .guest-note p{margin:0 0 10px;}
+  .guest-note .btn{height:44px;font-size:14px;}
 
   /* ---------- フッターメニュー（オサケノミタイの .tabbar と同じ作り） ---------- */
   .tabbar{
@@ -279,7 +284,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   <p class="count" id="count"></p>
   <ul class="list" id="list"></ul>
   <nav class="links" aria-label="お酒ごとのつまみ一覧">
-    <a href="drinks/beer/">ビールに合うつまみ</a><a href="drinks/highball/">ハイボールに合うつまみ</a><a href="drinks/sour/">レモンサワーに合うつまみ</a><a href="drinks/sake/">日本酒に合うつまみ</a><a href="drinks/shochu/">焼酎に合うつまみ</a><a href="drinks/wine/">ワインに合うつまみ</a>
+    <a href="drinks/beer/">ビールに合うつまみ</a><a href="drinks/highball/">ハイボールに合うつまみ</a><a href="drinks/sour/">レモンサワーに合うつまみ</a><a href="drinks/sake/">日本酒に合うつまみ</a><a href="drinks/shochu/">焼酎に合うつまみ</a><a href="drinks/wine/">ワインに合うつまみ</a><a href="week/">今週のリールのつまみ</a>
   </nav>
 </section>
 
@@ -402,6 +407,23 @@ const store = {
   del(k){ try{ localStorage.removeItem(k); }catch(e){} },
 };
 
+/* ---------- ログインしないで保存（2026-10-10） ---------- */
+// 会員でなくても保存できる。保存はこの端末（localStorage）にだけ持ち、みんなの保存数（stats）には入れない。
+// ログイン・会員登録したら、会員の保存に移す（そのときに保存数も +1 する）。
+const GUEST_KEY = 'sakenotsumami.guestSaves';         // {レシピid: 保存した日時（ミリ秒）}
+const GUEST_PROMPT_KEY = 'sakenotsumami.guestPromptShown';  // 3品目で出す会員登録の案内を、出した記録
+const GUEST_PROMPT_AT = 3;
+function loadGuestSaves(){
+  try{
+    const o = JSON.parse(store.get(GUEST_KEY) || '{}');
+    return new Map(Object.entries(o).filter(([id, t]) => byId(id) && typeof t === 'number'));
+  }catch(e){ return new Map(); }
+}
+function storeGuestSaves(m){
+  if(m.size) store.set(GUEST_KEY, JSON.stringify(Object.fromEntries(m)));
+  else store.del(GUEST_KEY);
+}
+
 function savesRef(){ return db.collection('users').doc(user.uid).collection('saves'); }
 
 /* ---------- 保存数（2026-10-10） ---------- */
@@ -451,12 +473,58 @@ async function writeSave(id, on){
   await batch.commit();
 }
 
-async function toggleSave(id){
-  if(!user){
-    store.set(PENDING_KEY, id);
-    openLogin('保存するには、無料の会員登録が必要です');
-    return;
+function toggleGuestSave(id){
+  const on = !saved.has(id);
+  on ? saved.set(id, Date.now()) : saved.delete(id);
+  storeGuestSaves(saved);
+  refreshSaveUI();
+  showToast(on ? '保存しました' : '保存を外しました');
+  // 3品目を保存したら、一度だけ会員登録を案内する（閉じたら出さない）
+  if(on && saved.size >= GUEST_PROMPT_AT && fbReady && !store.get(GUEST_PROMPT_KEY)){
+    store.set(GUEST_PROMPT_KEY, String(Date.now()));
+    setTimeout(() => {
+      openLogin('保存したつまみを、ほかの端末でも',
+        `${saved.size}品を保存しました。無料の会員登録をすると、機種変更やパソコンからでも同じ保存を見られます。今の保存はそのまま引き継ぎます。パスワードは不要です。`, true);
+    }, 700);
   }
+}
+
+// ログインしたときに、この端末の保存（とログイン前に押した保存）を会員の保存に移す。
+// すでに会員の保存にあるものは書かない（保存数を二重に足さないため。firestore.rules でも止まる）。
+async function mergeGuestSaves(){
+  const guest = loadGuestSaves();
+  const pending = store.get(PENDING_KEY);
+  if(pending && byId(pending) && !guest.has(pending)) guest.set(pending, Date.now());
+  if(!guest.size) return;
+  const ids = [];
+  for(const id of guest.keys()){
+    try{ if(!(await savesRef().doc(id).get()).exists) ids.push(id); }catch(e){ return; }
+  }
+  const done = new Set(guest.keys());
+  if(ids.length){
+    const inc = firebase.firestore.FieldValue.increment;
+    const batch = db.batch();
+    for(const id of ids){
+      batch.set(savesRef().doc(id), {savedAt: firebase.firestore.FieldValue.serverTimestamp()});
+      batch.set(db.collection('stats').doc(id), {saves: inc(1)}, {merge: true});
+    }
+    try{ await batch.commit(); }
+    catch(e){
+      // まとめて書けなかったとき（別の画面で同時に保存した等）は、1品ずつ書く。書けなかった品は端末に残して次回また移す
+      for(const id of ids){
+        try{ if(!(await savesRef().doc(id).get()).exists) await writeSave(id, true); }catch(err){ done.delete(id); }
+      }
+    }
+  }
+  store.del(PENDING_KEY);
+  const rest = loadGuestSaves();
+  for(const id of done) rest.delete(id);
+  storeGuestSaves(rest);
+  if(ids.length) showToast(`この端末で保存した${ids.length}品を、会員の保存に移しました`);
+}
+
+async function toggleSave(id){
+  if(!user) return toggleGuestSave(id);
   try{
     if(saved.has(id)){
       await writeSave(id, false);
@@ -473,7 +541,7 @@ async function toggleSave(id){
 function watchSaves(){
   if(unsubSaves){ unsubSaves(); unsubSaves = null; }
   saved = new Map();
-  if(!user){ refreshSaveUI(); return; }
+  if(!user){ saved = loadGuestSaves(); refreshSaveUI(); return; }
   unsubSaves = savesRef().onSnapshot(snap => {
     saved = new Map();
     // serverTimestamp は書き込み直後だけ null になるので、そのときは今の時刻で並べる
@@ -513,8 +581,9 @@ function authFormHTML(title, lead){
     <p class="legal">続けると、<a href="terms.html">利用規約</a>と<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなします。</p>`;
 }
 
-function openLogin(title){
-  $('loginModalBody').innerHTML = authFormHTML(title, '登録もログインも同じボタンからできます。パスワードは不要です。');
+function openLogin(title, lead, later){
+  $('loginModalBody').innerHTML = authFormHTML(title, lead || '登録もログインも同じボタンからできます。パスワードは不要です。')
+    + (later ? '<button class="btn btn-sub later" data-close>あとで</button>' : '');
   $('loginModal').hidden = false;
 }
 function closeModals(){
@@ -584,11 +653,7 @@ if(fbReady){
     watchSaves();
     if(u){
       closeModals();
-      const pending = store.get(PENDING_KEY);
-      store.del(PENDING_KEY);
-      if(pending && byId(pending) && !(await savesRef().doc(pending).get()).exists){
-        try{ await writeSave(pending, true); showToast('ログインして、保存しました'); }catch(e){}
-      }
+      await mergeGuestSaves();
     }
     if(view === 'mypage') renderMypage();
     if(view === 'saved') renderSaved();
@@ -688,20 +753,25 @@ function scrollToListTop(){
   if(top < 0) window.scrollBy({top, behavior: 'smooth'});
 }
 
+// ログインしていないときの、この端末の保存についての一言
+const guestNote = () => !user && fbReady && saved.size
+  ? `<div class="guest-note"><p>この保存は、この端末のブラウザにだけ残っています。会員登録（無料）すると、ほかの端末でも見られます。</p><button class="btn btn-sub" data-login>会員登録・ログイン</button></div>` : '';
+
 function renderSaved(){
-  if(!user){
-    $('savedBody').innerHTML = `<div class="auth-box">${authFormHTML('気に入ったつまみを保存しよう', '会員登録（無料）すると、レシピの右の印を押して保存できます。パスワードは不要です。')}</div>`;
-    return;
-  }
   const items = [...saved.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => byId(id)).filter(Boolean);
   $('savedBody').innerHTML = items.length
-    ? `<p class="count"><b>${items.length}</b>品</p><ul class="list">${items.map(cardHTML).join('')}</ul>`
-    : `<p class="empty"><i class="ri-bookmark-line"></i>まだ保存したつまみはありません。<br>レシピの右の印を押すと、ここに並びます。</p>`;
+    ? `<p class="count"><b>${items.length}</b>品</p><ul class="list">${items.map(cardHTML).join('')}</ul>${guestNote()}`
+    : `<p class="empty"><i class="ri-bookmark-line"></i>まだ保存したつまみはありません。<br>レシピの右の印を押すと、ここに並びます。${!user && fbReady ? '<br>ログインしなくても保存できます。' : ''}</p>`
+      + (!user && fbReady ? `<div class="auth-box">${authFormHTML('会員の方はログイン', '登録もログインも同じボタンからできます。パスワードは不要です。')}</div>` : '');
 }
 
 function renderMypage(){
   if(!user){
-    $('mypageBody').innerHTML = `<div class="auth-box">${authFormHTML('会員登録・ログイン', '登録は無料です。レシピを保存して、いつでも見返せます。')}</div>`;
+    $('mypageBody').innerHTML = `
+    <ul class="menu menu-top">
+      <li><button data-go="saved"><i class="ri-bookmark-line"></i>保存したつまみ（この端末）<span class="count-badge">${saved.size}品</span></button></li>
+    </ul>
+    <div class="auth-box">${authFormHTML('会員登録・ログイン', '登録は無料です。この端末で保存したつまみを引き継いで、ほかの端末でも見返せます。')}</div>`;
     return;
   }
   const name = user.displayName || user.email?.split('@')[0] || '会員';
@@ -836,6 +906,7 @@ document.querySelector('.wrap').addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
   if(go) location.hash = go.dataset.go;
   if(e.target.closest('#logoutBtn')) $('logoutModal').hidden = false;
+  if(e.target.closest('[data-login]')) openLogin('会員登録・ログイン', 'この端末で保存したつまみは、そのまま引き継ぎます。パスワードは不要です。');
 });
 $('dSave').addEventListener('click', () => toggleSave(openId));
 
