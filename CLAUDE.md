@@ -118,6 +118,11 @@
 - **ストーリーズ用の画像には「※写真はAIで作ったイメージです」「お酒は20歳になってから」の注記を入れない**（2026-10-02にShiryuが「※の表記は無しで」と指示）。オサケノミタイで紹介する画像は `~/sakenotsumami-cowork/brand/story-intro.html`（メンションを置く空きを「▼ フォローはこちら」の下に取っている）。
 - **SNSの投稿頻度はMACROHACKと同じ**（2026-10-03にShiryuが指示）：Instagramはリール1日1本、Threadsは1日5本、TikTokは1日1本。
 - **InstagramとThreadsは、投稿管理ツール（Postboard https://sns-scheduler.mhack.workers.dev/ 、リポジトリ `~/dev/sns-scheduler`、ブランドID 2）の予約で出す**（2026-10-03から）。リールは毎日18時、Threadsは11:05・15:05・17:05・19:05・21:00。予約の入れ方は `~/sakenotsumami-cowork/postboard/`（`schedule_instagram.py`、入れたものの記録は `registered.json`）。Instagramの画像はJPEGしか受け付けない。
+- **ThreadsのアプリのURLは、本文に入れるのは週2回まで。ただし「今夜の一品」は毎日、そのレシピのページのURLを最初の返信（自分で付ける返信）に置く**（2026-10-10にShiryuが了承。Threadsは週に約1.7万回見られているのに、アプリへの訪問がほとんど無かったため）。
+  - 週2回の上限は、投稿の本文だけに数える。最初の返信のURLは数えない。
+  - URLは `https://osakenomitai.com/sakenotsumami/recipes/<レシピのid>/?utm_source=threads&utm_medium=social&utm_campaign=konya`。idは `recipes.js` の料理名から引く。
+  - 返信の文は短くする（例：「レシピはこちら👇」の次の行にURL）。お酒の量をすすめる言い回しは入れない。
+  - Postboardの投稿先の設定 `{"self_reply": "返信の文"}` で入れる。本体の公開のあと、Postboardが自動で返信として出す（仕組みは `~/dev/sns-scheduler` の CLAUDE.md「Threads の自分で付ける返信」）。
 - **縦動画には表紙を付ける**（2026-10-03に、TikTokの表紙が黄色一色になっているとShiryuから指摘）。TikTokは何もしないと動画の最初のコマが表紙になり、見出しが出る前の黄色だけのコマだった。
   - 表紙は料理の写真と見出しの1枚（型は `~/sakenotsumami-cowork/video/cover.html`）。プロフィールの一覧で切り抜かれる縦3:4の範囲に、写真の主役と見出しを収める。
   - **TikTokの表紙は、Instagramのリールと同じ `cover.jpg` を投稿画面の「カバーを編集」→「アップロード」で明示して入れる**（2026-10-04にShiryuが「TikTokのサムネイルをインスタグラムに合わせて」と指示）。先頭0.5秒に絵を置いていても、TikTokは別のコマを表紙に選ぶことがある。
