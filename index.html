@@ -235,8 +235,9 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   /* ---------- トースト ---------- */
   .toast{
     position:fixed;left:50%;bottom:calc(var(--tab-total) + 16px);transform:translate(-50%,10px);z-index:2100;
+    max-width:calc(100% - 32px);
     background:var(--ink);color:var(--white);font-size:12.5px;font-weight:700;padding:10px 18px;border-radius:20px;
-    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;white-space:nowrap;
+    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;white-space:normal;text-align:center;
   }
   .toast.show{opacity:1;transform:translate(-50%,0);}
 
@@ -527,7 +528,15 @@ function closeModals(){
 document.addEventListener('click', e => {
   if(e.target.closest('[data-auth="google"]')){
     auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(err => { if(err.code !== 'auth/popup-closed-by-user') showToast('ログインできませんでした'); });
+      .catch(err => {
+        // 本人が閉じた／連続タップで前の試行が取り消された場合は、失敗として出さない
+        if(err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') return;
+        // SNSのアプリ内ブラウザ（Instagram・Threads・TikTokなど）はGoogleログインの画面を開けないことがある。
+        // その場合はメールアドレスの方法を案内し、入力欄にフォーカスする
+        const blocked = ['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment', 'auth/disallowed-useragent'].includes(err.code);
+        showToast(blocked ? 'この画面ではGoogleログインが使えないようです。メールアドレスでお試しください' : 'ログインできませんでした');
+        if(blocked) document.querySelector('[data-auth="email"] input[name="email"]')?.focus();
+      });
   }
   if(e.target.closest('[data-close]') || e.target.classList.contains('modal')) closeModals();
 });
