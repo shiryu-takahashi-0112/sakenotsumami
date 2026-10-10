@@ -142,7 +142,7 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .ing li span:last-child{font-weight:700;white-space:nowrap;}
 .steps{list-style:none;margin:0;padding:0;counter-reset:s;}
 .steps li{counter-increment:s;position:relative;padding:0 0 16px 38px;font-size:14.5px;line-height:1.75;}
-.steps li:before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--white);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.steps li:before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--white);display:block;text-align:center;line-height:26px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;letter-spacing:-.02em;}
 .cta{display:block;margin:28px 0 0;text-align:center;background:var(--main);border:1.5px solid var(--ink);border-radius:999px;padding:14px;font-weight:900;text-decoration:none;}
 .list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
 .card{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px;text-decoration:none;}
@@ -167,14 +167,21 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 '''
 
 
-def tabbar(up, search='all'):
+def tabbar(up, search='all', path=''):
     """アプリと同じ下のタブ（2026-10-10）。検索用のページからも、いつでもアプリに戻れるようにする。
     さがすは、そのページに合う絞り込み（#highball・#c-5min・#i-cabbage）でアプリを開く"""
-    tabs = [('home', 'ri-home-5-line', 'ホーム'), (search, 'ri-search-line', 'さがす'),
-            ('saved', 'ri-bookmark-line', '保存'), ('mypage', 'ri-user-3-line', 'マイページ')]
-    return ('<nav class="tabbar" aria-label="アプリのメニュー">'
-            + ''.join(f'<a class="tab" href="{up}#{h}"><i class="{i}" aria-hidden="true"></i><span>{t}</span></a>' for h, i, t in tabs)
-            + '</nav>')
+    # お知らせだけはアプリの中ではなく news/ を開く。新しいお知らせ（7日以内）があれば印を付ける（NEWS_JS）
+    tabs = [(f'#home', 'ri-home-5-line', 'ホーム', ''), (f'#{search}', 'ri-search-line', 'さがす', ''),
+            ('#saved', 'ri-bookmark-line', '保存', ''),
+            ('news/', 'ri-notification-3-line', 'お知らせ', f' data-news="{NEWS[0]["date"]}"' if NEWS and path != 'news/' else ''),
+            ('#mypage', 'ri-user-3-line', 'マイページ', '')]
+    out = '<nav class="tabbar" aria-label="アプリのメニュー">'
+    for h, i, t, extra in tabs:
+        on = h == 'news/' and path == 'news/'
+        cur = ' class="tab on" aria-current="page"' if on else ' class="tab"'
+        out += (f'<a{cur} href="{up}{h}"{extra}>'
+                f'<i class="{i}" aria-hidden="true"></i><span>{t}</span></a>')
+    return out + '</nav>' + (NEWS_JS if NEWS and path != 'news/' else '')
 
 
 def page(*, path, title, desc, image, body, jsonld, up, search='all'):
@@ -213,7 +220,7 @@ def page(*, path, title, desc, image, body, jsonld, up, search='all'):
 <p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="{up}terms.html">利用規約</a><a href="{up}privacy.html">プライバシーポリシー</a></p>
 </div>
-{tabbar(up, search)}
+{tabbar(up, search, path)}
 </body>
 </html>
 '''
@@ -300,7 +307,8 @@ def footer(up, here=''):
 
 NEWS_JS = ("<script>document.querySelectorAll('[data-news]').forEach(function(a){"
            "var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();"
-           "if(d<7*864e5&&!a.querySelector('.ft-new'))a.insertAdjacentHTML('beforeend','<span class=\\'ft-new\\'>NEW</span>');});</script>")
+           "if(d<7*864e5&&!a.querySelector('.ft-new,.tab-dot'))a.insertAdjacentHTML('beforeend',a.classList.contains('tab')"
+           "?'<span class=\\'tab-dot\\' aria-label=\\'新しいお知らせがあります\\'></span>':'<span class=\\'ft-new\\'>NEW</span>');});</script>")
 
 
 def cond_links(d, base, skip=None):
@@ -422,16 +430,21 @@ def week_card(up):
             f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
 
 
-def cards(title, groups, used):
+def cards(title, groups, used, kind=None):
     """ホームの写真つきの横に流れるカード。写真は、その仲間で recipes.js の先に載っている写真のある品
     （ホームの中でなるべく写真が重ならないようにする。used に使った品を入れていく）。写真のある品が無い仲間は出さない（黄色の地は使わない）"""
+    # kind が drinks・ingredients のときは、お酒・食材そのものの写真（images/<kind>/<id>.jpg）があればそれを使う（2026-10-10 Shiryu）
     out = []
-    for href, name, items in groups:
-        r = next((r for r in items if has_photo(r) and r['id'] not in used), None) or next((r for r in items if has_photo(r)), None)
-        if not r:
-            continue
-        used.add(r['id'])
-        out.append(f'<a class="ft-card" href="{href}" role="listitem"><img src="images/{r["id"]}.jpg" alt="" loading="lazy" width="132" height="132">'
+    for slug, href, name, items in groups:
+        if kind and (ROOT / 'images' / kind / f'{slug}.jpg').exists():
+            src = f'images/{kind}/{slug}.jpg'
+        else:
+            r = next((r for r in items if has_photo(r) and r['id'] not in used), None) or next((r for r in items if has_photo(r)), None)
+            if not r:
+                continue
+            used.add(r['id'])
+            src = f'images/{r["id"]}.jpg'
+        out.append(f'<a class="ft-card" href="{href}" role="listitem"><img src="{src}" alt="" loading="lazy" width="132" height="132">'
                    f'<b>{e(name)}</b><span>{len(items)}品</span></a>')
     return f'<p class="ft-h">{e(title)}</p><div class="ft-cards" role="list" aria-label="{e(title)}">{"".join(out)}</div>'
 
@@ -447,9 +460,9 @@ def write_app_home():
     if WEEK_DATA:
         out.append(week_card(''))
     used = set()
-    out.append(cards('お酒からさがす', [(f"#{d['id']}", d['name'], [r for r in RECIPES if d['id'] in r['drinks']]) for d in DRINKS], used))
-    out.append(cards('作り方からさがす', [(f"#c-{c['slug']}", c['name'], [r for r in RECIPES if c['test'](r)]) for c in CONDS], used))
-    out.append(cards('食材からさがす', [(f"#i-{g['slug']}", g['name'], g['items']) for g in INGS], used))
+    out.append(cards('お酒からさがす', [(d['id'], f"#{d['id']}", d['name'], [r for r in RECIPES if d['id'] in r['drinks']]) for d in DRINKS], used, 'drinks'))
+    out.append(cards('作り方からさがす', [(c['slug'], f"#c-{c['slug']}", c['name'], [r for r in RECIPES if c['test'](r)]) for c in CONDS], used))
+    out.append(cards('食材からさがす', [(g['slug'], f"#i-{g['slug']}", g['name'], g['items']) for g in INGS], used, 'ingredients'))
     if NEWS:
         out.append('<p class="ft-h">お知らせ</p><ul class="ft-news">' + ''.join(
             f'<li><a href="news/#{e(n["id"])}"><time datetime="{n["date"]}">{jp_date(n["date"], False)}</time><b>{e(n["title"])}</b></a></li>'
