@@ -54,7 +54,8 @@ def used_so_far():
 
 def pick(recipes, drink, theme, count):
     cond = THEMES[theme][1]
-    cands = [r for r in recipes if drink in r["drinks"] and cond(r)]
+    # 写真がまだ無い品（足したばかりのレシピ）は、動画にできないので外す
+    cands = [r for r in recipes if drink in r["drinks"] and cond(r) and (common.IMAGES / f"{r['id']}.jpg").exists()]
     if len(cands) < count:
         sys.exit(f"条件に合うレシピが {len(cands)} 品しかありません（drink={drink} theme={theme} count={count}）")
     ids, combos = used_so_far()
