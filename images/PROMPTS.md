@@ -148,3 +148,90 @@
 | zucchini-namul | ズッキーニのナムル | `Korean-style zucchini namul, half-moon slices of zucchini dressed with sesame oil and garlic, sprinkled with white sesame seeds` |
 | cheese-senbei | チーズせんべい | `Crispy golden cheese crisps, small lacy squares, some sprinkled with black pepper and some with green aonori seaweed` |
 | gyoza-pizza | 餃子の皮ピザ | `Mini pizzas made on round gyoza wrappers with ketchup, bacon, thin green bell pepper rings and melted golden cheese, crispy edges` |
+
+## 2026-10-10 に足した80品（写真はまだ無い）
+
+写真を置いたら、`python3 tools/photos.py` で変換したあと、`python3 tools/build_pages.py` も実行する。
+
+| id | 料理 | 指示文 |
+|---|---|---|
+| myoga-amazu | みょうがの甘酢漬け | `Myoga ginger buds cut in half lengthwise, pickled in sweet vinegar, glowing translucent pale pink, arranged in a small pile` |
+| radish-butter | ラディッシュのバターのせ | `Fresh red radishes with short green tops, some halved, each topped with a thin slice of cold butter, sprinkled with coarse flaky salt` |
+| kabu-lemon | かぶの塩レモン和え | `Paper-thin half-moon slices of white Japanese turnip tossed with chopped turnip greens, olive oil and lemon juice, topped with fine strips of lemon zest` |
+| somtam-daikon | 大根のソムタム風サラダ | `Thai som tam style salad made with finely julienned daikon radish and carrot, quartered cherry tomatoes, sliced red chili, topped with crushed peanuts` |
+| pajeori | ねぎのパジョリ | `Korean pajeori scallion salad, very finely shredded white leek strands tossed with sesame oil and red chili flakes, sprinkled with sesame seeds, piled high` |
+| satoimo-yuzumiso | 里芋のゆず味噌がけ | `Peeled steamed Japanese taro potatoes, smooth and creamy white, topped with glossy sweet miso sauce and grated yellow yuzu zest` |
+| chingensai-oyster | チンゲン菜のオイスター蒸し | `Steamed bok choy with bright green leaves and stems cut into long wedges, drizzled with glossy dark oyster sauce and sesame oil` |
+| shintama-range | 新玉ねぎの丸ごとレンジ蒸し | `A whole steamed new onion, soft and translucent, cross-cut on top and opened slightly, with melting butter and soy sauce, topped with bonito flakes and chopped green onion` |
+| tataki-gobo | たたきごぼう | `Japanese tataki gobo, short lengths of lightly smashed burdock root coated in creamy ground white sesame and vinegar dressing` |
+| corn-butter | とうもろこしのバター醤油 | `Corn on the cob cut into thick rounds, glazed with melted butter and soy sauce, lightly browned and glossy` |
+| mushroom-balsamic | マッシュルームのバルサミコソテー | `Halved brown mushrooms sauteed golden with sliced garlic, glazed with dark glossy balsamic reduction, sprinkled with black pepper` |
+| jaga-sanra | じゃがいもの酢辣炒め | `Chinese hot and sour shredded potato stir-fry, crisp translucent thin potato strips with green bell pepper strips and dried red chili rings` |
+| renkon-steak | れんこんのステーキ | `Thick round slices of lotus root pan-seared golden brown, glazed with sweet soy sauce, sprinkled with black pepper and chopped green onion` |
+| ingen-sichuan | いんげんの四川風炒め | `Sichuan dry-fried green beans, blistered and wrinkled with charred spots, tossed with minced pickled zha cai, garlic and red chili rings` |
+| ninjin-shirishiri | にんじんしりしり | `Okinawan carrot shirishiri, finely shredded stir-fried carrot mixed with flaked tuna and soft scrambled egg, bright orange and yellow` |
+| kabocha-cumin | かぼちゃのクミン焼き | `Thin wedges of kabocha squash with green skin, roasted with olive oil and cumin seeds, edges caramelized, sprinkled with black pepper` |
+| mushroom-escargot | マッシュルームのエスカルゴバター焼き | `Upturned white mushroom caps filled with bubbling garlic parsley butter and toasted breadcrumbs, baked, arranged in a row` |
+| nasu-dengaku | なすの田楽 | `Japanese nasu dengaku, halved eggplants with crosshatched flesh, topped with caramelized sweet miso glaze and white sesame seeds` |
+| eringi-gochujang | エリンギのコチュジャン焼き | `Hand-torn king oyster mushroom strips roasted with red gochujang glaze, slightly charred edges, topped with sesame seeds and chopped green onion` |
+| paprika-marinade | 焼きパプリカのマリネ | `Roasted red and yellow bell pepper strips, peeled, silky and glossy, marinated in olive oil and vinegar, sprinkled with black pepper` |
+| saladchicken-bangbangji | サラダチキンのバンバンジー | `Shredded cooked chicken breast piled on thin julienned cucumber, drizzled with creamy white sesame sauce and a few drops of red chili oil` |
+| tebamoto-sujoyu | 手羽元のさっぱり煮 | `Chicken drumsticks braised in glossy dark soy and vinegar sauce, tender and lacquered, with thin slices of ginger, a little sauce pooled in the bowl` |
+| tori-negima | フライパンねぎま | `Pan-fried bite-size chicken thigh pieces and charred Japanese leek segments glazed with sweet soy yakitori tare, glossy, no skewers` |
+| tandoori-chicken | タンドリーチキン | `Bite-size pieces of tandoori chicken with reddish-orange spiced yogurt marinade, charred edges, with a lemon wedge on the side` |
+| tori-yuzukosho-mushi | 鶏ももとしめじの柚子こしょう蒸し | `Steamed bite-size chicken thigh pieces with shimeji mushrooms in a little clear broth, a dab of green yuzu kosho, sprinkled with chopped green onions, in a small shallow bowl` |
+| mune-panko-yaki | 鶏むねのハーブパン粉焼き | `Sliced chicken breast pieces topped with golden crispy herbed panko breadcrumbs and parmesan, flecks of green parsley` |
+| negi-chashu | ねぎチャーシュー | `Thin strips of Chinese chashu roast pork tossed with fine white shredded leek, glistening with sesame oil and a little red chili oil, sprinkled with sesame seeds` |
+| hoikoro | 回鍋肉 | `Chinese twice-cooked pork stir-fry with thin pork belly slices, cabbage chunks and green bell pepper, coated in glossy dark sweet bean sauce` |
+| buta-misozuke | 豚肩ロースの味噌漬け焼き | `Slices of grilled miso-marinated pork shoulder with caramelized browned miso edges, arranged over green shiso leaves` |
+| range-shumai | レンジしゅうまい | `Round steamed pork shumai dumplings coated in thin shredded wonton wrapper strips, with a small dab of yellow mustard and a tiny dish of soy sauce` |
+| butamaki-okura | オクラの豚巻きポン酢 | `Okra pods wrapped in thin pork slices, steamed and cut in half to show green okra cross-sections, drizzled with ponzu, a small mound of grated ginger` |
+| buta-sate | 豚肉のサテ風 ピーナッツだれ | `Southeast Asian style grilled pork satay skewers with charred edges, a small bowl of creamy peanut sauce on the side` |
+| roastbeef-yukke | ローストビーフのユッケ風 | `Thin strips of roast beef dressed in red gochujang sauce, mounded with a raw egg yolk in the center, sprinkled with green onions and sesame seeds` |
+| range-japchae | レンジチャプチェ | `Korean japchae with glossy glass noodles, thin strips of beef, carrot and green bell pepper, sprinkled with sesame seeds` |
+| gyu-negimaki | 牛肉のねぎ巻き焼き | `Thin beef slices rolled around green onions, grilled with sweet soy glaze, cut into short rolls showing green onion centers` |
+| gyu-cumin | 牛肉とピーマンのクミン炒め | `Stir-fried thin beef slices with julienned green bell pepper and onion, speckled with whole cumin seeds and red chili flakes` |
+| cornedbeef-onion | コンビーフのオニオンスライスのせ | `Flaked corned beef piled on thinly sliced white onion, drizzled with ponzu, topped with black pepper and a few daikon radish sprouts` |
+| namaham-kaki | 生ハムと柿 | `Orange persimmon wedges each wrapped with a strip of prosciutto, drizzled with olive oil and cracked black pepper` |
+| ham-steak | 厚切りハムステーキ | `Thick slices of pan-seared ham with crosshatch scoring and browned surface, shredded cabbage on the side, a small dollop of mustard mayonnaise` |
+| ham-macaroni-salad | ハムのマカロニサラダ | `Japanese macaroni salad with elbow macaroni, diced ham, thin cucumber slices and onion, creamy mayonnaise dressing, cracked black pepper` |
+| tako-kimchi | たこのキムチ和え | `Thinly sliced boiled octopus tossed with red napa cabbage kimchi and sesame oil, topped with chopped green onions and white sesame seeds` |
+| salmon-poke | サーモンとアボカドのポキ | `Hawaiian-style poke, cubes of raw salmon and avocado with thin onion slices in glossy soy sesame dressing, sprinkled with sesame seeds` |
+| shimesaba-yakumi | しめさばの薬味たっぷりのせ | `Slices of Japanese shimesaba vinegar-cured mackerel with silver skin lined up, topped with a mound of julienned myoga, green shiso and ginger, drizzled with ponzu` |
+| ika-mekabu | いかとめかぶのしょうがポン酢 | `Thin strips of raw white squid sashimi mixed with slimy dark green mekabu seaweed in ponzu, with grated ginger and chopped green onions, in a small bowl` |
+| ikura-oroshi | いくらおろし | `A small mound of grated daikon radish topped with glistening orange salmon roe (ikura), a little grated yuzu zest, in a small bowl` |
+| ebi-broccoli | えびとブロッコリーの塩にんにく蒸し | `Steamed peeled shrimp and broccoli florets glazed in a light garlic salt sauce with sesame oil, Chinese style` |
+| tai-negiyu | 鯛のレンジ蒸し ねぎ油がけ | `Chinese-style steamed sea bream fillets in a pool of soy sauce, topped with fine julienned green onion and ginger, glistening with hot sesame oil` |
+| saba-tomato | サバ缶のレンジトマト煮 | `Chunks of canned mackerel simmered in chunky tomato sauce with sliced onion, sprinkled with dried basil, in a small shallow dish` |
+| seafood-marinade | シーフードミックスのレモンマリネ | `Seafood marinade of shrimp, squid rings and small scallops with thin slices of onion and yellow bell pepper, glossy with olive oil and lemon` |
+| tarako-shirataki | たらこしらたき | `Japanese shirataki konjac noodles coated with cooked pink cod roe (tarako), sprinkled with chopped green onions, in a small bowl` |
+| salmon-chanchan | 鮭のちゃんちゃん焼き | `Japanese chanchan-yaki, pan-steamed salmon fillet with cabbage and onion in miso sauce, topped with a melting pat of butter` |
+| tara-meuniere | たらのレモンバタームニエル | `Two golden pan-fried white cod fillets meuniere with brown butter lemon sauce, sprinkled with chopped parsley` |
+| ika-gochujang | いかのコチュジャン炒め | `Korean stir-fried squid rings with onion and carrot strips in glossy red gochujang sauce, sprinkled with sesame seeds` |
+| ebi-mayo | えびマヨ | `Chinese-style ebi mayo, crispy coated shrimp tossed in creamy pale pink mayonnaise sauce, on torn green lettuce leaves` |
+| jako-piman | じゃこピーマン | `Julienned green bell peppers stir-fried with crispy tiny dried whitebait (chirimen jako), sprinkled with sesame seeds` |
+| eihire-aburi | えいひれの炙り マヨ七味 | `Toasted dried stingray fin (eihire) torn into thin amber strips, with a small dish of mayonnaise sprinkled with red shichimi pepper` |
+| iwashi-panko | いわしの香草パン粉焼き | `Butterflied sardine fillets baked with golden herb breadcrumb topping of parsley, garlic and cheese, with a lemon wedge` |
+| sanma-cheese | さんま蒲焼き缶のチーズ焼き | `Canned kabayaki saury pieces in sweet soy glaze topped with melted browned cheese and sliced green onion, baked in a small gratin dish` |
+| kajiki-tandoori | めかじきのタンドリー焼き | `Bite-size pieces of swordfish marinated in yogurt and curry spices, roasted with charred orange-red edges, with a lemon wedge` |
+| kamaboko-mentai | かまぼこの明太マヨ焼き | `Thick slices of white kamaboko fish cake topped with toasted pink mentaiko mayonnaise, browned spots, sprinkled with chopped green onions` |
+| deviled-egg | デビルドエッグ | `Halved hard-boiled eggs with the yolk filling piped back in a smooth mound, dusted with red paprika and chopped parsley, arranged in a neat row` |
+| keranchim | レンジでケランチム | `Fluffy Korean steamed egg (gyeran-jjim) puffed up in a small deep ceramic bowl, topped with sliced green onions, sesame seeds and a drizzle of sesame oil` |
+| ontama-kimchi | レンジ温玉のキムチのせ | `A soft poached onsen egg with a runny yolk sitting on a mound of red napa cabbage kimchi, scattered with chopped green onion and torn Korean seaweed` |
+| spanish-omelet | スパニッシュオムレツ | `Thick Spanish potato omelette (tortilla) cut into wedges, golden brown outside, showing layers of sliced potato and onion inside` |
+| yam-khai-dao | ヤムカイダオ | `Thai fried egg salad: crispy-edged fried eggs cut into pieces, tossed with sliced red onion, halved cherry tomatoes and fresh cilantro, glossy fish sauce and lime dressing with red chili rings` |
+| sugomori-tamago | キャベツの巣ごもり卵 | `Baked egg with a glossy soft yolk nestled in a nest of shredded cabbage and diced bacon in a small round baking dish, sprinkled with grated parmesan and black pepper` |
+| avocado-egg | アボカドとうずら卵のチーズ焼き | `Two avocado halves baked with a quail egg in each pit hollow, surrounded by melted golden cheese, drizzled with a little soy sauce and black pepper` |
+| pitan-tofu | ピータン豆腐 | `A block of silken tofu topped with chopped dark amber century egg (pidan) and minced green onion, dressed with black vinegar soy sauce and chili oil, garnished with cilantro` |
+| natto-takuan | 納豆とたくあんののり巻き | `A small bowl of minced natto mixed with diced yellow takuan pickles and green onion, served with squares of nori seaweed and green shiso leaves for hand-wrapping` |
+| range-yudofu | レンジ湯豆腐のしょうがあん | `Warm silken tofu pieces in a small bowl covered with translucent glossy ginger dashi sauce, topped with grated ginger and sliced green onion, gentle steam` |
+| atsuage-oyster | 厚揚げのオイスターしょうが煮 | `Bite-size cubes of thick fried tofu (atsuage) simmered in glossy dark oyster sauce glaze, topped with sliced green onion, a little sauce pooled on the plate` |
+| koya-karaage | 高野豆腐の唐揚げ風 | `Crispy golden fried koya-dofu (freeze-dried tofu) pieces like karaage fried chicken, piled up with a lemon wedge on the side` |
+| tofu-mochi | 豆腐もちの甘辛焼き | `Small round chewy tofu mochi patties pan-fried golden, coated in glossy sweet soy glaze, each wrapped with a strip of nori seaweed` |
+| daizu-curry | 蒸し大豆のカレー塩焼き | `Roasted soybeans with a crisp golden surface, dusted with yellow curry powder and salt, piled in a small dish` |
+| corn-cheese | コーンチーズ | `Korean corn cheese: sweet corn kernels baked with mayonnaise under a layer of bubbling melted cheese with browned spots, in a small shallow cast-iron skillet, sprinkled with parsley` |
+| range-fondue | レンジでチーズフォンデュ | `A small ceramic bowl of smooth molten cheese fondue with black pepper, surrounded by bite-size baguette cubes, broccoli florets and cherry tomatoes on skewers` |
+| cheese-isobe | チーズの磯辺焼き | `Sticks of processed cheese wrapped in crisp nori seaweed, pan-seared with the cheese edges slightly melted and golden, glazed with soy sauce` |
+| gorgonzola-honey | ゴルゴンゾーラのはちみつくるみ | `Crackers topped with crumbled blue gorgonzola cheese and chopped walnuts, drizzled with golden honey and cracked black pepper` |
+| creamcheese-gochujang | クリームチーズのコチュジャン和え | `Cubes of white cream cheese coated in glossy red gochujang sauce, sprinkled with white sesame seeds, with sheets of Korean seaweed on the side` |
+| mozzarella-panko | モッツァレラとトマトのパン粉焼き | `Torn mozzarella and halved cherry tomatoes baked in a small gratin dish under golden crispy breadcrumbs and parmesan, flecked with dried basil, olive oil glistening` |

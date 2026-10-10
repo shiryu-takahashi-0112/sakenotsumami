@@ -8,7 +8,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>サケノツマミ | お酒に合うつまみレシピ</title>
-<meta name="description" content="ビール・ハイボール・日本酒・焼酎・ワイン・レモンサワー。今夜のお酒を選ぶと、合うつまみのレシピが見つかる無料のWebアプリ。120品。">
+<meta name="description" content="ビール・ハイボール・日本酒・焼酎・ワイン・レモンサワー。今夜のお酒を選ぶと、合うつまみのレシピが見つかる無料のWebアプリ。200品。">
 <meta name="theme-color" content="#ffffff">
 <link rel="canonical" href="https://osakenomitai.com/sakenotsumami/">
 <link rel="manifest" href="manifest.webmanifest">
@@ -21,7 +21,7 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="サケノツマミ">
 <meta property="og:title" content="サケノツマミ｜今夜のお酒に、ちょうどいいつまみを">
-<meta property="og:description" content="ビール・ハイボール・日本酒・焼酎・ワイン・レモンサワー。今夜のお酒を選ぶと、合うつまみのレシピが見つかります。120品、ほとんどが15分以内。">
+<meta property="og:description" content="ビール・ハイボール・日本酒・焼酎・ワイン・レモンサワー。今夜のお酒を選ぶと、合うつまみのレシピが見つかります。200品、ほとんどが15分以内。">
 <meta property="og:url" content="https://osakenomitai.com/sakenotsumami/">
 <meta property="og:image" content="https://osakenomitai.com/sakenotsumami/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -73,20 +73,39 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
     transition:background .15s,border-color .15s;
   }
   .chip.on{background:var(--main);border-color:var(--ink);}
-  /* 調理方法・食材の絞り込み（2026-10-09）。ボタンを押すと、その下に選択肢が開く */
-  .filters{display:flex;gap:8px;margin:10px 16px 0;}
-  .f-btn{
+  /* 絞り込みと並び順（2026-10-10）。絞り込みはモーダルで選ぶ */
+  .toolbar{display:flex;gap:8px;margin:10px 16px 0;}
+  .tb-btn{
     flex:1;min-width:0;appearance:none;border:1.5px solid var(--line);background:var(--white);border-radius:10px;
-    height:36px;padding:0 8px 0 12px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;
+    height:38px;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;
+    font-family:inherit;
   }
-  .f-btn b{flex:1;min-width:0;text-align:left;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .f-btn i{font-size:18px;transition:transform .15s;}
-  .f-btn.on{border-color:var(--ink);background:var(--main-soft);}
-  .f-btn.open i{transform:rotate(180deg);}
-  .f-panel{display:flex;flex-wrap:wrap;gap:8px;margin:10px 16px 0;}
-  .f-panel[hidden]{display:none;}
-  .f-panel .chip{height:34px;padding:0 13px;font-size:13px;}
-  .f-panel .chip i{margin-right:3px;}
+  .tb-btn i{font-size:17px;}
+  .tb-btn.on{border-color:var(--ink);background:var(--main-soft);}
+  .tb-btn .n{min-width:18px;height:18px;border-radius:9px;background:var(--ink);color:var(--white);font-size:11px;line-height:18px;padding:0 5px;}
+  .sort{position:relative;flex:1;min-width:0;}
+  .sort select{
+    width:100%;appearance:none;-webkit-appearance:none;border:1.5px solid var(--line);background:var(--white);border-radius:10px;
+    height:38px;padding:0 30px 0 34px;font-family:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;
+  }
+  .sort i{position:absolute;top:50%;transform:translateY(-50%);font-size:17px;pointer-events:none;}
+  .sort .ri-arrow-up-down-line{left:11px;}
+  .sort .ri-arrow-down-s-line{right:9px;}
+  .f-modal{padding:22px 16px 12px;}
+  .f-modal h3{margin:0 0 14px;font-size:17px;font-weight:900;}
+  .f-modal h4{margin:18px 0 10px;font-size:13px;font-weight:700;color:var(--muted);}
+  .f-modal .wrapchips{display:flex;flex-wrap:wrap;gap:8px;}
+  .f-modal .chip{height:36px;padding:0 14px;font-size:13.5px;}
+  .f-modal .chip i{margin-right:3px;}
+  .f-actions{position:sticky;bottom:0;display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:22px;padding-top:12px;background:var(--white);}
+  .f-actions button{appearance:none;height:48px;border-radius:999px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
+  .f-actions .btn-sub{border:1.5px solid var(--line);background:var(--white);}
+  .f-actions .btn-main{border:1.5px solid var(--ink);background:var(--main);}
+  .f-actions .btn-main:disabled{opacity:.45;cursor:default;}
+  /* 保存数。人に使われている感じを出す（0のときは出さない） */
+  .tags .saves{color:var(--ink);}
+  .d-saves{margin:6px 0 0;font-size:12.5px;color:var(--muted);font-weight:700;}
+  .d-saves i{color:var(--main);-webkit-text-stroke:.6px var(--ink);margin-right:3px;}
   .empty button{margin-top:12px;appearance:none;border:1.5px solid var(--ink);background:var(--main);height:38px;padding:0 18px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;}
 
   /* ---------- 一覧 ---------- */
@@ -222,13 +241,6 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   .toast.show{opacity:1;transform:translate(-50%,0);}
 
   /* ---------- ホーム画面に追加（2026-10-09） ---------- */
-  .install-banner{display:flex;align-items:center;gap:10px;margin:14px 16px 0;padding:10px 4px 10px 10px;border:1.5px solid var(--ink);border-radius:14px;background:var(--main-soft);}
-  .install-banner[hidden]{display:none;}
-  .ib-icon{flex:none;width:40px;height:40px;border-radius:10px;display:block;}
-  .ib-text{flex:1;min-width:0;margin:0;font-size:12px;line-height:1.5;color:var(--muted);font-weight:500;}
-  .ib-text b{display:block;font-size:13.5px;font-weight:900;color:var(--ink);}
-  .ib-add{flex:none;appearance:none;border:1.5px solid var(--ink);background:var(--main);height:34px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
-  .ib-close{flex:none;appearance:none;border:none;background:none;width:32px;height:32px;font-size:18px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .menu[hidden]{display:none;}
   .menu-gap{margin-top:12px;}
   .install-sheet{padding:24px 16px 12px;}
@@ -249,21 +261,18 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
     <h1 class="logo"><svg viewBox="0 0 5845 905" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="サケノツマミ"><path d="M352 890Q335 862 307.5 829.0Q280 796 251 776Q379 723 445.0 632.0Q511 541 517 395H363V587H215V397Q146 398 88.0 399.0Q30 400 0 402V253Q22 254 82.0 255.0Q142 256 215 258Q214 174 213.0 125.5Q212 77 208 46H369Q366 76 364.5 126.5Q363 177 363 259Q382 260 400.5 260.0Q419 260 435 260Q455 260 475.5 260.0Q496 260 518 259Q517 199 515.0 138.0Q513 77 510 27H666V258Q733 257 791.0 255.5Q849 254 883 253V402Q851 400 792.0 399.0Q733 398 665 397Q659 581 580.5 698.5Q502 816 352 890Z"/><path d="M1374.0 889Q1353.0 858 1321.5 824.0Q1290.0 790 1259.0 771Q1379.0 706 1444.0 613.0Q1509.0 520 1522.0 396H1350.0Q1315.0 439 1275.0 476.5Q1235.0 514 1191.0 544Q1171.0 520 1139.0 490.0Q1107.0 460 1076.0 442Q1150.0 393 1208.5 325.5Q1267.0 258 1308.0 180.5Q1349.0 103 1371.0 26L1521.0 70Q1492.0 167 1446.0 251H1913.0V396H1678.0Q1665.0 557 1589.0 677.5Q1513.0 798 1374.0 889Z"/><path d="M2210.0 819Q2200.0 800 2181.5 774.5Q2163.0 749 2142.5 725.0Q2122.0 701 2104.0 685Q2244.0 630 2352.0 545.0Q2460.0 460 2533.5 351.0Q2607.0 242 2643.0 117L2795.0 170Q2750.0 318 2665.0 441.0Q2580.0 564 2464.5 659.5Q2349.0 755 2210.0 819Z"/><path d="M3230.0 843Q3217.0 807 3192.0 764.0Q3167.0 721 3144.0 693Q3386.0 638 3523.0 499.0Q3660.0 360 3694.0 116L3847.0 142Q3826.0 296 3775.0 409.0Q3724.0 522 3645.5 603.5Q3567.0 685 3463.0 742.5Q3359.0 800 3230.0 843ZM3141.0 422Q3138.0 402 3129.0 371.0Q3120.0 340 3107.5 307.0Q3095.0 274 3082.5 245.0Q3070.0 216 3059.0 200L3204.0 146Q3218.0 171 3235.0 212.0Q3252.0 253 3267.0 295.0Q3282.0 337 3288.0 368ZM3365.0 370Q3363.0 350 3355.0 319.0Q3347.0 288 3336.5 254.5Q3326.0 221 3314.5 191.5Q3303.0 162 3293.0 146L3439.0 97Q3452.0 123 3467.5 164.5Q3483.0 206 3496.0 248.5Q3509.0 291 3514.0 322Z"/><path d="M4607.0 790Q4581.0 753 4545.0 712.5Q4509.0 672 4468.0 633.5Q4427.0 595 4385.0 562.0Q4343.0 529 4305.0 507L4411.0 407Q4469.0 442 4531.0 489Q4572.0 454 4619.5 410.0Q4667.0 366 4708.0 324Q4649.0 326 4578.5 328.5Q4508.0 331 4436.5 334.0Q4365.0 337 4301.5 340.0Q4238.0 343 4190.5 346.0Q4143.0 349 4122.0 351L4111.0 195Q4148.0 197 4208.0 197.5Q4268.0 198 4341.0 197.5Q4414.0 197 4491.0 195.5Q4568.0 194 4639.5 191.5Q4711.0 189 4768.0 186.0Q4825.0 183 4858.0 180L4948.0 262Q4915.0 308 4864.0 365.0Q4813.0 422 4755.0 479.0Q4697.0 536 4642.0 584Q4694.0 633 4730.0 681Q4713.0 692 4690.0 711.0Q4667.0 730 4645.0 751.0Q4623.0 772 4607.0 790Z"/><path d="M5750.0 897Q5730.0 879 5688.5 851.5Q5647.0 824 5595.0 792.5Q5543.0 761 5488.5 730.5Q5434.0 700 5387.5 676.5Q5341.0 653 5311.0 643L5407.0 521Q5441.0 534 5487.0 554.5Q5533.0 575 5584.0 600.0Q5635.0 625 5684.0 652.0Q5733.0 679 5775.0 705.0Q5817.0 731 5845.0 753ZM5754.0 298Q5737.0 284 5706.0 265.5Q5675.0 247 5637.0 227.0Q5599.0 207 5560.5 189.0Q5522.0 171 5488.5 157.5Q5455.0 144 5433.0 138L5526.0 16Q5559.0 26 5602.0 43.0Q5645.0 60 5690.0 81.0Q5735.0 102 5774.5 123.0Q5814.0 144 5839.0 161ZM5670.0 530Q5653.0 516 5622.0 497.5Q5591.0 479 5553.5 459.0Q5516.0 439 5477.0 421.0Q5438.0 403 5404.5 389.5Q5371.0 376 5349.0 370L5442.0 249Q5475.0 259 5518.5 276.5Q5562.0 294 5607.5 315.5Q5653.0 337 5693.0 358.0Q5733.0 379 5758.0 396Z"/></svg></h1>
     <p class="lead">今夜のお酒に合わせて、ちょうどいいつまみを。</p>
   </header>
-  <div class="install-banner" id="installBanner" hidden>
-    <img class="ib-icon" src="icons/icon-192.png" alt="">
-    <p class="ib-text"><b>ホーム画面に追加</b>アイコンからすぐ開けます</p>
-    <button class="ib-add" data-install>追加する</button>
-    <button class="ib-close" id="installBannerClose" aria-label="閉じる"><i class="ri-close-line"></i></button>
-  </div>
 
   <nav class="drinks" aria-label="お酒の種類">
     <p class="drinks-q">今夜のお酒は？</p>
     <div class="chips" id="chips"></div>
-    <div class="filters" id="filters">
-      <button class="f-btn" data-f="tool" aria-expanded="false">調理方法<b></b><i class="ri-arrow-down-s-line"></i></button>
-      <button class="f-btn" data-f="food" aria-expanded="false">食材<b></b><i class="ri-arrow-down-s-line"></i></button>
+    <div class="toolbar">
+      <button class="tb-btn" id="filterBtn"><i class="ri-equalizer-line"></i>絞り込み</button>
+      <label class="sort"><i class="ri-arrow-up-down-line"></i><select id="sortSel" aria-label="並び順">
+        <option value="quick">時間が短い順</option>
+        <option value="new">新着順</option>
+        <option value="popular">人気順</option>
+      </select><i class="ri-arrow-down-s-line"></i></label>
     </div>
-    <div class="f-panel" id="fPanel" hidden></div>
   </nav>
 
   <p class="count" id="count"></p>
@@ -310,6 +319,23 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
       <div class="confirm-actions">
         <button class="btn btn-sub" data-close>キャンセル</button>
         <button class="btn btn-main" id="logoutOk">ログアウトする</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="filterModal" hidden>
+  <div class="modal-body">
+    <button class="modal-close" data-close aria-label="閉じる"><i class="ri-close-line"></i></button>
+    <div class="f-modal">
+      <h3>絞り込み</h3>
+      <h4>調理方法</h4>
+      <div class="wrapchips" id="fTool"></div>
+      <h4>食材</h4>
+      <div class="wrapchips" id="fFood"></div>
+      <div class="f-actions">
+        <button class="btn-sub" id="fClear">クリア</button>
+        <button class="btn-main" id="fApply"></button>
       </div>
     </div>
   </div>
@@ -377,6 +403,53 @@ const store = {
 
 function savesRef(){ return db.collection('users').doc(user.uid).collection('saves'); }
 
+/* ---------- 保存数（2026-10-10） ---------- */
+// stats/{レシピid} の saves に、みんなの保存数を持つ。誰でも読める。
+// 自分の保存と同じ一括書き込みで ±1 する（firestore.rules で、自分の保存の有無と合わないと書けない）。
+// この仕組みより前の保存は数に入っていないので、外すときは数が1以上のときだけ減らす。
+let stats = new Map();   // レシピid → 保存数
+const saveCount = id => stats.get(id) || 0;
+
+function watchStats(){
+  if(!fbReady) return;
+  db.collection('stats').onSnapshot(snap => {
+    stats = new Map();
+    snap.forEach(d => { const n = d.get('saves'); if(typeof n === 'number' && n > 0) stats.set(d.id, n); });
+    refreshCounts();
+  }, () => {});
+}
+
+function refreshCounts(){
+  if(view === 'search'){
+    // 人気順は数が変わると並びも変わるので描き直す。ほかは数字だけ直す
+    if(sortBy === 'popular') return renderList();
+    document.querySelectorAll('.card[data-id]').forEach(c => {
+      const t = c.querySelector('.saves');
+      const n = saveCount(c.dataset.id);
+      if(t) t.outerHTML = savesTag(n);
+      else if(n) c.querySelector('.tags').insertAdjacentHTML('beforeend', savesTag(n));
+    });
+  }
+  if(view === 'saved') renderSaved();
+  if(openId) renderDetailSaves();
+}
+
+const savesTag = n => n ? `<span class="saves"><i class="ri-bookmark-fill"></i>${n}</span>` : '';
+
+async function writeSave(id, on){
+  const batch = db.batch();
+  const stat = db.collection('stats').doc(id);
+  const inc = firebase.firestore.FieldValue.increment;
+  if(on){
+    batch.set(savesRef().doc(id), {savedAt: firebase.firestore.FieldValue.serverTimestamp()});
+    batch.set(stat, {saves: inc(1)}, {merge: true});
+  }else{
+    batch.delete(savesRef().doc(id));
+    if(saveCount(id) > 0) batch.set(stat, {saves: inc(-1)}, {merge: true});
+  }
+  await batch.commit();
+}
+
 async function toggleSave(id){
   if(!user){
     store.set(PENDING_KEY, id);
@@ -385,10 +458,10 @@ async function toggleSave(id){
   }
   try{
     if(saved.has(id)){
-      await savesRef().doc(id).delete();
+      await writeSave(id, false);
       showToast('保存を外しました');
     }else{
-      await savesRef().doc(id).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()});
+      await writeSave(id, true);
       showToast('保存しました');
     }
   }catch(e){
@@ -447,6 +520,7 @@ function closeModals(){
   $('loginModal').hidden = true;
   $('logoutModal').hidden = true;
   $('installModal').hidden = true;
+  $('filterModal').hidden = true;
 }
 
 // ログインのボタンとフォームは、モーダルとマイページの両方に置くので委譲で拾う
@@ -503,8 +577,8 @@ if(fbReady){
       closeModals();
       const pending = store.get(PENDING_KEY);
       store.del(PENDING_KEY);
-      if(pending && byId(pending)){
-        try{ await savesRef().doc(pending).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()}); showToast('ログインして、保存しました'); }catch(e){}
+      if(pending && byId(pending) && !(await savesRef().doc(pending).get()).exists){
+        try{ await writeSave(pending, true); showToast('ログインして、保存しました'); }catch(e){}
       }
     }
     if(view === 'mypage') renderMypage();
@@ -521,14 +595,18 @@ $('logoutOk').addEventListener('click', async () => {
 
 /* ---------- 一覧 ---------- */
 let current = 'all';
-// 調理方法（TOOLS のキー）と食材（FOODS の id）。URLには持たず、画面を開いているあいだだけ覚える
-const filter = {tool: 'all', food: 'all'};
-let filterOpen = null;
+// 絞り込み：調理方法（TOOLS のキー）と食材（FOODS の id）。それぞれ複数選べる（同じ種類の中は「どれか」、種類どうしは「かつ」）
+// URLには持たず、画面を開いているあいだだけ覚える
+const filter = {tool: new Set(), food: new Set()};
+let draft = null;   // モーダルで選んでいる途中の絞り込み
 const FILTERS = {
   tool: {label: '調理方法', items: Object.entries(TOOLS).map(([id, t]) => ({id, name: t.name, icon: t.icon}))},
   food: {label: '食材', items: FOODS},
 };
-const filterName = k => FILTERS[k].items.find(x => x.id === filter[k])?.name || 'すべて';
+// 並び順。新着順は recipes.js の後ろに足した品ほど新しい。人気順は保存数（stats）の多い順
+const SORT_KEY = 'sakenotsumami.sort';
+let sortBy = ['quick', 'new', 'popular'].includes(store.get(SORT_KEY)) ? store.get(SORT_KEY) : 'quick';
+const order = new Map(RECIPES.map((r, i) => [r.id, i]));
 let view = 'search';
 let openId = null;
 
@@ -543,6 +621,7 @@ function cardHTML(r){
           <span><i class="ri-time-line"></i>${r.min}分</span>
           <span><i class="${TOOLS[r.tool].icon}"></i>${TOOLS[r.tool].name}</span>
           <span>${r.drinks.map(drinkName).join('・')}</span>
+          ${savesTag(saveCount(r.id))}
         </div>
       </div>
     </button>
@@ -558,40 +637,44 @@ function renderChips(){
   $('chips').scrollLeft = on.offsetLeft - ($('chips').clientWidth - on.offsetWidth) / 2;
 }
 
-function renderFilters(){
-  $('filters').querySelectorAll('.f-btn').forEach(b => {
-    const k = b.dataset.f;
-    b.querySelector('b').textContent = filterName(k);
-    b.classList.toggle('on', filter[k] !== 'all');
-    b.classList.toggle('open', filterOpen === k);
-    b.setAttribute('aria-expanded', String(filterOpen === k));
-  });
-  $('fPanel').hidden = !filterOpen;
-  if(!filterOpen) return;
-  $('fPanel').innerHTML = [{id:'all', name:'すべて'}, ...FILTERS[filterOpen].items]
-    .map(x => `<button class="chip${x.id === filter[filterOpen] ? ' on' : ''}" data-id="${x.id}">${x.icon ? `<i class="${x.icon}"></i>` : ''}${x.name}</button>`).join('');
-}
+const matches = (r, f) => (current === 'all' || r.drinks.includes(current))
+  && (!f.tool.size || f.tool.has(r.tool))
+  && (!f.food.size || r.foods.some(x => f.food.has(x)));
+
+const SORTS = {
+  quick:   (a, b) => a.min - b.min || order.get(b.id) - order.get(a.id),
+  new:     (a, b) => order.get(b.id) - order.get(a.id),
+  popular: (a, b) => saveCount(b.id) - saveCount(a.id) || a.min - b.min,
+};
 
 function renderList(){
-  const items = RECIPES.filter(r => (current === 'all' || r.drinks.includes(current))
-      && (filter.tool === 'all' || r.tool === filter.tool)
-      && (filter.food === 'all' || r.foods.includes(filter.food)))
-    .sort((a, b) => a.min - b.min);
-  const cond = ['tool', 'food'].filter(k => filter[k] !== 'all').map(filterName).join('・');
+  const items = RECIPES.filter(r => matches(r, filter)).sort(SORTS[sortBy]);
+  const names = k => FILTERS[k].items.filter(x => filter[k].has(x.id)).map(x => x.name);
+  const cond = [...names('tool'), ...names('food')].join('・');
   $('count').innerHTML = (current === 'all'
     ? 'つまみ'
     : `<span class="drink-name">${drinkName(current)}</span>に合うつまみ`)
     + (cond ? `（${esc(cond)}）` : '') + ` <b>${items.length}</b>品`;
   $('list').innerHTML = items.length ? items.map(cardHTML).join('')
-    : `<li class="empty"><i class="ri-search-line"></i>この組み合わせのつまみは、まだありません。<br><button data-clear>調理方法と食材の絞り込みを外す</button></li>`;
-  renderFilters();
+    : `<li class="empty"><i class="ri-search-line"></i>この組み合わせのつまみは、まだありません。<br><button data-clear>絞り込みを外す</button></li>`;
+  const n = filter.tool.size + filter.food.size;
+  $('filterBtn').classList.toggle('on', n > 0);
+  $('filterBtn').innerHTML = `<i class="ri-equalizer-line"></i>絞り込み${n ? `<span class="n">${n}</span>` : ''}`;
+  $('sortSel').value = sortBy;
 }
 
-function setFilter(k, id){
-  filter[k] = id;
-  filterOpen = null;
-  renderList();
-  // 一覧の途中まで下げていたら、絞り込んだ結果の先頭に戻す
+function renderFilterModal(){
+  for(const [k, el] of [['tool', 'fTool'], ['food', 'fFood']]){
+    $(el).innerHTML = FILTERS[k].items
+      .map(x => `<button class="chip${draft[k].has(x.id) ? ' on' : ''}" data-k="${k}" data-id="${x.id}">${x.icon ? `<i class="${x.icon}"></i>` : ''}${x.name}</button>`).join('');
+  }
+  const n = RECIPES.filter(r => matches(r, draft)).length;
+  $('fApply').textContent = n ? `${n}品を見る` : '該当なし';
+  $('fApply').disabled = !n;
+}
+
+function scrollToListTop(){
+  // 一覧の途中まで下げていたら、先頭に戻す
   const top = $('count').getBoundingClientRect().top - document.querySelector('.drinks').offsetHeight;
   if(top < 0) window.scrollBy({top, behavior: 'smooth'});
 }
@@ -639,6 +722,7 @@ function openRecipe(id){
     <img class="hero" src="${photo(r)}" alt="${esc(r.name)}" onerror="this.remove()">
     <h2 class="d-name">${esc(r.name)}</h2>
     <p class="d-catch">${esc(r.catch)}</p>
+    <p class="d-saves" id="dSaves"></p>
     <div class="d-actions"><button id="dShare"><i class="ri-share-forward-line"></i>このつまみを送る</button></div>
     <dl class="meta">
       <div><dt>時間</dt><dd>${r.min}分</dd></div>
@@ -653,10 +737,17 @@ function openRecipe(id){
     <h3 class="d-h">作り方</h3>
     <ol class="steps">${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>`;
   renderDetailSave();
+  renderDetailSaves();
   $('sheet').scrollTop = 0;
   $('sheet').classList.add('open');
   $('sheet').setAttribute('aria-hidden', 'false');
   document.body.classList.add('lock');
+}
+
+function renderDetailSaves(){
+  const n = saveCount(openId);
+  $('dSaves').hidden = !n;
+  $('dSaves').innerHTML = n ? `<i class="ri-bookmark-fill"></i>${n}人が保存しています` : '';
 }
 
 function closeRecipe(){
@@ -693,24 +784,36 @@ $('tabbar').addEventListener('click', e => {
   location.hash = v === 'search' ? (current === 'all' ? '' : current) : v;
   if(v === view && !openId) window.scrollTo({top: 0, behavior: 'smooth'});
 });
-$('filters').addEventListener('click', e => {
-  const b = e.target.closest('.f-btn');
-  if(!b) return;
-  filterOpen = filterOpen === b.dataset.f ? null : b.dataset.f;
-  renderFilters();
+$('filterBtn').addEventListener('click', () => {
+  draft = {tool: new Set(filter.tool), food: new Set(filter.food)};
+  renderFilterModal();
+  $('filterModal').hidden = false;
 });
-$('fPanel').addEventListener('click', e => {
-  const b = e.target.closest('.chip');
-  if(b) setFilter(filterOpen, b.dataset.id);
+$('filterModal').addEventListener('click', e => {
+  const c = e.target.closest('.chip');
+  if(c){
+    const set = draft[c.dataset.k];
+    set.has(c.dataset.id) ? set.delete(c.dataset.id) : set.add(c.dataset.id);
+    renderFilterModal();
+  }
+  if(e.target.closest('#fClear')){ draft = {tool: new Set(), food: new Set()}; renderFilterModal(); }
+  if(e.target.closest('#fApply')){
+    filter.tool = draft.tool; filter.food = draft.food;
+    closeModals();
+    renderList();
+    scrollToListTop();
+  }
+});
+$('sortSel').addEventListener('change', e => {
+  sortBy = e.target.value;
+  store.set(SORT_KEY, sortBy);
+  renderList();
+  scrollToListTop();
 });
 $('list').addEventListener('click', e => {
   if(!e.target.closest('[data-clear]')) return;
-  filter.tool = filter.food = 'all';
+  filter.tool = new Set(); filter.food = new Set();
   renderList();
-});
-// 選択肢を開いたまま、外を押したら閉じる
-document.addEventListener('click', e => {
-  if(filterOpen && !e.target.closest('#filters, #fPanel')){ filterOpen = null; renderFilters(); }
 });
 $('chips').addEventListener('click', e => {
   const b = e.target.closest('.chip');
@@ -759,8 +862,6 @@ function updateInstallUI(){
   const standalone = isStandalone();
   // マイページのボタン：ホーム画面から開いているとき以外は、スマホなら出す
   $('installMenu').hidden = standalone || !(installPrompt || isMobile);
-  // さがす画面の案内：その場で追加できるとき（Android）と iPhone だけ。閉じたら出さない
-  $('installBanner').hidden = standalone || !!store.get(INSTALL_KEY) || !(installPrompt || isIOS);
 }
 
 async function openInstall(){
@@ -794,7 +895,6 @@ window.addEventListener('appinstalled', () => {
   updateInstallUI();
 });
 document.addEventListener('click', e => { if(e.target.closest('[data-install]')) openInstall(); });
-$('installBannerClose').addEventListener('click', () => { store.set(INSTALL_KEY, String(Date.now())); updateInstallUI(); });
 updateInstallUI();
 
 // ホーム画面に追加できるようにするためのサービスワーカー。ページは毎回ネットから取る（sw.js）
@@ -802,6 +902,7 @@ if('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWork
 
 window.addEventListener('hashchange', applyHash);
 applyHash();
+watchStats();
 </script>
 </body>
 </html>
