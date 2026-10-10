@@ -24,7 +24,7 @@
 *{box-sizing:border-box;}
 body{margin:0;background:var(--white);color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.8;}
 a{color:inherit;}
-.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 48px;}
+.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(48px + 68px + env(safe-area-inset-bottom,0px));}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .logo{display:block;width:132px;height:auto;}
 .logo path{fill:var(--ink);}
@@ -73,6 +73,7 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .note a{margin:0 6px;}
 </style>
 <link rel="stylesheet" href="../../footer.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Recipe", "name": "しいたけのマヨチーズ焼き", "description": "かさの裏に詰めて、トースターで焼くだけ。", "image": ["https://osakenomitai.com/sakenotsumami/images/shiitake-mayo.jpg"], "author": {"@type": "Organization", "name": "サケノツマミ", "url": "https://osakenomitai.com/sakenotsumami/"}, "totalTime": "PT10M", "recipeYield": "2人分", "recipeCategory": "おつまみ", "keywords": "おつまみ,家飲み,晩酌,ビール,ハイボール,ワイン", "recipeIngredient": ["しいたけ 6個", "マヨネーズ 大さじ1", "ピザ用チーズ 30g", "醤油 少々", "乾燥パセリ 少々"], "recipeInstructions": [{"@type": "HowToStep", "text": "しいたけは軸を取る。軸は石づきを落として刻む。"}, {"@type": "HowToStep", "text": "かさの裏に刻んだ軸とマヨネーズをのせ、チーズをのせる。"}, {"@type": "HowToStep", "text": "トースターで7〜8分、チーズに焼き色がつくまで焼く。醤油を少したらし、パセリをふる。"}]}</script>
 </head>
 <body>
@@ -101,5 +102,6 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 <p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="../../terms.html">利用規約</a><a href="../../privacy.html">プライバシーポリシー</a></p>
 </div>
+<nav class="tabbar" aria-label="アプリのメニュー"><a class="tab" href="../../#home"><i class="ri-home-5-line" aria-hidden="true"></i><span>ホーム</span></a><a class="tab" href="../../#all"><i class="ri-search-line" aria-hidden="true"></i><span>さがす</span></a><a class="tab" href="../../#saved"><i class="ri-bookmark-line" aria-hidden="true"></i><span>保存</span></a><a class="tab" href="../../#mypage"><i class="ri-user-3-line" aria-hidden="true"></i><span>マイページ</span></a></nav>
 </body>
 </html>

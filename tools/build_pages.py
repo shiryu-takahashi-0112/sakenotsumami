@@ -117,7 +117,7 @@ CSS = '''
 *{box-sizing:border-box;}
 body{margin:0;background:var(--white);color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.8;}
 a{color:inherit;}
-.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 48px;}
+.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(48px + 68px + env(safe-area-inset-bottom,0px));}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .logo{display:block;width:132px;height:auto;}
 .logo path{fill:var(--ink);}
@@ -167,8 +167,18 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 '''
 
 
-def page(*, path, title, desc, image, body, jsonld, up):
-    """1ページ分のHTML。up はサイトの一番上への相対パス（recipes/x/ なら ../../）"""
+def tabbar(up, search='all'):
+    """アプリと同じ下のタブ（2026-10-10）。検索用のページからも、いつでもアプリに戻れるようにする。
+    さがすは、そのページに合う絞り込み（#highball・#c-5min・#i-cabbage）でアプリを開く"""
+    tabs = [('home', 'ri-home-5-line', 'ホーム'), (search, 'ri-search-line', 'さがす'),
+            ('saved', 'ri-bookmark-line', '保存'), ('mypage', 'ri-user-3-line', 'マイページ')]
+    return ('<nav class="tabbar" aria-label="アプリのメニュー">'
+            + ''.join(f'<a class="tab" href="{up}#{h}"><i class="{i}" aria-hidden="true"></i><span>{t}</span></a>' for h, i, t in tabs)
+            + '</nav>')
+
+
+def page(*, path, title, desc, image, body, jsonld, up, search='all'):
+    """1ページ分のHTML。up はサイトの一番上への相対パス（recipes/x/ なら ../../）。search は下のタブの「さがす」の行き先"""
     url = BASE + path
     return f'''<!DOCTYPE html>
 <html lang="ja">
@@ -193,6 +203,7 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>{CSS}</style>
 <link rel="stylesheet" href="{up}footer.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
 <body>
@@ -202,6 +213,7 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="{up}terms.html">利用規約</a><a href="{up}privacy.html">プライバシーポリシー</a></p>
 </div>
+{tabbar(up, search)}
 </body>
 </html>
 '''
@@ -263,7 +275,7 @@ def drink_page(d):
         '@context': 'https://schema.org', '@type': 'ItemList', 'name': title,
         'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': f"{BASE}recipes/{r['id']}/"} for i, r in enumerate(items)],
     }
-    return page(path=f"drinks/{d['id']}/", title=title, desc=desc, image=f'{BASE}og-image.jpg', body=body, jsonld=jsonld, up='../../')
+    return page(path=f"drinks/{d['id']}/", title=title, desc=desc, image=f'{BASE}og-image.jpg', body=body, jsonld=jsonld, up='../../', search=d['id'])
 
 
 def chips(title, links):
@@ -334,7 +346,7 @@ def drink_cond_page(d, c):
 {chips(f"ほかのお酒で、{c['mod']}つまみ", [f'<a href="../../{o["id"]}/{c["slug"]}/">{e(o["name"])}</a>' for o, cc in DRINK_CONDS if cc is c and o is not d])}
 {footer('../../../')}'''
     return page(path=f"drinks/{d['id']}/{c['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
-                jsonld=item_list(title, items), up='../../../')
+                jsonld=item_list(title, items), up='../../../', search=d['id'])
 
 
 def ingredient_page(g):
@@ -357,7 +369,7 @@ def ingredient_page(g):
 <a class="cta" href="../../">アプリでほかのつまみを探す</a>
 {footer('../../', f"ingredients/{g['slug']}/")}'''
     return page(path=f"ingredients/{g['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
-                jsonld=item_list(title, items), up='../../')
+                jsonld=item_list(title, items), up='../../', search=f"i-{g['slug']}")
 
 
 def cond_page(c):
@@ -378,7 +390,7 @@ def cond_page(c):
 {chips(f"お酒ごとに、{c['mod']}つまみ", [f'<a href="../../drinks/{d["id"]}/{c["slug"]}/">{e(d["name"])}</a>' for d, cc in DRINK_CONDS if cc is c])}
 {footer('../../', f"conditions/{c['slug']}/")}'''
     return page(path=f"conditions/{c['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
-                jsonld=item_list(title, items), up='../../')
+                jsonld=item_list(title, items), up='../../', search=f"c-{c['slug']}")
 
 
 def news_page():
@@ -410,6 +422,20 @@ def week_card(up):
             f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
 
 
+def cards(title, groups, used):
+    """ホームの写真つきの横に流れるカード。写真は、その仲間で recipes.js の先に載っている写真のある品
+    （ホームの中でなるべく写真が重ならないようにする。used に使った品を入れていく）。写真のある品が無い仲間は出さない（黄色の地は使わない）"""
+    out = []
+    for href, name, items in groups:
+        r = next((r for r in items if has_photo(r) and r['id'] not in used), None) or next((r for r in items if has_photo(r)), None)
+        if not r:
+            continue
+        used.add(r['id'])
+        out.append(f'<a class="ft-card" href="{href}" role="listitem"><img src="images/{r["id"]}.jpg" alt="" loading="lazy" width="132" height="132">'
+                   f'<b>{e(name)}</b><span>{len(items)}品</span></a>')
+    return f'<p class="ft-h">{e(title)}</p><div class="ft-cards" role="list" aria-label="{e(title)}">{"".join(out)}</div>'
+
+
 def write_app_home():
     """アプリのホーム（index.html の home:start〜home:end の間）を書き出す（2026-10-10）。
     検索用ページの下の一覧（footer）と同じ並び・同じ見た目で、リンク先だけをアプリの中の「さがす」にする。
@@ -420,9 +446,10 @@ def write_app_home():
     out = []
     if WEEK_DATA:
         out.append(week_card(''))
-    out.append(chips('お酒からさがす', [f'<a href="#{d["id"]}">{e(d["name"])}</a>' for d in DRINKS]))
-    out.append(chips('作り方からさがす', [f'<a href="#c-{c["slug"]}">{e(c["name"])}</a>' for c in CONDS]))
-    out.append(chips('食材からさがす', [f'<a href="#i-{g["slug"]}">{e(g["name"])}</a>' for g in INGS]))
+    used = set()
+    out.append(cards('お酒からさがす', [(f"#{d['id']}", d['name'], [r for r in RECIPES if d['id'] in r['drinks']]) for d in DRINKS], used))
+    out.append(cards('作り方からさがす', [(f"#c-{c['slug']}", c['name'], [r for r in RECIPES if c['test'](r)]) for c in CONDS], used))
+    out.append(cards('食材からさがす', [(f"#i-{g['slug']}", g['name'], g['items']) for g in INGS], used))
     if NEWS:
         out.append('<p class="ft-h">お知らせ</p><ul class="ft-news">' + ''.join(
             f'<li><a href="news/#{e(n["id"])}"><time datetime="{n["date"]}">{jp_date(n["date"], False)}</time><b>{e(n["title"])}</b></a></li>'

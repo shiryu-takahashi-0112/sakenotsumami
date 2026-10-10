@@ -24,7 +24,7 @@
 *{box-sizing:border-box;}
 body{margin:0;background:var(--white);color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.8;}
 a{color:inherit;}
-.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 48px;}
+.wrap{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(48px + 68px + env(safe-area-inset-bottom,0px));}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .logo{display:block;width:132px;height:auto;}
 .logo path{fill:var(--ink);}
@@ -73,6 +73,7 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .note a{margin:0 6px;}
 </style>
 <link rel="stylesheet" href="../../footer.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Recipe", "name": "牛肉のねぎ巻き焼き", "description": "小ねぎを牛肉で巻いて、甘辛だれで焼く。", "image": ["https://osakenomitai.com/sakenotsumami/og-image.jpg"], "author": {"@type": "Organization", "name": "サケノツマミ", "url": "https://osakenomitai.com/sakenotsumami/"}, "totalTime": "PT20M", "recipeYield": "2人分", "recipeCategory": "おつまみ", "keywords": "おつまみ,家飲み,晩酌,日本酒,ビール,焼酎", "recipeIngredient": ["牛もも薄切り肉 6枚（150g）", "小ねぎ 1/2束", "塩 少々", "醤油 大さじ1", "みりん 大さじ1", "砂糖 小さじ1", "サラダ油 少々"], "recipeInstructions": [{"@type": "HowToStep", "text": "小ねぎは牛肉の幅に合わせて切る。醤油、みりん、砂糖を混ぜる。"}, {"@type": "HowToStep", "text": "牛肉を広げて塩をふり、小ねぎをのせて端からきつく巻く。"}, {"@type": "HowToStep", "text": "油を薄く塗ったアルミホイルに巻き終わりを下にして並べ、たれの半量を塗る。"}, {"@type": "HowToStep", "text": "トースターで6分焼き、残りのたれを塗ってさらに3〜4分焼く。食べやすく切る。"}]}</script>
 </head>
 <body>
@@ -101,5 +102,6 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 <p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="../../terms.html">利用規約</a><a href="../../privacy.html">プライバシーポリシー</a></p>
 </div>
+<nav class="tabbar" aria-label="アプリのメニュー"><a class="tab" href="../../#home"><i class="ri-home-5-line" aria-hidden="true"></i><span>ホーム</span></a><a class="tab" href="../../#all"><i class="ri-search-line" aria-hidden="true"></i><span>さがす</span></a><a class="tab" href="../../#saved"><i class="ri-bookmark-line" aria-hidden="true"></i><span>保存</span></a><a class="tab" href="../../#mypage"><i class="ri-user-3-line" aria-hidden="true"></i><span>マイページ</span></a></nav>
 </body>
 </html>
