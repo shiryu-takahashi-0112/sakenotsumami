@@ -57,19 +57,22 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .card b{display:block;font-size:15px;line-height:1.4;}
 .card span{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
 .lead{font-size:14px;color:var(--muted);margin:8px 0 18px;}
-.drinks{display:flex;flex-wrap:wrap;gap:6px;margin:24px 0 0;}
-.drinks a{font-size:13px;font-weight:700;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;text-decoration:none;}
 .note{margin:32px 0 0;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.7;}
-.sub{margin:28px 0 0;font-size:13px;font-weight:900;}
-.sub+.drinks{margin-top:8px;}
 .reel{margin:26px 0 0;}
 .reel .day{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 4px;}
 .reel .day em{font-style:normal;font-size:11px;font-weight:900;color:var(--ink);background:var(--main);border-radius:999px;padding:1px 8px;}
 .reel h2{margin:0 0 10px;}
 .reel.later{opacity:.55;}
 .cta.top{margin:16px 0 0;}
+.news{margin:22px 0 0;padding:0 0 20px;border-bottom:1px solid var(--line);}
+.news-date{margin:0;font-size:12.5px;font-weight:700;color:var(--muted);}
+.news h2{display:block;margin:4px 0 8px;line-height:1.5;}
+.news h2:before{display:none;}
+.news p{margin:0 0 6px;font-size:14.5px;line-height:1.8;}
+.news-link{display:inline-block;margin-top:4px;font-size:13.5px;font-weight:700;}
 .note a{margin:0 6px;}
 </style>
+<link rel="stylesheet" href="../../footer.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Recipe", "name": "ズッキーニのチーズ焼き", "description": "輪切りを並べて、チーズをのせて焼く。", "image": ["https://osakenomitai.com/sakenotsumami/images/zucchini-cheese.jpg"], "author": {"@type": "Organization", "name": "サケノツマミ", "url": "https://osakenomitai.com/sakenotsumami/"}, "totalTime": "PT12M", "recipeYield": "2人分", "recipeCategory": "おつまみ", "keywords": "おつまみ,家飲み,晩酌,ワイン,ハイボール,レモンサワー", "recipeIngredient": ["ズッキーニ 1本", "塩 少々", "オリーブオイル 小さじ2", "ピザ用チーズ 40g", "乾燥バジル 少々"], "recipeInstructions": [{"@type": "HowToStep", "text": "ズッキーニは1cm幅の輪切りにする。"}, {"@type": "HowToStep", "text": "アルミホイルに並べ、塩とオリーブオイルをふってチーズをのせる。"}, {"@type": "HowToStep", "text": "トースターで8〜10分、チーズに焼き色がつくまで焼く。バジルをふる。"}]}</script>
 </head>
 <body>
@@ -88,8 +91,13 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 <h2>作り方</h2>
 <ol class="steps"><li>ズッキーニは1cm幅の輪切りにする。</li><li>アルミホイルに並べ、塩とオリーブオイルをふってチーズをのせる。</li><li>トースターで8〜10分、チーズに焼き色がつくまで焼く。バジルをふる。</li></ol>
 <a class="cta" href="../../#all/zucchini-cheese">アプリで開いて保存する</a>
-<p class="sub">この品が載っている一覧</p><div class="drinks"><a href="../../ingredients/cheese/">チーズのつまみ</a></div>
-<div class="drinks"><a href="../../drinks/beer/">ビールに合うつまみ</a><a href="../../drinks/highball/">ハイボールに合うつまみ</a><a href="../../drinks/sour/">レモンサワーに合うつまみ</a><a href="../../drinks/sake/">日本酒に合うつまみ</a><a href="../../drinks/shochu/">焼酎に合うつまみ</a><a href="../../drinks/wine/">ワインに合うつまみ</a></div>
+<p class="ft-h">この品が載っている一覧</p><div class="ft-chips"><a href="../../ingredients/cheese/">チーズのつまみ</a></div>
+<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="../../week/"><div><b>今週のリールのつまみ</b><span>10月10日〜10月16日に紹介する19品</span></div></a>
+<p class="ft-h">お酒からさがす</p><div class="ft-chips"><a href="../../drinks/beer/">ビール</a><a href="../../drinks/highball/">ハイボール</a><a href="../../drinks/sour/">レモンサワー</a><a href="../../drinks/sake/">日本酒</a><a href="../../drinks/shochu/">焼酎</a><a href="../../drinks/wine/">ワイン</a></div>
+<p class="ft-h">作り方からさがす</p><div class="ft-chips"><a href="../../conditions/no-fire/">火を使わない</a><a href="../../conditions/5min/">5分以内</a><a href="../../conditions/range/">レンジだけ</a><a href="../../conditions/pan/">フライパンひとつ</a></div>
+<p class="ft-h">食材からさがす</p><div class="ft-chips"><a href="../../ingredients/cheese/">チーズ</a><a href="../../ingredients/onion/">玉ねぎ</a><a href="../../ingredients/egg/">卵</a><a href="../../ingredients/chicken/">鶏肉</a><a href="../../ingredients/pork/">豚肉</a><a href="../../ingredients/beef/">牛肉</a><a href="../../ingredients/bacon/">ベーコン</a><a href="../../ingredients/ham/">ハム・生ハム</a><a href="../../ingredients/tomato/">トマト</a><a href="../../ingredients/mushroom/">きのこ</a><a href="../../ingredients/tofu/">豆腐</a><a href="../../ingredients/aburaage/">油揚げ・厚揚げ</a><a href="../../ingredients/piman/">ピーマン</a><a href="../../ingredients/cabbage/">キャベツ</a><a href="../../ingredients/cucumber/">きゅうり</a><a href="../../ingredients/potato/">じゃがいも</a><a href="../../ingredients/carrot/">にんじん</a><a href="../../ingredients/daikon/">大根</a><a href="../../ingredients/shrimp/">えび</a><a href="../../ingredients/nerimono/">ちくわ・練り物</a><a href="../../ingredients/tuna/">ツナ・サバ缶</a></div>
+<p class="ft-h">サケノツマミから</p><div class="ft-chips"><a href="../../news/" data-news="2026-10-11">お知らせ</a></div>
+<script>document.querySelectorAll('[data-news]').forEach(function(a){var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();if(d<7*864e5&&!a.querySelector('.ft-new'))a.insertAdjacentHTML('beforeend','<span class=\'ft-new\'>NEW</span>');});</script>
 <p class="note">飲みすぎに注意しましょう。飲酒運転は法律で禁止されています。<br>
 <a href="../../terms.html">利用規約</a><a href="../../privacy.html">プライバシーポリシー</a></p>
 </div>

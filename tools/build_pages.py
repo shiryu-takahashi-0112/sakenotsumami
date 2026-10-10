@@ -107,6 +107,11 @@ DRINK_CONDS = [(d, c) for d in DRINKS for c in CONDS if len(drink_cond_items(d, 
 INGS = [{'slug': s, 'name': n, 'items': ingredient_items(p)} for s, n, p in INGREDIENTS]
 INGS = [g for g in INGS if len(g['items']) >= MIN_ING_ITEMS]
 
+WEEK = ROOT / 'data' / 'reels_week.json'
+WEEK_DATA = json.loads(WEEK.read_text()) if WEEK.exists() else None
+# お知らせ（2026-10-10）。新しい順に並べて出す
+NEWS = sorted(json.loads((ROOT / 'data' / 'news.json').read_text()), key=lambda n: n['date'], reverse=True)
+
 CSS = '''
 :root{--white:#fff;--ink:#121212;--main:#F2C600;--main-soft:rgba(242,198,0,.16);--soft:#f7f7f5;--line:rgba(18,18,18,.12);--muted:rgba(18,18,18,.55);}
 *{box-sizing:border-box;}
@@ -145,17 +150,19 @@ h2:before{content:'';width:4px;height:16px;border-radius:2px;background:var(--ma
 .card b{display:block;font-size:15px;line-height:1.4;}
 .card span{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
 .lead{font-size:14px;color:var(--muted);margin:8px 0 18px;}
-.drinks{display:flex;flex-wrap:wrap;gap:6px;margin:24px 0 0;}
-.drinks a{font-size:13px;font-weight:700;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;text-decoration:none;}
 .note{margin:32px 0 0;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.7;}
-.sub{margin:28px 0 0;font-size:13px;font-weight:900;}
-.sub+.drinks{margin-top:8px;}
 .reel{margin:26px 0 0;}
 .reel .day{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 4px;}
 .reel .day em{font-style:normal;font-size:11px;font-weight:900;color:var(--ink);background:var(--main);border-radius:999px;padding:1px 8px;}
 .reel h2{margin:0 0 10px;}
 .reel.later{opacity:.55;}
 .cta.top{margin:16px 0 0;}
+.news{margin:22px 0 0;padding:0 0 20px;border-bottom:1px solid var(--line);}
+.news-date{margin:0;font-size:12.5px;font-weight:700;color:var(--muted);}
+.news h2{display:block;margin:4px 0 8px;line-height:1.5;}
+.news h2:before{display:none;}
+.news p{margin:0 0 6px;font-size:14.5px;line-height:1.8;}
+.news-link{display:inline-block;margin-top:4px;font-size:13.5px;font-weight:700;}
 .note a{margin:0 6px;}
 '''
 
@@ -185,6 +192,7 @@ def page(*, path, title, desc, image, body, jsonld, up):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>{CSS}</style>
+<link rel="stylesheet" href="{up}footer.css">
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
 <body>
@@ -218,7 +226,7 @@ def recipe_page(r):
 <ol class="steps">{''.join(f'<li>{e(s)}</li>' for s in r['steps'])}</ol>
 <a class="cta" href="../../#all/{r['id']}">アプリで開いて保存する</a>
 {related_links(r)}
-<div class="drinks">{''.join(f'<a href="../../drinks/{d["id"]}/">{e(d["name"])}に合うつまみ</a>' for d in DRINKS)}</div>'''
+{footer('../../')}'''
     jsonld = {
         '@context': 'https://schema.org', '@type': 'Recipe',
         'name': r['name'], 'description': r['catch'], 'image': [img],
@@ -237,7 +245,7 @@ def related_links(r):
     ings = [g for g in INGS if r in g['items']]
     links = [f'<a href="../../drinks/{d["id"]}/{c["slug"]}/">{e(d["name"])}に合う、{e(c["mod"])}つまみ</a>' for d, c in conds]
     links += [f'<a href="../../ingredients/{g["slug"]}/">{e(g["name"])}のつまみ</a>' for g in ings]
-    return f'<p class="sub">この品が載っている一覧</p><div class="drinks">{"".join(links)}</div>' if links else ''
+    return chips('この品が載っている一覧', links)
 
 
 def drink_page(d):
@@ -250,8 +258,7 @@ def drink_page(d):
 <ul class="list">{''.join(card(r) for r in items)}</ul>
 <a class="cta" href="../../#{d['id']}">アプリで{e(d['name'])}のつまみを探す</a>
 {cond_links(d, '')}
-{ing_links()}
-<div class="drinks">{''.join(f'<a href="../{o["id"]}/">{e(o["name"])}に合うつまみ</a>' for o in DRINKS if o['id'] != d['id'])}</div>'''
+{footer('../../', f"drinks/{d['id']}/")}'''
     jsonld = {
         '@context': 'https://schema.org', '@type': 'ItemList', 'name': title,
         'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': f"{BASE}recipes/{r['id']}/"} for i, r in enumerate(items)],
@@ -259,14 +266,36 @@ def drink_page(d):
     return page(path=f"drinks/{d['id']}/", title=title, desc=desc, image=f'{BASE}og-image.jpg', body=body, jsonld=jsonld, up='../../')
 
 
+def chips(title, links):
+    """小見出し＋丸いリンクの並び（見た目は footer.css）"""
+    return f'<p class="ft-h">{e(title)}</p><div class="ft-chips">{"".join(links)}</div>' if links else ''
+
+
+def footer(up, here=''):
+    """どのページも同じ形で終える：今週のリール・お酒・作り方・食材。here は今いるページのパス（自分へのリンクは出さない）"""
+    out = []
+    if WEEK_DATA and here != 'week/':
+        n = sum(len(it['ids']) for it in WEEK_DATA['items'])
+        out.append(f'''<p class="ft-h">Instagramのリールから</p><a class="ft-week" href="{up}week/"><div><b>今週のリールのつまみ</b>'''
+                   f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
+    out.append(chips('お酒からさがす', [f'<a href="{up}drinks/{d["id"]}/">{e(d["name"])}</a>' for d in DRINKS if here != f"drinks/{d['id']}/"]))
+    out.append(chips('作り方からさがす', [f'<a href="{up}conditions/{c["slug"]}/">{e(c["name"])}</a>' for c in CONDS if here != f"conditions/{c['slug']}/"]))
+    out.append(chips('食材からさがす', [f'<a href="{up}ingredients/{g["slug"]}/">{e(g["name"])}</a>' for g in INGS if here != f"ingredients/{g['slug']}/"]))
+    if NEWS and here != 'news/':
+        # いちばん新しいお知らせが7日以内なら「NEW」を付ける（日付の判定は開いた人の端末で行う）
+        out.append(chips('サケノツマミから', [f'<a href="{up}news/" data-news="{NEWS[0]["date"]}">お知らせ</a>']))
+        out.append(NEWS_JS)
+    return '\n'.join(out)
+
+
+NEWS_JS = ("<script>document.querySelectorAll('[data-news]').forEach(function(a){"
+           "var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();"
+           "if(d<7*864e5&&!a.querySelector('.ft-new'))a.insertAdjacentHTML('beforeend','<span class=\\'ft-new\\'>NEW</span>');});</script>")
+
+
 def cond_links(d, base, skip=None):
     links = [f'<a href="{base}{c["slug"]}/">{e(c["name"])}</a>' for dd, c in DRINK_CONDS if dd is d and c is not skip]
-    return f'<p class="sub">{e(d["name"])}に合うつまみを、作り方でしぼる</p><div class="drinks">{"".join(links)}</div>' if links else ''
-
-
-def ing_links(skip=None, up='../../'):
-    return ('<p class="sub">食材からさがす</p><div class="drinks">'
-            + ''.join(f'<a href="{up}ingredients/{g["slug"]}/">{e(g["name"])}</a>' for g in INGS if g is not skip) + '</div>')
+    return chips(f"{d['name']}に合うつまみを、作り方でしぼる", links)
 
 
 def list_image(items):
@@ -304,9 +333,8 @@ def drink_cond_page(d, c):
 <ul class="list">{''.join(card(r, '../../../', drinks=False) for r in items)}</ul>
 <a class="cta" href="../../../#{d['id']}">アプリで{e(d['name'])}のつまみを探す</a>
 {cond_links(d, '../', skip=c)}
-{ing_links(up='../../../')}
-<p class="sub">ほかのお酒で、{e(c['mod'])}つまみ</p><div class="drinks">{''.join(f'<a href="../../{o["id"]}/{c["slug"]}/">{e(o["name"])}</a>' for o, cc in DRINK_CONDS if cc is c and o is not d)}</div>
-<div class="drinks">{''.join(f'<a href="../../{o["id"]}/">{e(o["name"])}に合うつまみ</a>' for o in DRINKS)}</div>'''
+{chips(f"ほかのお酒で、{c['mod']}つまみ", [f'<a href="../../{o["id"]}/{c["slug"]}/">{e(o["name"])}</a>' for o, cc in DRINK_CONDS if cc is c and o is not d])}
+{footer('../../../')}'''
     return page(path=f"drinks/{d['id']}/{c['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
                 jsonld=item_list(title, items), up='../../../')
 
@@ -329,10 +357,62 @@ def ingredient_page(g):
 <p class="lead">{e(intro)}</p>
 <ul class="list">{''.join(card(r, drinks=True) for r in items)}</ul>
 <a class="cta" href="../../">アプリでほかのつまみを探す</a>
-{ing_links(skip=g)}
-<div class="drinks">{''.join(f'<a href="../../drinks/{o["id"]}/">{e(o["name"])}に合うつまみ</a>' for o in DRINKS)}</div>'''
+{footer('../../', f"ingredients/{g['slug']}/")}'''
     return page(path=f"ingredients/{g['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
                 jsonld=item_list(title, items), up='../../')
+
+
+def cond_page(c):
+    """作り方ごとの一覧（お酒を問わない）。アプリのトップの「作り方からさがす」から来る"""
+    items = sorted([r for r in RECIPES if c['test'](r)], key=lambda r: (r['min'], r['name']))
+    n = len(items)
+    counts = sorted(((sum(d['id'] in r['drinks'] for r in items), i, d) for i, d in enumerate(DRINKS)), key=lambda x: (-x[0], x[1]))
+    often = '、'.join(f"{d['name']}（{k}品）" for k, _, d in counts[:3] if k)
+    title = f"{c['mod']}つまみ{n}品｜お酒に合うおつまみレシピ｜サケノツマミ"
+    intro = (f"{c['how']}つまみを{n}品集めました。合うお酒は{often}が多く、"
+             f"いちばん短いものは{items[0]['min']}分。{examples(items)}など、すべて2人分です。")
+    desc = f"{c['how']}おつまみレシピ{n}品。{examples(items, 3)}など。作る時間の短い順に、合うお酒つきで紹介します。"
+    body = f'''<p class="crumb"><a href="../../">サケノツマミ</a> ／ 作り方からさがす ／ {e(c['name'])}</p>
+<h1>{e(c['mod'])}つまみ {n}品</h1>
+<p class="lead">{e(intro)}</p>
+<ul class="list">{''.join(card(r, drinks=True) for r in items)}</ul>
+<a class="cta" href="../../">アプリでほかのつまみを探す</a>
+{chips(f"お酒ごとに、{c['mod']}つまみ", [f'<a href="../../drinks/{d["id"]}/{c["slug"]}/">{e(d["name"])}</a>' for d, cc in DRINK_CONDS if cc is c])}
+{footer('../../', f"conditions/{c['slug']}/")}'''
+    return page(path=f"conditions/{c['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
+                jsonld=item_list(title, items), up='../../')
+
+
+def news_page():
+    """お知らせ。中身は data/news.json（新しい機能を出したら、同じPRで1件足す）"""
+    title = 'お知らせ｜サケノツマミ'
+    desc = 'サケノツマミの新しい機能や、レシピの追加のお知らせ。' + (f"最新：{NEWS[0]['title']}（{jp_date(NEWS[0]['date'], False)}）" if NEWS else '')
+    items = []
+    for n in NEWS:
+        link = f'<a class="news-link" href="../{n["link"]["href"]}">{e(n["link"]["label"])}</a>' if n.get('link') else ''
+        items.append(f'''<article class="news" id="{e(n['id'])}">
+<p class="news-date"><time datetime="{n['date']}">{jp_date(n['date'])}</time></p>
+<h2>{e(n['title'])}</h2>
+{''.join(f'<p>{e(t)}</p>' for t in n['body'])}
+{link}
+</article>''')
+    body = f'''<p class="crumb"><a href="../">サケノツマミ</a> ／ お知らせ</p>
+<h1>お知らせ</h1>
+{''.join(items)}
+<a class="cta" href="../">アプリでつまみを探す</a>
+{footer('../', 'news/')}'''
+    jsonld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': title,
+              'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n['title'], 'url': f"{BASE}news/#{n['id']}"} for i, n in enumerate(NEWS)]}
+    return page(path='news/', title=title, desc=desc, image=f'{BASE}og-image.jpg', body=body, jsonld=jsonld, up='../')
+
+
+def write_app_footer():
+    """アプリのトップ（index.html）の下の一覧も、同じ footer() で書き出す。印の間だけを置き換える"""
+    p = ROOT / 'index.html'
+    s = p.read_text(encoding='utf-8')
+    a, b = '<!-- ft:start（tools/build_pages.py が書き出す。手で直さない） -->', '<!-- ft:end -->'
+    i, j = s.index(a) + len(a), s.index(b)
+    p.write_text(s[:i] + '\n' + footer('') + '\n' + s[j:], encoding='utf-8')
 
 
 WEEKDAY = '月火水木金土日'
@@ -364,6 +444,7 @@ def week_page(w):
 <a class="cta top" href="../">アプリでほかのつまみを探す</a>
 {''.join(sections)}
 <a class="cta" href="../">アプリでほかのつまみを探す</a>
+{footer('../', 'week/')}
 <script>
 // 今日のリールに印を付け、まだ出ていない日の品は薄くする（日本時間で判定）
 (function(){{
@@ -391,6 +472,7 @@ for d in DRINKS:
     for sub in [p for p in (ROOT / 'drinks' / d['id']).iterdir() if p.is_dir()]:
         shutil.rmtree(sub)
 shutil.rmtree(ROOT / 'ingredients', ignore_errors=True)
+shutil.rmtree(ROOT / 'conditions', ignore_errors=True)
 
 for r in RECIPES:
     write(f"recipes/{r['id']}/index.html", recipe_page(r))
@@ -400,14 +482,19 @@ for d, c in DRINK_CONDS:
     write(f"drinks/{d['id']}/{c['slug']}/index.html", drink_cond_page(d, c))
 for g in INGS:
     write(f"ingredients/{g['slug']}/index.html", ingredient_page(g))
-WEEK = ROOT / 'data' / 'reels_week.json'
-week = json.loads(WEEK.read_text()) if WEEK.exists() else None
+for c in CONDS:
+    write(f"conditions/{c['slug']}/index.html", cond_page(c))
+week = WEEK_DATA
 if week:
     write('week/index.html', week_page(week))
+write('news/index.html', news_page())
+write_app_footer()
 
 urls = ([BASE] + [f"{BASE}drinks/{d['id']}/" for d in DRINKS]
         + [f"{BASE}drinks/{d['id']}/{c['slug']}/" for d, c in DRINK_CONDS]
+        + [f"{BASE}conditions/{c['slug']}/" for c in CONDS]
         + [f"{BASE}ingredients/{g['slug']}/" for g in INGS]
+        + [f'{BASE}news/']
         + ([f'{BASE}week/'] if week else [])
         + [f"{BASE}recipes/{r['id']}/" for r in RECIPES])
 write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
