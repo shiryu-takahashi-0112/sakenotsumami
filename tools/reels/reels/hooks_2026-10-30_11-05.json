@@ -1,0 +1,29 @@
+[
+ {
+  "post_id": null,
+  "date": "2026-10-30",
+  "folder": "list-beer-quick-bb7928",
+  "type": "数字で約束",
+  "hook": "いちばん早いのは3分",
+  "sub": "ビールに合う3品",
+  "facts": "kimchi-yakko min3/tool none、ika-butter min10/tool pan、shishamo min10/tool toaster"
+ },
+ {
+  "post_id": null,
+  "date": "2026-10-31",
+  "folder": "mushroom-ajillo",
+  "type": "失敗に気づかせる",
+  "hook": "にんにく、焦がしてない？",
+  "sub": "弱火でじっくり香りだけ",
+  "facts": "steps 2「小さめのフライパンにオリーブオイル、にんにく、鷹の爪を入れ、弱火で香りを出す」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-01",
+  "folder": "list-shochu-all-e1a7db",
+  "type": "問いかけ",
+  "hook": "焼酎に合うのは、どれ？",
+  "sub": "えのき・さつま揚げ・油揚げ",
+  "facts": "ids enoki-nametake・satsumaage-aburi・aburaage-natto、drinks すべて shochu を含む"
+ }
+]

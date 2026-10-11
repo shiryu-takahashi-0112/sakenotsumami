@@ -54,6 +54,9 @@ DRINK_WORDS = [
 ]
 AI_NOTE = "※写真はAIで作ったイメージです。"
 AGE_NOTE = "お酒は20歳になってから。"
+# 送信（共有）を促す一言（2026-10-09・CEO創・Shiryuの指示。2026-10-11の作り足しから追加）
+SHARE_LINE_SINGLE = "一緒に飲む人に送って、今夜のつまみに"
+SHARE_LINE_LIST = "二人分だから、相手にも送っておく"
 
 
 def drinks_in(text):
@@ -256,8 +259,10 @@ def caption(c, kind="reel"):
     ]
     if kind == "carousel":
         lines.append("材料と作り方は2枚目から。")
+    lines += ["レシピはプロフィールのリンクから。"]
+    if kind == "reel":
+        lines.append(SHARE_LINE_SINGLE)       # 送信を促す一言（1品型）2026-10-11〜
     lines += [
-        "レシピはプロフィールのリンクから。",
         "",
         AI_NOTE,
         AGE_NOTE,
