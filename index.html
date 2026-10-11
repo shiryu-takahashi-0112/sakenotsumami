@@ -350,17 +350,37 @@ let saved = new Map();   // レシピid → 保存した日時（ミリ秒）
 let unsubSaves = null;
 const PENDING_KEY = 'sakenotsumami.pendingSave';   // ログイン前に押した保存。ログイン後に保存する
 const EMAIL_KEY = 'sakenotsumami.emailForSignIn';  // メールリンクを開いたときに使うアドレス
+const EMAIL_CTX_KEY = 'sakenotsumami.emailForSignInContext'; // メールリンクでの会員登録が、どの案内から始まったか
 const store = {
   get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
   set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} },
   del(k){ try{ localStorage.removeItem(k); }catch(e){} },
 };
 
+// 会員登録導線の計測（2026-10-11）。表示・クリック・完了の段階だけを記録し、個人情報は入れない。
+// 読めるのは運営者だけ（firestore.rules）。失敗してもアプリの動作は止めない
+function logFunnel(step, extra){
+  if(!fbReady) return;
+  try{
+    db.collection('funnel_events').add(Object.assign(
+      {step, createdAt: firebase.firestore.FieldValue.serverTimestamp()}, extra || {}
+    )).catch(() => {});
+  }catch(e){}
+}
+// 今どの案内を見ているか（会員登録ボタンのクリックと完了を、どの入口からか揃えて記録するため）
+function authContext(){
+  if(!$('loginModal').hidden) return 'save';
+  if(view === 'saved') return 'saved_tab';
+  if(view === 'mypage') return 'mypage_tab';
+  return 'other';
+}
+
 function savesRef(){ return db.collection('users').doc(user.uid).collection('saves'); }
 
 async function toggleSave(id){
   if(!user){
     store.set(PENDING_KEY, id);
+    logFunnel('save_prompt_shown', {context: 'save'});
     openLogin('保存するには、無料の会員登録が必要です');
     return;
   }
@@ -433,7 +453,10 @@ function closeModals(){
 // ログインのボタンとフォームは、モーダルとマイページの両方に置くので委譲で拾う
 document.addEventListener('click', e => {
   if(e.target.closest('[data-auth="google"]')){
+    const ctx = authContext();
+    logFunnel('auth_click', {method: 'google', context: ctx});
     auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(() => logFunnel('auth_complete', {method: 'google', context: ctx}))
       .catch(err => {
         // 本人が閉じた／連続タップで前の試行が取り消された場合は、失敗として出さない
         if(err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') return;
@@ -453,10 +476,13 @@ document.addEventListener('submit', async e => {
   const email = form.email.value.trim();
   const btn = form.querySelector('button');
   const msg = form.parentElement.querySelector('[data-auth-msg]');
+  const ctx = authContext();
+  logFunnel('auth_click', {method: 'email', context: ctx});
   btn.disabled = true;
   try{
     await auth.sendSignInLinkToEmail(email, {url: location.origin + location.pathname, handleCodeInApp: true});
     store.set(EMAIL_KEY, email);
+    store.set(EMAIL_CTX_KEY, ctx); // リンクを開いて完了する時点では画面の状態が分からないので、ここで覚えておく
     msg.className = 'auth-msg ok';
     msg.textContent = `${email} にログイン用のリンクを送りました。メールを開いてリンクを押すと、ログインが完了します。`;
   }catch(err){
@@ -476,7 +502,9 @@ async function finishEmailLink(){
   if(!email) return;
   try{
     await auth.signInWithEmailLink(email, location.href);
+    logFunnel('auth_complete', {method: 'email', context: store.get(EMAIL_CTX_KEY) || 'other'});
     store.del(EMAIL_KEY);
+    store.del(EMAIL_CTX_KEY);
     showToast('ログインしました');
   }catch(e){
     showToast('リンクが古いか、すでに使われています');
