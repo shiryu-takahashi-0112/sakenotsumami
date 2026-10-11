@@ -25,5 +25,14 @@
   "hook": "焼酎に合うのは、どれ？",
   "sub": "えのき・さつま揚げ・油揚げ",
   "facts": "ids enoki-nametake・satsumaage-aburi・aburaage-natto、drinks すべて shochu を含む"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-02",
+  "folder": "yakinasu",
+  "type": "結論を先に",
+  "hook": "なす、切らずに焼く",
+  "sub": "トースターで15分",
+  "facts": "steps 1「へたのまわりに切り込みを入れ、竹串で穴をあける」、steps 2「トースターで15分ほど、皮が黒くなるまで焼く」"
  }
 ]
