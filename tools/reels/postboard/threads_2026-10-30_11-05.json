@@ -1,0 +1,298 @@
+[
+ {
+  "scheduled_at": "2026-10-30T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nよだれ鶏は、切って赤い部分がないか確かめる。\nあれば30秒ずつ追加で加熱する。\n#おつまみ",
+  "recipe_ids": [
+   "yodare-dori"
+  ]
+ },
+ {
+  "scheduled_at": "2026-10-30T15:05:00+09:00",
+  "kind": "大喜利",
+  "text": "【大喜利】\n冷凍庫の奥から出てきた、謎の保存容器。\n開ける前の、ひとことをどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-10-30T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、キムチ奴。\n火を使わず3分。\nキムチの辛みと酸味を、冷たい豆腐がやわらげる。\n炭酸のお酒や焼酎の水割りと、さっぱり合う。\n#ビールに合う",
+  "recipe_ids": [
+   "kimchi-yakko"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/kimchi-yakko/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-10-30T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、イカのバター醤油焼き。\nフライパンで10分。\n焦がしたバター醤油とイカのうまみは、ビールにも日本酒にも合う。\n#ビールに合う",
+  "recipe_ids": [
+   "ika-butter"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/ika-butter/?utm_source=threads&utm_medium=social&utm_campaign=konya",
+  "drink": "beer"
+ },
+ {
+  "scheduled_at": "2026-10-30T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "日本酒に合う、つまみ3品。\n油揚げの納豆詰め焼き（10分・フライパン）\nオイルサーディンのねぎ醤油焼き（10分・トースター）\nイカのバター醤油焼き（10分・フライパン）\n#日本酒に合う",
+  "recipe_ids": [
+   "aburaage-natto",
+   "oil-sardine",
+   "ika-butter"
+  ],
+  "drink": "sake"
+ },
+ {
+  "scheduled_at": "2026-10-31T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\n白菜と豚肉のミルフィーユは、加熱後に豚肉の色を確かめる。\n全部変わっていなければ、追加で加熱する。\n#おつまみ",
+  "recipe_ids": [
+   "hakusai-millefeuille"
+  ]
+ },
+ {
+  "scheduled_at": "2026-10-31T15:05:00+09:00",
+  "kind": "投票",
+  "text": "週末の作り置き、投票です。\nA 多めに作る　B その日の分だけ\nC 気づいたら無くなってる\n返信は記号で。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-10-31T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、マッシュルームのアヒージョ。\nフライパンで12分。\nにんにくの香りが移ったオイルは、白ワインにもビールにも合う。\n#ワインに合う",
+  "recipe_ids": [
+   "mushroom-ajillo"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/mushroom-ajillo/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-10-31T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "ワインに合う、つまみ3品。\nミニトマトのマリネ（5分・火を使わない）\n生ハムのクリームチーズ巻き（5分・火を使わない）\nセロリの浅漬け（12分・火を使わない）\n#ワインに合う",
+  "recipe_ids": [
+   "tomato-marinade",
+   "namaham-cheese",
+   "celery-asazuke"
+  ],
+  "drink": "wine"
+ },
+ {
+  "scheduled_at": "2026-10-31T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "土曜の買い出し。\n「一品だけ」のつもりが、\nレジではいつも三品分。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-01T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nふろふき大根の練り味噌は、大根と別に作る。\n味噌・砂糖・みりんを600Wで30秒加熱するだけ。\n#おつまみ",
+  "recipe_ids": [
+   "furofuki-daikon"
+  ]
+ },
+ {
+  "scheduled_at": "2026-11-01T15:05:00+09:00",
+  "kind": "ツッコミ",
+  "text": "シンクに積まれた、\n使った鍋が1個のはずが2個。\n覚えのある人、返信でどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-01T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、えのきの自家製なめたけ。\nレンジで8分。\n甘辛いなめたけは、日本酒や焼酎のやわらかい味にちょうどいい。\n#焼酎に合う",
+  "recipe_ids": [
+   "enoki-nametake"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/enoki-nametake/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-11-01T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、さつま揚げの炙り しょうが醤油。\nトースターで8分。\n炙ったさつま揚げの甘みとしょうがの香りは、焼酎のお湯割りや燗酒に合う。\n#焼酎に合う",
+  "recipe_ids": [
+   "satsumaage-aburi"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/satsumaage-aburi/?utm_source=threads&utm_medium=social&utm_campaign=konya",
+  "drink": "shochu"
+ },
+ {
+  "scheduled_at": "2026-11-01T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "ワインに合う、つまみ3品。\nアスパラの粉チーズ焼き（12分・トースター）\n長ねぎのオーブン焼き（15分・トースター）\nかぼちゃとクリームチーズのサラダ（10分・レンジ）\n#ワインに合う",
+  "recipe_ids": [
+   "asparagus-cheese",
+   "negi-grill",
+   "kabocha-cheese-salad"
+  ],
+  "drink": "wine"
+ },
+ {
+  "scheduled_at": "2026-11-02T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nジャーマンポテトのじゃがいもは、先に600Wで4分加熱する。\nそのあとフライパンで焼き色をつける。\n#おつまみ",
+  "recipe_ids": [
+   "german-potato"
+  ]
+ },
+ {
+  "scheduled_at": "2026-11-02T15:05:00+09:00",
+  "kind": "大喜利",
+  "text": "【大喜利】\n冷蔵庫に貼ったメモ「あとで使う」。\nその結末を、ひとことで。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-02T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、焼きなすのしょうが醤油。\nトースターで20分。\nなすのやさしい甘みとしょうがの香りは、冷やした日本酒と合わせたい。\n#日本酒に合う",
+  "recipe_ids": [
+   "yakinasu"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/yakinasu/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-11-02T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "日本酒に合う、つまみ3品。\nしらすと大葉の冷奴（3分・火を使わない）\n厚揚げのねぎ味噌焼き（10分・トースター）\n長芋の梅おかか和え（5分・火を使わない）\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+  "recipe_ids": [
+   "shirasu-yakko",
+   "atsuage-miso",
+   "nagaimo-ume"
+  ],
+  "drink": "sake"
+ },
+ {
+  "scheduled_at": "2026-11-02T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "月曜の夜は、台所に立つ気力が半分。\nそれでも、つまみだけは一品作る。\nそこだけは譲れない。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-03T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nエリンギは、包丁を使わず手で縦にさく。\n断面がでこぼこになり、味がしみやすい。\n#おつまみ",
+  "recipe_ids": [
+   "eringi-butter"
+  ]
+ },
+ {
+  "scheduled_at": "2026-11-03T15:05:00+09:00",
+  "kind": "投票",
+  "text": "今夜のつまみ、選び方投票です。\nA 冷蔵庫にあるもので決める　B お酒から決める\nC とりあえず検索する\n返信は記号で。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-03T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、砂肝のにんにく炒め。\nフライパンで12分。\n塩とにんにくのシンプルな味つけは、レモンをしぼるとサワーやハイボールにぴったり。\n#レモンサワーに合う",
+  "recipe_ids": [
+   "sunagimo-garlic"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/sunagimo-garlic/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-11-03T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、ツナマヨのピーマン詰め焼き。\nトースターで15分。\nツナマヨのコクとピーマンのほろ苦さは、炭酸のお酒と合わせるとちょうどいい。\n#レモンサワーに合う",
+  "recipe_ids": [
+   "tunamayo-piman"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/tunamayo-piman/?utm_source=threads&utm_medium=social&utm_campaign=konya",
+  "drink": "sour"
+ },
+ {
+  "scheduled_at": "2026-11-03T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "ハイボールに合う、つまみ3品。\n明太クリームチーズディップ（5分・火を使わない）\nザーサイ豆腐（3分・火を使わない）\nちくわの磯辺揚げ焼き（10分・フライパン）\n#ハイボールに合う",
+  "recipe_ids": [
+   "mentai-dip",
+   "zasai-tofu",
+   "chikuwa-isobe"
+  ],
+  "drink": "highball"
+ },
+ {
+  "scheduled_at": "2026-11-04T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nさつま揚げは、焼く前に浅く格子の切り込みを入れる。\nトースターでふくらみやすくなる。\n#おつまみ",
+  "recipe_ids": [
+   "satsumaage-aburi"
+  ]
+ },
+ {
+  "scheduled_at": "2026-11-04T15:05:00+09:00",
+  "kind": "ツッコミ",
+  "text": "まな板の上、\n切るものより先に出した調味料の瓶。\n場所を取っている自覚、返信でどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-04T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、ちくわの磯辺揚げ焼き。\nフライパンで10分。\n青のりの香りと衣のカリッと感は、炭酸のお酒と合わせたい定番。\n#ハイボールに合う",
+  "recipe_ids": [
+   "chikuwa-isobe"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/chikuwa-isobe/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-11-04T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "ハイボールに合う、つまみ3品。\n豚バラともやしのレンジ蒸し（10分・レンジ）\nブロッコリーのおかかマヨ（6分・レンジ）\nザーサイ豆腐（3分・火を使わない）\n#ハイボールに合う",
+  "recipe_ids": [
+   "butabara-moyashi",
+   "broccoli-okakamayo",
+   "zasai-tofu"
+  ],
+  "drink": "highball"
+ },
+ {
+  "scheduled_at": "2026-11-04T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "水曜の夜。\n冷蔵庫の野菜室を見て、\n献立よりつまみが先に決まる。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-05T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "小ワザ。\nナチョスは、アルミホイルの上にチップスを広げる。\n焼いたあとに鉄板にくっつかない。\n#おつまみ",
+  "recipe_ids": [
+   "nachos"
+  ]
+ },
+ {
+  "scheduled_at": "2026-11-05T15:05:00+09:00",
+  "kind": "大喜利",
+  "text": "【大喜利】\n皿洗いを後回しにする、言い訳を一つ。\n返信でどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-11-05T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、ソーセージとキャベツのレンジ蒸し。\nレンジで10分。\nソーセージの脂とマスタードの酸味は、ビールと合わせたいドイツの定番。\n#ビールに合う",
+  "recipe_ids": [
+   "sausage-cabbage"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/sausage-cabbage/?utm_source=threads&utm_medium=social&utm_campaign=konya"
+ },
+ {
+  "scheduled_at": "2026-11-05T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "今夜の一品は、明太ポテトサラダ。\nレンジで12分。\n明太子の塩気と辛みがじゃがいもにしみて、ビールの苦みとよく合う。\nhttps://osakenomitai.com/sakenotsumami/?utm_source=threads&utm_medium=social&utm_campaign=launch",
+  "recipe_ids": [
+   "mentai-potesala"
+  ],
+  "self_reply": "レシピはこちら👇\nhttps://osakenomitai.com/sakenotsumami/recipes/mentai-potesala/?utm_source=threads&utm_medium=social&utm_campaign=konya",
+  "drink": "beer"
+ },
+ {
+  "scheduled_at": "2026-11-05T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "焼酎に合う、つまみ3品。\nまぐろのユッケ風（5分・火を使わない）\nえのきの自家製なめたけ（8分・レンジ）\n焼きなすのしょうが醤油（20分・トースター）\n#焼酎に合う",
+  "recipe_ids": [
+   "maguro-yukke",
+   "enoki-nametake",
+   "yakinasu"
+  ],
+  "drink": "shochu"
+ }
+]
