@@ -25,5 +25,17 @@ service cloud.firestore {
         && (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 50))
         && request.resource.data.createdAt == request.time;
     }
+
+    // 会員登録導線の計測（2026-10-11）。段階（表示・クリック・完了）だけを記録し、個人情報は入れない。
+    // inquiriesと同じく、誰でも書けるが読む・直す・消すのはコンソールからだけ
+    match /funnel_events/{id} {
+      allow read, update, delete: if false;
+      allow create: if request.resource.data.keys().hasOnly(['step', 'method', 'context', 'createdAt'])
+        && request.resource.data.keys().hasAll(['step', 'createdAt'])
+        && request.resource.data.step in ['save_prompt_shown', 'auth_click', 'auth_complete']
+        && (!('method' in request.resource.data) || request.resource.data.method in ['google', 'email'])
+        && (!('context' in request.resource.data) || (request.resource.data.context is string && request.resource.data.context.size() <= 30))
+        && request.resource.data.createdAt == request.time;
+    }
   }
 }
