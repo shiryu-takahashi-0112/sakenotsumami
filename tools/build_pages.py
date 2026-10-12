@@ -35,8 +35,13 @@ e = html.escape
 LOGO = (ROOT / 'brand' / 'sakenotsumami-logotype.svg').read_text()
 LOGO = re.sub(r'<svg ', '<svg class="logo" ', LOGO, count=1)
 TODAY = datetime.date.today().isoformat()
-# 写真がまだ無いレシピ（足したばかりの品）は、写真の代わりに黄色の地を出し、共有画像はアプリの共有画像にする
 has_photo = lambda r: (ROOT / 'images' / f"{r['id']}.jpg").exists()
+# 写真が無い品は、どこにも出さない（2026-10-12 Shiryu「写真が無い品は出さない」）。
+# recipes.js には全品を持ったまま、ここで写真のある品（images/<id>.jpg がある品）だけを「公開する品」にする。
+# 検索用ページ・一覧の件数・サイトマップ・week/ はこの RECIPES だけで作り、アプリには HOME.published として渡す。
+# 写真を images/<id>.jpg に足してこのスクリプトを実行すれば、その品は自動で出る。
+ALL_RECIPES = RECIPES
+RECIPES = [r for r in ALL_RECIPES if has_photo(r)]
 
 
 def thumb(r, up='../../'):
@@ -452,10 +457,10 @@ def cards(title, groups, used, kind=None):
 def write_app_home():
     """アプリのホーム（index.html の home:start〜home:end の間）を書き出す（2026-10-10）。
     検索用ページの下の一覧（footer）と同じ並び・同じ見た目で、リンク先だけをアプリの中の「さがす」にする。
-    作り方・食材で絞るための品の一覧（HOME.presets）と、今日の一品に使う写真のある品（HOME.photos）もここで渡す"""
+    作り方・食材で絞るための品の一覧（HOME.presets）と、公開する品（HOME.published。写真のある品だけ。アプリはこれ以外を出さない）もここで渡す"""
     presets = {f"c-{c['slug']}": {'label': f"{c['mod']}つまみ", 'ids': [r['id'] for r in RECIPES if c['test'](r)]} for c in CONDS}
     presets.update({f"i-{g['slug']}": {'label': f"{g['name']}のつまみ", 'ids': [r['id'] for r in g['items']]} for g in INGS})
-    home = {'presets': presets, 'photos': [r['id'] for r in RECIPES if has_photo(r)]}
+    home = {'presets': presets, 'published': [r['id'] for r in RECIPES]}
     out = []
     if WEEK_DATA:
         out.append(week_card(''))
@@ -494,6 +499,8 @@ def week_page(w):
     sections = []
     for it in w['items']:
         rs = [byid[i] for i in it['ids'] if i in byid]
+        if not rs:
+            continue
         sections.append(f'''<section class="reel" data-date="{it['date']}">
 <p class="day">{jp_date(it['date'])}<em hidden></em></p>
 <h2>{e(it['title'])}</h2>
@@ -535,6 +542,10 @@ for d in DRINKS:
 shutil.rmtree(ROOT / 'ingredients', ignore_errors=True)
 shutil.rmtree(ROOT / 'conditions', ignore_errors=True)
 
+# 公開していない品（写真が無い品・消した品）のページが残らないよう消す
+for p in (ROOT / 'recipes').iterdir():
+    if p.is_dir() and p.name not in {r['id'] for r in RECIPES}:
+        shutil.rmtree(p)
 for r in RECIPES:
     write(f"recipes/{r['id']}/index.html", recipe_page(r))
 for d in DRINKS:
@@ -561,4 +572,4 @@ urls = ([BASE] + [f"{BASE}drinks/{d['id']}/" for d in DRINKS]
 write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
       + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
 write('robots.txt', f'User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n')
-print(f'recipes: {len(RECIPES)}, drinks: {len(DRINKS)}, drink×条件: {len(DRINK_CONDS)}, 食材: {len(INGS)}, week: {bool(week)}, sitemap: {len(urls)} URLs')
+print(f'recipes: {len(RECIPES)}（写真待ち {len(ALL_RECIPES) - len(RECIPES)}）, drinks: {len(DRINKS)}, drink×条件: {len(DRINK_CONDS)}, 食材: {len(INGS)}, week: {bool(week)}, sitemap: {len(urls)} URLs')

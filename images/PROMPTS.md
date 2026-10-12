@@ -145,7 +145,7 @@
 | chikuwa-kyuri | ちくわときゅうりのごまポン酢 | `Sliced chikuwa fish cake rings and thin cucumber slices dressed with ground sesame and ponzu sauce` |
 | potato-galette | じゃがいものチーズガレット | `Crispy golden potato galette made of shredded potato and melted cheese, cut into wedges, sprinkled with black pepper` |
 | gobo-chips | ごぼうチップス | `Crispy thin burdock root chips sprinkled with salt and green aonori seaweed flakes` |
-| zucchini-namul | ズッキーニのナムル | `Korean-style zucchini namul, half-moon slices of zucchini dressed with sesame oil and garlic, sprinkled with white sesame seeds` |
+| zucchini-namul | ズッキーニのナムル | `Korean-style zucchini namul: thick half-moon slices of cooked zucchini (courgette) with soft, slightly translucent pale cream flesh and dark green skin edges, clearly zucchini and not cucumber (no seeds pattern, no crisp raw look), glossy with sesame oil and garlic, sprinkled with white sesame seeds` |
 | cheese-senbei | チーズせんべい | `Crispy golden cheese crisps, small lacy squares, some sprinkled with black pepper and some with green aonori seaweed` |
 | gyoza-pizza | 餃子の皮ピザ | `Mini pizzas made on round gyoza wrappers with ketchup, bacon, thin green bell pepper rings and melted golden cheese, crispy edges` |
 
