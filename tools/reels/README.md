@@ -105,6 +105,7 @@ python3 postboard/schedule_threads.py postboard/threads_<開始日>_<終了日>.
 | `postboard/schedule_instagram.py`・`schedule_threads.py` | 予約に入れる |
 | `postboard/apply_hook_caption.py` | キャプションの1行目をフックにする（作り直し用） |
 | `postboard/build_threads.py`・`build_threads_<期間>.py` | Threads の投稿文を作る（新しい週は、いちばん新しいものを写して日付と品を変える） |
+| `postboard/variety.py` | Threads の書き分けの確認（1行目の重なり・14日以内の同じ文・URLの本数・自分で付ける返信の有無）。単体で動かすと予約済みの分をまとめて確かめる（2026-10-12〜） |
 | `postboard/humor_2026-10-12_10-29.json` | 15:05・21:00 の笑いの投稿のお手本 |
 | `schedule/build_schedule_<期間>.py` | 週の動画の一覧を作る（同じく写して使う） |
 | `fonts/` | Zen Kaku Gothic New（OFL。`OFL.txt`） |
