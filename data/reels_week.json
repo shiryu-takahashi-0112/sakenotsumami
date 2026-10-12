@@ -1,0 +1,67 @@
+{
+ "start": "2026-10-10",
+ "end": "2026-10-16",
+ "items": [
+  {
+   "date": "2026-10-10",
+   "title": "レモンサワーに合う、10分以内のつまみ3選",
+   "ids": [
+    "kanikama-kyuri",
+    "nira-tama",
+    "thai-cucumber"
+   ]
+  },
+  {
+   "date": "2026-10-11",
+   "title": "レモンサワーに合う、5分つまみ",
+   "ids": [
+    "saba-lemon"
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "title": "焼酎に合う、レンジだけのつまみ3選",
+   "ids": [
+    "satsumaimo-butter",
+    "renkon-kinpira",
+    "horenso-goma"
+   ]
+  },
+  {
+   "date": "2026-10-13",
+   "title": "ビールに合う、つまみ5選",
+   "ids": [
+    "tebanaka-shio",
+    "tofu-steak",
+    "enoki-bacon",
+    "bulgogi",
+    "german-potato"
+   ]
+  },
+  {
+   "date": "2026-10-14",
+   "title": "ワインに合う、10分つまみ",
+   "ids": [
+    "camembert-honey"
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "title": "日本酒に合う、つまみ3選",
+   "ids": [
+    "furofuki-daikon",
+    "creamcheese-okaka",
+    "daikon-hotate"
+   ]
+  },
+  {
+   "date": "2026-10-16",
+   "title": "ハイボールに合う、10分以内のつまみ3選",
+   "ids": [
+    "butabara-moyashi",
+    "salmon-marinade",
+    "tako-carpaccio"
+   ]
+  }
+ ]
+}

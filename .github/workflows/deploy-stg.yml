@@ -1,0 +1,98 @@
+name: Deploy STG
+
+# PRの中身を、本番とは別の確認用の環境（stg）に出す（2026-10-09 に Shiryu の指示で追加）。
+# 出し先は Cloudflare の Worker「sakenotsumami-stg」（https://sakenotsumami-stg.<アカウントのサブドメイン>.workers.dev/）。
+# PRを開く・pushするたびに、そのPRの最新を出し直し、PRにURLをコメントする。stg はひとつだけなので、最後に動いたPRの中身になる。
+# 本番に出さずに stg で確かめたいときは、PRを下書き（Draft）で出す（下書きは自動マージされない）。
+# 検索エンジンに載らないよう、すべてのページに noindex を付ける。ログイン・保存は、Firebase の承認済みドメインに stg を足すまで使えない。
+# 認証は本番と同じ GitHub Secrets の CLOUDFLARE_API_TOKEN と CLOUDFLARE_ACCOUNT_ID。
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: deploy-sakenotsumami-stg
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check secret
+        id: secret
+        env:
+          T: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$T" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN が使えないため、stg への公開をスキップしました。"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+
+      - name: Build
+        if: steps.secret.outputs.ok == 'true'
+        env:
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          # gitに入っているファイルだけを出す（道具・設定・運営の文書は除く）
+          git archive HEAD | tar -x -C dist
+          rm -rf dist/.github dist/.claude dist/tools dist/CLAUDE.md dist/README.md dist/.gitignore
+          # 検索エンジンに載せない
+          printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
+          # 本番と見分けがつくよう、画面の左上に「STG」とブランチ名を出す
+          BADGE="<div style=\"position:fixed;left:8px;top:calc(8px + env(safe-area-inset-top,0px));z-index:5000;background:#d33;color:#fff;font:700 11px/1 sans-serif;padding:5px 8px;border-radius:6px;pointer-events:none;opacity:.9\">STG ${BRANCH//[<>&\"]/} ${SHA:0:7}</div>"
+          python3 - "$BADGE" <<'EOF'
+          import sys, pathlib
+          p = pathlib.Path('dist/index.html')
+          s = p.read_text()
+          assert s.count('</body>') == 1
+          p.write_text(s.replace('</body>', sys.argv[1] + '\n</body>'))
+          EOF
+          cat > wrangler.stg.jsonc <<'EOF'
+          {
+            "name": "sakenotsumami-stg",
+            "compatibility_date": "2026-09-01",
+            "workers_dev": true,
+            "assets": { "directory": "./dist" }
+          }
+          EOF
+
+      - name: Deploy
+        if: steps.secret.outputs.ok == 'true'
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4 deploy --config wrangler.stg.jsonc | tee deploy.log
+          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "stg: $URL/" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment on PR
+        if: steps.secret.outputs.ok == 'true' && github.event_name == 'pull_request' && steps.deploy.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          URL: ${{ steps.deploy.outputs.url }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          BODY="stg に出しました：${URL}/ （コミット ${SHA:0:7}）
+
+          stg はひとつだけなので、ほかのPRが動くとその中身に置き換わります。ログインと保存は stg では使えません。"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --edit-last --body "$BODY" 2>/dev/null \
+            || gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$BODY"
