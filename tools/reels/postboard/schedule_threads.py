@@ -8,6 +8,8 @@
 - すでに時刻を過ぎたものは入れない。入れたものは registered.json に残し、二重に入れない。
   あわせて Postboard の予定と同じ日時があれば飛ばす（クラウドでは registered.json が古いことがあるため）。
 - 鍵の扱いは postboard/pb.py（クラウドでは Authorization を付けない）。
+- 自分で付ける返信（"self_reply"）は入れない。投稿データにあれば止まる（2026-10-12〜。10/10 に始めた
+  「レシピはこちら👇＋URL」の毎日の返信が、Threads に同じ投稿の繰り返しとしてスパム扱いされたため）。
 """
 import datetime
 import json
@@ -25,7 +27,11 @@ dry = "--dry" in sys.argv
 now = datetime.datetime.now(datetime.timezone.utc)
 taken = pb.taken_times(pb.TH)
 n = 0
-for x in json.loads((HERE / args[0]).read_text()):
+items = json.loads((HERE / args[0]).read_text())
+bad = [x["scheduled_at"] for x in items if x.get("self_reply")]
+if bad:
+    sys.exit(f"自分で付ける返信（self_reply）は使わない（2026-10-12〜）。外してから入れ直す: {bad}")
+for x in items:
     key = f"threads:{x['scheduled_at']}"
     if key in reg:
         continue

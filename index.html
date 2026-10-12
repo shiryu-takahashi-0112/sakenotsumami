@@ -528,7 +528,8 @@ async function mergeGuestSaves(){
   if(!guest.size) return;
   const ids = [];
   for(const id of guest.keys()){
-    try{ if(!(await savesRef().doc(id).get()).exists) ids.push(id); }catch(e){ return; }
+    // 読めなかったときは何も移さず、端末に残して次に開いたときにやり直す。無反応にせず知らせる（main の #23 と同じ考え）
+    try{ if(!(await savesRef().doc(id).get()).exists) ids.push(id); }catch(e){ showToast('ログインしました。保存はもう一度お試しください'); return; }
   }
   const done = new Set(guest.keys());
   if(ids.length){
@@ -550,7 +551,9 @@ async function mergeGuestSaves(){
   const rest = loadGuestSaves();
   for(const id of done) rest.delete(id);
   storeGuestSaves(rest);
-  if(ids.length) showToast(`この端末で保存した${ids.length}品を、会員の保存に移しました`);
+  const failed = ids.filter(id => !done.has(id)).length;
+  if(failed) showToast('ログインしました。移せなかった保存は、次に開いたときにもう一度移します');
+  else if(ids.length) showToast(`この端末で保存した${ids.length}品を、会員の保存に移しました`);
 }
 
 async function toggleSave(id){

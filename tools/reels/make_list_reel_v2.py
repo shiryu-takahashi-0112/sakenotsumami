@@ -95,7 +95,9 @@ def main(argv=None):
 
     lines = [head1 + mid + head2]
     lines += [f"{k + 1}. {x['name']}（{x['min']}分・{x['tool']}）" for k, x in enumerate(items)]
-    lines += ["", "保存しておくと、飲みたい夜にすぐ作れます。", "レシピはプロフィールのリンクから。", "",   # 注記2行（AI・20歳）は2026-10-07から付けない
+    lines += ["", "保存しておくと、飲みたい夜にすぐ作れます。", "レシピはプロフィールのリンクから。",
+              common.SHARE_LINE_LIST,          # 送信を促す一言（◯選型）2026-10-11〜
+              "",   # 注記2行（AI・20歳）は2026-10-07から付けない
               " ".join(common.list_hashtags(name, a.theme, a.drink, drinks[a.drink]))]
     common.check_banned("\n".join(x["why"] for x in items))
     cap = common.check_banned("\n".join(lines) + "\n")
