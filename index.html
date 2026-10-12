@@ -493,7 +493,8 @@ if(fbReady){
       const pending = store.get(PENDING_KEY);
       store.del(PENDING_KEY);
       if(pending && byId(pending)){
-        try{ await savesRef().doc(pending).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()}); showToast('ログインして、保存しました'); }catch(e){}
+        try{ await savesRef().doc(pending).set({savedAt: firebase.firestore.FieldValue.serverTimestamp()}); showToast('ログインして、保存しました'); }
+        catch(e){ showToast('ログインしました。保存はもう一度お試しください'); }
       }
     }
     if(view === 'mypage') renderMypage();
