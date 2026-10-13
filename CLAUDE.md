@@ -54,10 +54,12 @@
 | `recipes.js` | お酒・道具・食材の分類・レシピ200品のデータ（すべて2人分）。並びは足した順（新着順に使う） |
 | `firebase-config.js` | Firebaseのウェブ設定（プロジェクト `sakenotsumami`。公開して問題ない値） |
 | `firestore.rules` | 保存データのルール。本人だけが `users/{uid}/saves/{レシピid}` を読み書きできる。レシピごとの保存数 `stats/{レシピid}` は誰でも読め、自分の保存と同じ一括書き込みでだけ ±1 できる |
-| `images/<id>.jpg` | アプリで使う料理写真（800px） |
+| `images/<id>.jpg` | 料理写真の元（800px）。共有のプレビュー（og:image）と構造化データで使う |
+| `images/w240/`・`w480/`・`w720/` | 表示用の小さい写真（WebP）。一覧は240、ホームのカードは240と480、レシピの詳細は720を使う。`tools/thumbs.py` が作る（2026-10-13） |
 | `images/raw/` | 生成したままの写真。重いのでgitに入れない |
 | `images/PROMPTS.md` | 写真の生成指示（共通文＋料理ごとの文） |
-| `tools/photos.py` | `raw/` から `images/<id>.jpg` を作る |
+| `tools/photos.py` | `raw/` から `images/<id>.jpg` を作る（最後に `tools/thumbs.py` も動かす） |
+| `tools/thumbs.py` | 元の写真から表示用の小さい写真を作る。`tools/build_pages.py` も最初に呼ぶので、写真を足して `build_pages.py` を実行すれば作られる。作ったファイルもコミットする（GitHub のビルド確認では作れないため）。どの写真から作ったかは `tools/image_sizes.json` |
 | `tools/gen_photos.py` | 写真の無い品の写真を Gemini で生成して `raw/` に置く（`GEMINI_API_KEY` が要る。指示文は `images/PROMPTS.md`） |
 | `tools/build_pages.py` | 検索用のページ（`recipes/<id>/`・`drinks/<id>/`・`drinks/<id>/<作り方>/`・`ingredients/<食材>/`・`week/`）と `sitemap.xml` を書き出す |
 | `data/news.json` | お知らせ（`news/`）の中身。新しい順に並べて出す |
@@ -66,7 +68,7 @@
 | `tools/build_week.py` | `data/reels_week.json` を投稿管理ツールの記録から作り直し、ページを書き出す |
 | `privacy.html`・`terms.html` | プライバシーポリシーと利用規約 |
 | `contact.html` | お問い合わせフォーム。Firestore の `inquiries` に書き込むだけ（読めるのは Firebase のコンソールからだけ） |
-| `manifest.webmanifest`・`sw.js` | ホーム画面に追加するための設定。サービスワーカーはページを毎回ネットから取り、つながらないときだけ前回のトップを出す |
+| `manifest.webmanifest`・`sw.js` | ホーム画面に追加するための設定。サービスワーカーはページ（HTML）を毎回ネットから取り、つながらないときだけ前回のトップを出す。写真は端末に置いたものを先に出し（600枚まで）、`.js`・`.css` は置いたものを出しながら裏で取り直す。`index.html` は `recipes.js?v=<ハッシュ>` のように読む（`build_pages.py` が付ける）ので、公開すれば新しいものに切り替わる（2026-10-13） |
 | `brand/` | ロゴタイプのSVG（サケノツマミ・オサケノミタイ） |
 | `tools/logotype.py` | ロゴタイプをフォントから線に起こす |
 
@@ -79,6 +81,11 @@
   - アプリには `index.html` の `HOME.published` で渡す。前に保存した品は、公開していなくても保存の一覧から開ける。
   - **写真を `images/<id>.jpg` に足して `python3 tools/build_pages.py` を実行すれば、その品は自動で出る。** 書き出したページも同じPRに入れる。
 - アクセス数は Cloudflare Web Analytics（自動設定、osakenomitai.com）で見る。
+- **アプリは、押したらすぐ次の画面を描く**（2026-10-13にShiryuが指示。「ボタンタップ後にすぐに画面遷移しない、画像を読み込むスピードが遅い」）。
+  - 画面は手元のデータ（`recipes.js`）だけで描き、ログイン・保存・保存数（Firebase）は描いたあとに読み込んで足す。Firebase を待ってから描く書き方に戻さない。
+  - さがすの一覧のカードは1品ごとに一度だけ作って使い回し、条件が同じなら描き直さない。手が空いたときに前もって作っておく（`warmUp`）。
+  - 写真は表示用の小さいWebP（`images/w240` など）を使う。元の800pxのJPEGを一覧に直接使わない。
+  - 速さは `tools/measure_speed.js` で測れる（使い方はファイルの先頭）。
 
 - **レシピは誰でも見られる。保存はログインしなくてもできる**（2026-09-28に「保存だけ会員」と決め、2026-10-10にShiryuの承認で、ログインしない保存を足した）。ログインは Google とメールリンク（パスワードなし）。
   - ログインしないで保存した品は、その端末のブラウザ（`sakenotsumami.guestSaves`）にだけ残り、みんなの保存数（Firestore の `stats`）には入れない。数を正直に保つため。
