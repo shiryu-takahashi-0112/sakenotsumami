@@ -29,9 +29,14 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com">
+<!-- 書体の読み込みで最初の表示を止めない（読み込めたら切り替わる。display=swap と同じ見え方。2026-10-13） -->
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- 下の「つまみの一覧」の見た目。検索用のページと同じファイルを使う -->
-<link rel="stylesheet" href="footer.css">
+<!-- レシピのデータは最初の表示に要るので、書体より先に取りにいく（2026-10-13） -->
+<link rel="preload" href="recipes.js?v=22952f6ab6" as="script">
+<link rel="stylesheet" href="footer.css?v=81fedea85a">
 <style>
   /* 色・書体はオサケノミタイと同じ */
   :root{
@@ -50,6 +55,8 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
     --tab-total: calc(var(--tab-h) + var(--safe-b));
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  /* タップしてすぐ反応させる（ダブルタップでの拡大待ちをなくす。2026-10-13） */
+  html{touch-action:manipulation;}
   html,body{margin:0;padding:0;background:var(--white);font-family:'Zen Kaku Gothic New', sans-serif;color:var(--ink);}
   body.lock{overflow:hidden;}
   button{font-family:inherit;color:inherit;}
@@ -117,6 +124,8 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   .list{list-style:none;margin:0;padding:0 16px 32px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;}
   @media (min-width:640px){ .list{grid-template-columns:repeat(2,minmax(0,1fr));} }
   .list li{position:relative;}
+  /* 画面の外のカードは、見えるまで描く手間を省く（見た目は同じ。2026-10-13） */
+  .list > li{content-visibility:auto;contain-intrinsic-size:auto 98px;}
   .card{
     appearance:none;width:100%;text-align:left;border:1px solid var(--line);background:var(--white);border-radius:16px;
     padding:12px 52px 12px 12px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:background .15s;
@@ -154,6 +163,8 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   .back i{font-size:22px;}
   .detail{padding:20px 16px 40px;max-width:720px;margin:0 auto;}
   .hero{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin:0 0 18px;background:var(--main-soft);}
+  /* 大きい写真が届くまで、一覧で読んだ小さい写真を下に敷いておく（2026-10-13） */
+  .hero[style]{background-position:center;background-size:cover;}
   .d-name{margin:0;font-size:24px;font-weight:900;line-height:1.35;}
   .d-catch{margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6;}
   .meta{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
@@ -275,13 +286,18 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
     <ul class="list" id="todayPick"></ul>
 <!-- home:start（tools/build_pages.py が書き出す。手で直さない） -->
 <p class="ft-h">Instagramのリールから</p><a class="ft-week" href="week/"><div><b>今週のリールのつまみ</b><span>10月10日〜10月16日に紹介する19品</span></div></a>
-<p class="ft-h">お酒からさがす</p><div class="ft-cards" role="list" aria-label="お酒からさがす"><a class="ft-card" href="#beer" role="listitem"><img src="images/mugen-piman.jpg" alt="" loading="lazy" width="132" height="132"><b>ビール</b><span>115品</span></a><a class="ft-card" href="#highball" role="listitem"><img src="images/shiodare-cabbage.jpg" alt="" loading="lazy" width="132" height="132"><b>ハイボール</b><span>89品</span></a><a class="ft-card" href="#sour" role="listitem"><img src="images/tataki-kyuri.jpg" alt="" loading="lazy" width="132" height="132"><b>レモンサワー</b><span>60品</span></a><a class="ft-card" href="#sake" role="listitem"><img src="images/nagaimo-butter.jpg" alt="" loading="lazy" width="132" height="132"><b>日本酒</b><span>63品</span></a><a class="ft-card" href="#shochu" role="listitem"><img src="images/avocado-wasabi.jpg" alt="" loading="lazy" width="132" height="132"><b>焼酎</b><span>69品</span></a><a class="ft-card" href="#wine" role="listitem"><img src="images/camembert-honey.jpg" alt="" loading="lazy" width="132" height="132"><b>ワイン</b><span>54品</span></a></div>
-<p class="ft-h">作り方からさがす</p><div class="ft-cards" role="list" aria-label="作り方からさがす"><a class="ft-card" href="#c-no-fire" role="listitem"><img src="images/tomato-marinade.jpg" alt="" loading="lazy" width="132" height="132"><b>火を使わない</b><span>39品</span></a><a class="ft-card" href="#c-5min" role="listitem"><img src="images/namaham-cheese.jpg" alt="" loading="lazy" width="132" height="132"><b>5分以内</b><span>33品</span></a><a class="ft-card" href="#c-range" role="listitem"><img src="images/shiokara-jagabutter.jpg" alt="" loading="lazy" width="132" height="132"><b>レンジだけ</b><span>37品</span></a><a class="ft-card" href="#c-pan" role="listitem"><img src="images/chikuwa-isobe.jpg" alt="" loading="lazy" width="132" height="132"><b>フライパンひとつ</b><span>45品</span></a></div>
-<p class="ft-h">食材からさがす</p><div class="ft-cards" role="list" aria-label="食材からさがす"><a class="ft-card" href="#i-cheese" role="listitem"><img src="images/iburigakko-cheese.jpg" alt="" loading="lazy" width="132" height="132"><b>チーズ</b><span>19品</span></a><a class="ft-card" href="#i-onion" role="listitem"><img src="images/onion-okaka.jpg" alt="" loading="lazy" width="132" height="132"><b>玉ねぎ</b><span>18品</span></a><a class="ft-card" href="#i-egg" role="listitem"><img src="images/maguro-yukke.jpg" alt="" loading="lazy" width="132" height="132"><b>卵</b><span>10品</span></a><a class="ft-card" href="#i-chicken" role="listitem"><img src="images/sasami-wasabi.jpg" alt="" loading="lazy" width="132" height="132"><b>鶏肉</b><span>16品</span></a><a class="ft-card" href="#i-pork" role="listitem"><img src="images/range-butashabu.jpg" alt="" loading="lazy" width="132" height="132"><b>豚肉</b><span>14品</span></a><a class="ft-card" href="#i-beef" role="listitem"><img src="images/gyu-garlic.jpg" alt="" loading="lazy" width="132" height="132"><b>牛肉</b><span>6品</span></a><a class="ft-card" href="#i-bacon" role="listitem"><img src="images/asparagus-bacon.jpg" alt="" loading="lazy" width="132" height="132"><b>ベーコン</b><span>5品</span></a><a class="ft-card" href="#i-tomato" role="listitem"><img src="images/tomato-shiokombu.jpg" alt="" loading="lazy" width="132" height="132"><b>トマト</b><span>9品</span></a><a class="ft-card" href="#i-mushroom" role="listitem"><img src="images/eringi-butter.jpg" alt="" loading="lazy" width="132" height="132"><b>きのこ</b><span>12品</span></a><a class="ft-card" href="#i-tofu" role="listitem"><img src="images/shirasu-yakko.jpg" alt="" loading="lazy" width="132" height="132"><b>豆腐</b><span>7品</span></a><a class="ft-card" href="#i-piman" role="listitem"><img src="images/gyoza-pizza.jpg" alt="" loading="lazy" width="132" height="132"><b>ピーマン</b><span>10品</span></a><a class="ft-card" href="#i-cabbage" role="listitem"><img src="images/sausage-cabbage.jpg" alt="" loading="lazy" width="132" height="132"><b>キャベツ</b><span>5品</span></a><a class="ft-card" href="#i-cucumber" role="listitem"><img src="images/kanikama-kyuri.jpg" alt="" loading="lazy" width="132" height="132"><b>きゅうり</b><span>6品</span></a><a class="ft-card" href="#i-potato" role="listitem"><img src="images/jaga-sanra.jpg" alt="" loading="lazy" width="132" height="132"><b>じゃがいも</b><span>5品</span></a><a class="ft-card" href="#i-carrot" role="listitem"><img src="images/ninjin-shirishiri.jpg" alt="" loading="lazy" width="132" height="132"><b>にんじん</b><span>5品</span></a><a class="ft-card" href="#i-daikon" role="listitem"><img src="images/enoki-nametake.jpg" alt="" loading="lazy" width="132" height="132"><b>大根</b><span>5品</span></a><a class="ft-card" href="#i-nerimono" role="listitem"><img src="images/satsumaage-aburi.jpg" alt="" loading="lazy" width="132" height="132"><b>ちくわ・練り物</b><span>5品</span></a><a class="ft-card" href="#i-tuna" role="listitem"><img src="images/saba-lemon.jpg" alt="" loading="lazy" width="132" height="132"><b>ツナ・サバ缶</b><span>5品</span></a></div>
-<p class="ft-h">お知らせ</p><ul class="ft-news"><li><a href="news/#2026-10-12-home"><time datetime="2026-10-12">10月12日</time><b>ホームができて、作り方や食材からもさがせるようになりました</b></a></li><li><a href="news/#2026-10-12-save"><time datetime="2026-10-12">10月12日</time><b>ログインしなくても保存できるようになりました</b></a></li><li><a href="news/#2026-10-12-recipes"><time datetime="2026-10-12">10月12日</time><b>レシピを大幅に増やし、絞り込みと並び替えができるようになりました</b></a></li></ul><a class="ft-more" href="news/" data-news="2026-10-12">お知らせをすべて見る</a>
+<p class="ft-h">お酒からさがす</p><div class="ft-cards" role="list" aria-label="お酒からさがす"><a class="ft-card" href="#beer" role="listitem"><img src="images/w240/mugen-piman.webp" srcset="images/w240/mugen-piman.webp 240w, images/w480/mugen-piman.webp 480w" sizes="132px" alt="" fetchpriority="high" decoding="async" width="132" height="132"><b>ビール</b><span>115品</span></a><a class="ft-card" href="#highball" role="listitem"><img src="images/w240/shiodare-cabbage.webp" srcset="images/w240/shiodare-cabbage.webp 240w, images/w480/shiodare-cabbage.webp 480w" sizes="132px" alt="" fetchpriority="high" decoding="async" width="132" height="132"><b>ハイボール</b><span>89品</span></a><a class="ft-card" href="#sour" role="listitem"><img src="images/w240/tataki-kyuri.webp" srcset="images/w240/tataki-kyuri.webp 240w, images/w480/tataki-kyuri.webp 480w" sizes="132px" alt="" fetchpriority="high" decoding="async" width="132" height="132"><b>レモンサワー</b><span>60品</span></a><a class="ft-card" href="#sake" role="listitem"><img src="images/w240/nagaimo-butter.webp" srcset="images/w240/nagaimo-butter.webp 240w, images/w480/nagaimo-butter.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>日本酒</b><span>63品</span></a><a class="ft-card" href="#shochu" role="listitem"><img src="images/w240/avocado-wasabi.webp" srcset="images/w240/avocado-wasabi.webp 240w, images/w480/avocado-wasabi.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>焼酎</b><span>69品</span></a><a class="ft-card" href="#wine" role="listitem"><img src="images/w240/camembert-honey.webp" srcset="images/w240/camembert-honey.webp 240w, images/w480/camembert-honey.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>ワイン</b><span>54品</span></a></div>
+<p class="ft-h">作り方からさがす</p><div class="ft-cards" role="list" aria-label="作り方からさがす"><a class="ft-card" href="#c-no-fire" role="listitem"><img src="images/w240/tomato-marinade.webp" srcset="images/w240/tomato-marinade.webp 240w, images/w480/tomato-marinade.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>火を使わない</b><span>39品</span></a><a class="ft-card" href="#c-5min" role="listitem"><img src="images/w240/namaham-cheese.webp" srcset="images/w240/namaham-cheese.webp 240w, images/w480/namaham-cheese.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>5分以内</b><span>33品</span></a><a class="ft-card" href="#c-range" role="listitem"><img src="images/w240/shiokara-jagabutter.webp" srcset="images/w240/shiokara-jagabutter.webp 240w, images/w480/shiokara-jagabutter.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>レンジだけ</b><span>37品</span></a><a class="ft-card" href="#c-pan" role="listitem"><img src="images/w240/chikuwa-isobe.webp" srcset="images/w240/chikuwa-isobe.webp 240w, images/w480/chikuwa-isobe.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>フライパンひとつ</b><span>45品</span></a></div>
+<p class="ft-h">食材からさがす</p><div class="ft-cards" role="list" aria-label="食材からさがす"><a class="ft-card" href="#i-cheese" role="listitem"><img src="images/w240/iburigakko-cheese.webp" srcset="images/w240/iburigakko-cheese.webp 240w, images/w480/iburigakko-cheese.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>チーズ</b><span>19品</span></a><a class="ft-card" href="#i-onion" role="listitem"><img src="images/w240/onion-okaka.webp" srcset="images/w240/onion-okaka.webp 240w, images/w480/onion-okaka.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>玉ねぎ</b><span>18品</span></a><a class="ft-card" href="#i-egg" role="listitem"><img src="images/w240/maguro-yukke.webp" srcset="images/w240/maguro-yukke.webp 240w, images/w480/maguro-yukke.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>卵</b><span>10品</span></a><a class="ft-card" href="#i-chicken" role="listitem"><img src="images/w240/sasami-wasabi.webp" srcset="images/w240/sasami-wasabi.webp 240w, images/w480/sasami-wasabi.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>鶏肉</b><span>16品</span></a><a class="ft-card" href="#i-pork" role="listitem"><img src="images/w240/range-butashabu.webp" srcset="images/w240/range-butashabu.webp 240w, images/w480/range-butashabu.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>豚肉</b><span>14品</span></a><a class="ft-card" href="#i-beef" role="listitem"><img src="images/w240/gyu-garlic.webp" srcset="images/w240/gyu-garlic.webp 240w, images/w480/gyu-garlic.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>牛肉</b><span>6品</span></a><a class="ft-card" href="#i-bacon" role="listitem"><img src="images/w240/asparagus-bacon.webp" srcset="images/w240/asparagus-bacon.webp 240w, images/w480/asparagus-bacon.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>ベーコン</b><span>5品</span></a><a class="ft-card" href="#i-tomato" role="listitem"><img src="images/w240/tomato-shiokombu.webp" srcset="images/w240/tomato-shiokombu.webp 240w, images/w480/tomato-shiokombu.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>トマト</b><span>9品</span></a><a class="ft-card" href="#i-mushroom" role="listitem"><img src="images/w240/eringi-butter.webp" srcset="images/w240/eringi-butter.webp 240w, images/w480/eringi-butter.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>きのこ</b><span>12品</span></a><a class="ft-card" href="#i-tofu" role="listitem"><img src="images/w240/shirasu-yakko.webp" srcset="images/w240/shirasu-yakko.webp 240w, images/w480/shirasu-yakko.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>豆腐</b><span>7品</span></a><a class="ft-card" href="#i-piman" role="listitem"><img src="images/w240/gyoza-pizza.webp" srcset="images/w240/gyoza-pizza.webp 240w, images/w480/gyoza-pizza.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>ピーマン</b><span>10品</span></a><a class="ft-card" href="#i-cabbage" role="listitem"><img src="images/w240/sausage-cabbage.webp" srcset="images/w240/sausage-cabbage.webp 240w, images/w480/sausage-cabbage.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>キャベツ</b><span>5品</span></a><a class="ft-card" href="#i-cucumber" role="listitem"><img src="images/w240/kanikama-kyuri.webp" srcset="images/w240/kanikama-kyuri.webp 240w, images/w480/kanikama-kyuri.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>きゅうり</b><span>6品</span></a><a class="ft-card" href="#i-potato" role="listitem"><img src="images/w240/jaga-sanra.webp" srcset="images/w240/jaga-sanra.webp 240w, images/w480/jaga-sanra.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>じゃがいも</b><span>5品</span></a><a class="ft-card" href="#i-carrot" role="listitem"><img src="images/w240/ninjin-shirishiri.webp" srcset="images/w240/ninjin-shirishiri.webp 240w, images/w480/ninjin-shirishiri.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>にんじん</b><span>5品</span></a><a class="ft-card" href="#i-daikon" role="listitem"><img src="images/w240/enoki-nametake.webp" srcset="images/w240/enoki-nametake.webp 240w, images/w480/enoki-nametake.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>大根</b><span>5品</span></a><a class="ft-card" href="#i-nerimono" role="listitem"><img src="images/w240/satsumaage-aburi.webp" srcset="images/w240/satsumaage-aburi.webp 240w, images/w480/satsumaage-aburi.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>ちくわ・練り物</b><span>5品</span></a><a class="ft-card" href="#i-tuna" role="listitem"><img src="images/w240/saba-lemon.webp" srcset="images/w240/saba-lemon.webp 240w, images/w480/saba-lemon.webp 480w" sizes="132px" alt="" loading="lazy" decoding="async" width="132" height="132"><b>ツナ・サバ缶</b><span>5品</span></a></div>
+<p class="ft-h">お知らせ</p><ul class="ft-news"><li><a href="news/#2026-10-13-speed"><time datetime="2026-10-13">10月13日</time><b>表示を速くしました</b></a></li><li><a href="news/#2026-10-12-home"><time datetime="2026-10-12">10月12日</time><b>ホームができて、作り方や食材からもさがせるようになりました</b></a></li><li><a href="news/#2026-10-12-save"><time datetime="2026-10-12">10月12日</time><b>ログインしなくても保存できるようになりました</b></a></li></ul><a class="ft-more" href="news/" data-news="2026-10-13">お知らせをすべて見る</a>
 <script>document.querySelectorAll('[data-news]').forEach(function(a){var d=Date.now()-new Date(a.getAttribute('data-news')+'T00:00:00+09:00').getTime();if(d<7*864e5&&!a.querySelector('.ft-new,.tab-dot'))a.insertAdjacentHTML('beforeend',a.classList.contains('tab')?'<span class=\'tab-dot\' aria-label=\'新しいお知らせがあります\'></span>':'<span class=\'ft-new\'>NEW</span>');});</script>
 <script>const HOME = {"presets":{"c-no-fire":{"label":"火を使わないつまみ","ids":["shiodare-cabbage","tataki-kyuri","avocado-wasabi","tomato-marinade","namaham-cheese","shirasu-yakko","iburigakko-cheese","saba-lemon","kimchi-yakko","tako-carpaccio","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","salmon-marinade","nagaimo-ume","celery-asazuke","carrot-rapee","zasai-tofu","katsuo-tataki","shungiku-salad","mentai-dip","daikon-hotate","thai-cucumber","tofu-shiokombu","aji-namerou","ebi-avocado","chikuwa-kyuri","myoga-amazu","radish-butter","kabu-lemon","somtam-daikon","pajeori","saladchicken-bangbangji","negi-chashu","roastbeef-yukke","cornedbeef-onion"]},"c-5min":{"label":"5分以内のつまみ","ids":["mugen-piman","shiodare-cabbage","tataki-kyuri","avocado-wasabi","tomato-marinade","namaham-cheese","shirasu-yakko","iburigakko-cheese","moyashi-namul","saba-lemon","kimchi-yakko","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","nagaimo-ume","zasai-tofu","shungiku-salad","mentai-dip","thai-cucumber","okura-okaka","eringi-butter","tofu-shiokombu","ebi-avocado","zucchini-namul","cheese-senbei","radish-butter","saladchicken-bangbangji","negi-chashu","roastbeef-yukke","cornedbeef-onion"]},"c-range":{"label":"レンジだけのつまみ","ids":["mugen-piman","shiokara-jagabutter","moyashi-namul","yodare-dori","butabara-moyashi","nasu-chukadare","kabocha-cheese-salad","mentai-potesala","asari-sakamushi","broccoli-okakamayo","horenso-goma","okura-okaka","eringi-butter","range-mapo","sasami-wasabi","satsumaimo-butter","furofuki-daikon","sausage-cabbage","yum-woonsen","enoki-nametake","hakusai-millefeuille","renkon-kinpira","snap-pea-anchovy","kinoko-marinade","range-butashabu","gobo-chips","zucchini-namul","cheese-senbei","satoimo-yuzumiso","chingensai-oyster","shintama-range","tataki-gobo","corn-butter","tori-yuzukosho-mushi","range-shumai","butamaki-okura","range-japchae"]},"c-pan":{"label":"フライパンひとつのつまみ","ids":["nagaimo-butter","chikuwa-isobe","sunagimo-garlic","mushroom-ajillo","aburaage-natto","chicken-negishio","edamame-peperoncino","buta-kimchi","nira-tama","nira-chijimi","garlic-shrimp","german-potato","goya-champuru","shogayaki","tori-tsukune","dashimaki","yaki-shishito","asparagus-bacon","ika-butter","buri-teriyaki","hotate-butter","konnyaku-pirikara","gapao-lettuce","samgyeopsal","dakgalbi","komatsuna-nampla","ebi-chili","tofu-steak","bulgogi","maitake-ponzu","gyu-shigure","gyu-garlic","tomato-tamago","torikawa","buta-negishio-lemon","potato-galette","mushroom-balsamic","jaga-sanra","renkon-steak","ingen-sichuan","ninjin-shirishiri","tebamoto-sujoyu","tori-negima","hoikoro","gyu-cumin"]},"i-cheese":{"label":"チーズのつまみ","ids":["iburigakko-cheese","creamcheese-okaka","caprese","cheese-senbei","mentai-dip","namaham-cheese","gyoza-pizza","kabocha-cheese-salad","shiitake-mayo","hanpen-cheese","camembert-honey","nachos","aburaage-pizza","mochi-cheese-nori","zucchini-cheese","sasami-umeshiso","potato-galette","tunamayo-piman","dakgalbi"]},"i-onion":{"label":"玉ねぎのつまみ","ids":["onion-okaka","cornedbeef-onion","saba-lemon","katsuo-tataki","salmon-marinade","tako-carpaccio","nachos","aburaage-pizza","gyu-garlic","gyu-cumin","gapao-lettuce","yum-woonsen","shogayaki","german-potato","bulgogi","range-shumai","salmon-foil","dakgalbi"]},"i-egg":{"label":"卵のつまみ","ids":["maguro-yukke","roastbeef-yukke","tomato-tamago","nira-tama","uzura-bacon","ninjin-shirishiri","dashimaki","nira-chijimi","goya-champuru","tori-tsukune"]},"i-chicken":{"label":"鶏肉のつまみ","ids":["sasami-wasabi","gapao-lettuce","sunagimo-garlic","sasami-umeshiso","tori-negima","tori-yuzukosho-mushi","chicken-negishio","torikawa","yodare-dori","tebanaka-shio","tori-tsukune","mune-panko-yaki","dakgalbi","tebamoto-sujoyu","chicken-misomayo","tandoori-chicken"]},"i-pork":{"label":"豚肉のつまみ","ids":["range-butashabu","buta-kimchi","butabara-moyashi","buta-negishio-lemon","butamaki-okura","shogayaki","goya-champuru","samgyeopsal","range-mapo","hoikoro","range-shumai","hakusai-millefeuille","buta-sate","buta-misozuke"]},"i-beef":{"label":"牛肉のつまみ","ids":["gyu-garlic","gyu-cumin","range-japchae","bulgogi","gyu-shigure","gyu-negimaki"]},"i-bacon":{"label":"ベーコンのつまみ","ids":["asparagus-bacon","gyoza-pizza","uzura-bacon","enoki-bacon","german-potato"]},"i-tomato":{"label":"トマトのつまみ","ids":["tomato-shiokombu","caprese","tomato-marinade","tomato-tamago","bruschetta","nachos","somtam-daikon","yum-woonsen","yaki-tomato"]},"i-mushroom":{"label":"きのこのつまみ","ids":["eringi-butter","maitake-ponzu","enoki-nametake","kinoko-marinade","mushroom-balsamic","shiitake-mayo","eringi-gochujang","mushroom-ajillo","mushroom-escargot","enoki-bacon","tori-yuzukosho-mushi","salmon-foil"]},"i-tofu":{"label":"豆腐のつまみ","ids":["shirasu-yakko","kimchi-yakko","zasai-tofu","tofu-shiokombu","goya-champuru","range-mapo","tofu-steak"]},"i-piman":{"label":"ピーマンのつまみ","ids":["mugen-piman","gyoza-pizza","gyu-cumin","jaga-sanra","gapao-lettuce","tunamayo-piman","piman-maruyaki","range-japchae","hoikoro","paprika-marinade"]},"i-cabbage":{"label":"キャベツのつまみ","ids":["shiodare-cabbage","sausage-cabbage","shogayaki","hoikoro","dakgalbi"]},"i-cucumber":{"label":"きゅうりのつまみ","ids":["tataki-kyuri","kanikama-kyuri","saladchicken-bangbangji","thai-cucumber","chikuwa-kyuri","sasami-wasabi"]},"i-potato":{"label":"じゃがいものつまみ","ids":["shiokara-jagabutter","jaga-sanra","mentai-potesala","potato-galette","german-potato"]},"i-carrot":{"label":"にんじんのつまみ","ids":["ninjin-shirishiri","carrot-rapee","somtam-daikon","range-japchae","bulgogi"]},"i-daikon":{"label":"大根のつまみ","ids":["enoki-nametake","daikon-hotate","somtam-daikon","dashimaki","furofuki-daikon"]},"i-nerimono":{"label":"ちくわ・練り物のつまみ","ids":["kanikama-kyuri","satsumaage-aburi","chikuwa-kyuri","chikuwa-isobe","hanpen-cheese"]},"i-tuna":{"label":"ツナ・サバ缶のつまみ","ids":["saba-lemon","mugen-piman","ninjin-shirishiri","oil-sardine","tunamayo-piman"]}},"published":["mugen-piman","shiodare-cabbage","tataki-kyuri","nagaimo-butter","avocado-wasabi","chikuwa-isobe","atsuage-miso","sunagimo-garlic","tebanaka-shio","camembert-honey","tomato-marinade","mushroom-ajillo","namaham-cheese","shirasu-yakko","iburigakko-cheese","aburaage-natto","shiokara-jagabutter","chicken-negishio","yakinasu","edamame-peperoncino","moyashi-namul","saba-lemon","kimchi-yakko","tako-carpaccio","maguro-yukke","caprese","kanikama-kyuri","onion-okaka","tomato-shiokombu","creamcheese-okaka","salmon-marinade","nagaimo-ume","celery-asazuke","carrot-rapee","zasai-tofu","katsuo-tataki","shungiku-salad","mentai-dip","daikon-hotate","thai-cucumber","yodare-dori","butabara-moyashi","nasu-chukadare","kabocha-cheese-salad","mentai-potesala","asari-sakamushi","broccoli-okakamayo","horenso-goma","okura-okaka","eringi-butter","range-mapo","sasami-wasabi","satsumaimo-butter","furofuki-daikon","sausage-cabbage","yum-woonsen","enoki-nametake","hakusai-millefeuille","renkon-kinpira","snap-pea-anchovy","buta-kimchi","nira-tama","nira-chijimi","garlic-shrimp","german-potato","goya-champuru","shogayaki","tori-tsukune","dashimaki","yaki-shishito","asparagus-bacon","ika-butter","buri-teriyaki","hotate-butter","konnyaku-pirikara","gapao-lettuce","samgyeopsal","dakgalbi","komatsuna-nampla","ebi-chili","tofu-steak","bulgogi","shiitake-mayo","hanpen-cheese","oil-sardine","aburaage-pizza","shishamo","satsumaage-aburi","asparagus-cheese","zucchini-cheese","salmon-foil","enoki-bacon","yaki-tomato","bruschetta","piman-maruyaki","chicken-misomayo","negi-grill","mochi-cheese-nori","tunamayo-piman","nachos","kinoko-marinade","maitake-ponzu","gyu-shigure","gyu-garlic","tomato-tamago","uzura-bacon","tofu-shiokombu","aburaage-negiponzu","torikawa","sasami-umeshiso","buta-negishio-lemon","range-butashabu","aji-namerou","ebi-avocado","chikuwa-kyuri","potato-galette","gobo-chips","zucchini-namul","cheese-senbei","gyoza-pizza","myoga-amazu","radish-butter","kabu-lemon","somtam-daikon","pajeori","satoimo-yuzumiso","chingensai-oyster","shintama-range","tataki-gobo","corn-butter","mushroom-balsamic","jaga-sanra","renkon-steak","ingen-sichuan","ninjin-shirishiri","kabocha-cumin","mushroom-escargot","nasu-dengaku","eringi-gochujang","paprika-marinade","saladchicken-bangbangji","tebamoto-sujoyu","tori-negima","tandoori-chicken","tori-yuzukosho-mushi","mune-panko-yaki","negi-chashu","hoikoro","buta-misozuke","range-shumai","butamaki-okura","buta-sate","roastbeef-yukke","range-japchae","gyu-negimaki","gyu-cumin","cornedbeef-onion"]};</script>
 <!-- home:end -->
+<script>
+// 今日の一品の写真を先に読み始める（renderHome と同じ選び方。2026-10-13）
+(function(){var p=HOME.published,d=Math.floor((Date.now()+9*3600e3)/864e5);if(!p||!p.length||(location.hash&&location.hash!=='#home'))return;
+var l=document.createElement('link');l.rel='preload';l.as='image';l.href='images/w240/'+p[d%p.length]+'.webp';l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
+</script>
     <p class="links home-links"><a href="news/">お知らせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシーポリシー</a><a href="contact.html">お問い合わせ</a></p>
     <p class="note">飲みすぎに注意しましょう。<br>飲酒運転は法律で禁止されています。</p>
   </div>
@@ -389,16 +405,23 @@ if(location.hostname==='shiryu-takahashi-0112.github.io') location.replace('http
   <article class="detail" id="detail"></article>
 </section>
 
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-<!-- Firebaseの設定。まだ無いあいだはログインと保存が「準備中」になる -->
-<script src="firebase-config.js" onerror="void 0"></script>
-<script src="recipes.js"></script>
+<!-- Firebaseの設定。まだ無いあいだはログインと保存が「準備中」になる。
+     Firebase 本体は、画面を描いたあとに読み込む（loadFirebase。2026-10-13 表示を速くするため） -->
+<script src="firebase-config.js?v=885ae9abdf" onerror="void 0"></script>
+<script src="recipes.js?v=22952f6ab6"></script>
 <script>
 const $ = id => document.getElementById(id);
 const drinkName = id => DRINKS.find(d => d.id === id)?.name || '';
-const photo = r => `images/${r.id}.jpg`;
+const photo = r => `images/${r.id}.jpg`;   // 元の写真（800px）
+// 表示用の小さい写真（WebP。tools/thumbs.py が作る。2026-10-13）。240＝一覧、720＝詳細
+const small = (r, w) => `images/w${w}/${r.id}.webp`;
+// 小さい写真がまだ無いときは元の写真に、それも無ければ消す（黄色の地とアイコンが見える）
+function imgFallback(el){
+  if(el.dataset.fb){ el.remove(); return; }
+  el.dataset.fb = '1';
+  el.removeAttribute('srcset');
+  el.src = el.dataset.orig;
+}
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // 写真が無い品は出さない（2026-10-12 Shiryu）。公開する品（HOME.published）は tools/build_pages.py が images/<id>.jpg の有無から書き出す。
 // 一覧・検索・絞り込み・件数は RECIPES（公開する品だけ）で作る。前に保存した品が消えないよう、保存の一覧と詳細は全品から引く
@@ -419,13 +442,37 @@ function showToast(msg){
 
 /* ---------- Firebase（会員・保存） ---------- */
 // 見るのは誰でも自由。保存だけ会員にする
-const fbReady = !!window.FIREBASE_CONFIG && !!window.firebase;
+// Firebase 本体（約150KB）は、画面を描いたあとに読み込む（2026-10-13 Shiryu「アプリ内の挙動が遅い」）。
+// それまでは、ログインしていない人と同じ（この端末の保存）で描き、読み込めたら保存・保存数・ログインの状態を足す。
+const fbReady = !!window.FIREBASE_CONFIG;   // 会員の機能があるか（読み込みが済んだかではない）
 let auth = null, db = null;
-if(fbReady){
-  firebase.initializeApp(window.FIREBASE_CONFIG);
-  auth = firebase.auth();
-  db = firebase.firestore();
+let fbLoading = null;
+const FB_BASE = 'https://www.gstatic.com/firebasejs/10.14.1/';
+function loadFirebase(){
+  if(!fbReady) return Promise.resolve(false);
+  if(fbLoading) return fbLoading;
+  fbLoading = new Promise((resolve, reject) => {
+    const files = ['firebase-app-compat.js', 'firebase-auth-compat.js', 'firebase-firestore-compat.js'];
+    let left = files.length;
+    for(const f of files){
+      const s = document.createElement('script');
+      s.src = FB_BASE + f;
+      s.async = false;   // 並べて取り、書いた順に動かす（app → auth・firestore）
+      s.onload = () => { if(--left === 0) resolve(); };
+      s.onerror = reject;
+      document.head.appendChild(s);
+    }
+  }).then(() => {
+    firebase.initializeApp(window.FIREBASE_CONFIG);
+    auth = firebase.auth();
+    db = firebase.firestore();
+    startFirebase();
+    return true;
+  }).catch(() => { fbLoading = null; return false; });
+  return fbLoading;
 }
+let authKnown = false;   // ログインの状態が分かったか（Firebase を読み込むまでは分からない）
+const WAS_USER_KEY = 'sakenotsumami.wasMember';   // 前に開いたとき会員だったか。分かるまで保存の画面をログインの案内で描かないため
 let user = null;
 let saved = new Map();   // レシピid → 保存した日時（ミリ秒）
 let unsubSaves = null;
@@ -464,7 +511,7 @@ let stats = new Map();   // レシピid → 保存数
 const saveCount = id => stats.get(id) || 0;
 
 function watchStats(){
-  if(!fbReady) return;
+  if(!db) return;
   db.collection('stats').onSnapshot(snap => {
     stats = new Map();
     snap.forEach(d => { const n = d.get('saves'); if(typeof n === 'number' && n > 0) stats.set(d.id, n); });
@@ -473,16 +520,12 @@ function watchStats(){
 }
 
 function refreshCounts(){
-  if(view === 'search'){
-    // 人気順は数が変わると並びも変わるので描き直す。ほかは数字だけ直す
-    if(sortBy === 'popular') return renderList();
-    document.querySelectorAll('.card[data-id]').forEach(c => {
-      const t = c.querySelector('.saves');
-      const n = saveCount(c.dataset.id);
-      if(t) t.outerHTML = savesTag(n);
-      else if(n) c.querySelector('.tags').insertAdjacentHTML('beforeend', savesTag(n));
-    });
-  }
+  uiVer++;
+  // 人気順は数が変わると並びも変わるので、次に一覧を出すときに並べ直す
+  if(sortBy === 'popular') listKey = '';
+  if(view === 'search' && sortBy === 'popular') renderList();
+  // 画面に出ているカードは数字だけ直す（さがすの一覧は、出すときに syncCard で直す）
+  document.querySelectorAll('.list > li[data-id]').forEach(syncCard);
   if(view === 'saved') renderSaved();
   if(openId) renderDetailSaves();
 }
@@ -584,6 +627,7 @@ function watchSaves(){
 }
 
 function refreshSaveUI(){
+  uiVer++;
   document.querySelectorAll('.save-btn').forEach(b => setSaveBtn(b, saved.has(b.dataset.id)));
   if(openId) renderDetailSave();
   if(view === 'saved') renderSaved();
@@ -615,6 +659,7 @@ function authFormHTML(title, lead){
 }
 
 function openLogin(title, lead, later){
+  loadFirebase();
   $('loginModalBody').innerHTML = authFormHTML(title, lead || '登録もログインも同じボタンからできます。パスワードは不要です。')
     + (later ? '<button class="btn btn-sub later" data-close>あとで</button>' : '');
   $('loginModal').hidden = false;
@@ -627,8 +672,10 @@ function closeModals(){
 }
 
 // ログインのボタンとフォームは、モーダルとマイページの両方に置くので委譲で拾う
-document.addEventListener('click', e => {
+document.addEventListener('click', async e => {
   if(e.target.closest('[data-auth="google"]')){
+    // ふつうは画面を開いた直後に読み込み終わっている。まだのときは待つ（その場合、ポップアップが止められることがある→メールを案内）
+    if(!auth && !(await loadFirebase())) return showToast('通信できませんでした。時間をおいてお試しください');
     auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .catch(err => {
         // 本人が閉じた／連続タップで前の試行が取り消された場合は、失敗として出さない
@@ -651,6 +698,7 @@ document.addEventListener('submit', async e => {
   const msg = form.parentElement.querySelector('[data-auth-msg]');
   btn.disabled = true;
   try{
+    if(!auth && !(await loadFirebase())) throw new Error('firebase');
     await auth.sendSignInLinkToEmail(email, {url: location.origin + location.pathname, handleCodeInApp: true});
     store.set(EMAIL_KEY, email);
     msg.className = 'auth-msg ok';
@@ -665,7 +713,7 @@ document.addEventListener('submit', async e => {
 
 // メールのリンクから開いたとき
 async function finishEmailLink(){
-  if(!fbReady || !auth.isSignInWithEmailLink(location.href)) return;
+  if(!auth || !auth.isSignInWithEmailLink(location.href)) return;
   let email = store.get(EMAIL_KEY);
   // 別の端末・ブラウザで開いた場合はアドレスを聞き直す（Firebaseの推奨どおり）
   if(!email) email = prompt('確認のため、ログインに使うメールアドレスを入力してください');
@@ -680,10 +728,15 @@ async function finishEmailLink(){
   history.replaceState(null, '', location.pathname + location.hash);
 }
 
-if(fbReady){
+// Firebase を読み込めたら呼ぶ（loadFirebase）
+function startFirebase(){
   auth.onAuthStateChanged(async u => {
+    const was = user;
     user = u;
-    watchSaves();
+    authKnown = true;
+    u ? store.set(WAS_USER_KEY, '1') : store.del(WAS_USER_KEY);
+    // ログインしていない人は、この端末の保存をすでに出しているので描き直さない
+    if(u || was) watchSaves();
     if(u){
       closeModals();
       await mergeGuestSaves();
@@ -692,6 +745,7 @@ if(fbReady){
     if(view === 'saved') renderSaved();
   });
   finishEmailLink();
+  watchStats();
 }
 
 $('logoutOk').addEventListener('click', async () => {
@@ -717,10 +771,12 @@ const order = new Map(RECIPES.map((r, i) => [r.id, i]));
 let view = 'search';
 let openId = null;
 
-function cardHTML(r){
-  return `<li>
+// first：画面の一番上に出る1品（今日の一品）。写真を先に読む
+function cardHTML(r, first){
+  const load = first ? 'fetchpriority="high"' : 'loading="lazy"';
+  return `<li data-id="${r.id}">
     <button class="card" data-id="${r.id}">
-      <div class="thumb"><i class="ri-restaurant-2-line"></i><img src="${photo(r)}" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="thumb"><i class="ri-restaurant-2-line"></i><img src="${small(r, 240)}" data-orig="${photo(r)}" alt="" width="72" height="72" ${load} decoding="async" onerror="imgFallback(this)"></div>
       <div class="card-body">
         <p class="card-name">${esc(r.name)}</p>
         <p class="card-catch">${esc(r.catch)}</p>
@@ -736,9 +792,42 @@ function cardHTML(r){
   </li>`;
 }
 
+// さがすの一覧のカードは、1品ごとに一度だけ作って使い回す（お酒・絞り込みを変えるたびに作り直さない。2026-10-13）
+const cardEls = new Map();   // レシピid → <li>
+let uiVer = 0;               // 保存・保存数が変わるたびに増やす。カードを出すときに、古ければ直す
+function cardEl(r){
+  let li = cardEls.get(r.id);
+  if(!li){
+    const t = document.createElement('template');
+    t.innerHTML = cardHTML(r).trim();
+    li = t.content.firstElementChild;
+    li._v = uiVer;
+    cardEls.set(r.id, li);
+  }else if(li._v !== uiVer) syncCard(li);
+  return li;
+}
+// カードの保存の印と保存数を、今の状態に合わせる
+function syncCard(li){
+  const id = li.dataset.id;
+  const b = li.querySelector('.save-btn');
+  if(b && b.classList.contains('on') !== saved.has(id)) setSaveBtn(b, saved.has(id));
+  const n = saveCount(id), t = li.querySelector('.saves');
+  if(t ? t.textContent !== String(n) : n){
+    if(t) t.remove();
+    if(n) li.querySelector('.tags').insertAdjacentHTML('beforeend', savesTag(n));
+  }
+  li._v = uiVer;
+}
+
+let chipsShown = null;
 function renderChips(){
-  $('chips').innerHTML = [{id:'all', name:'すべて'}, ...DRINKS]
-    .map(d => `<button class="chip${d.id === current ? ' on' : ''}" data-id="${d.id}">${d.name}</button>`).join('');
+  if(!chipsShown){
+    $('chips').innerHTML = [{id:'all', name:'すべて'}, ...DRINKS]
+      .map(d => `<button class="chip" data-id="${d.id}">${d.name}</button>`).join('');
+  }
+  if(chipsShown === current) return;
+  chipsShown = current;
+  $('chips').querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.id === current));
   // 選んだお酒が横スクロールの外に隠れないように寄せる
   const on = $('chips').querySelector('.on');
   $('chips').scrollLeft = on.offsetLeft - ($('chips').clientWidth - on.offsetWidth) / 2;
@@ -757,7 +846,12 @@ const SORTS = {
   popular: (a, b) => saveCount(b.id) - saveCount(a.id) || a.min - b.min,
 };
 
+// 今出している一覧の条件。同じ条件なら描き直さない（レシピを開く・閉じる・タブを行き来するとき）
+let listKey = '';
 function renderList(){
+  const key = [current, preset, sortBy, [...filter.tool].join(','), [...filter.food].join(',')].join('|');
+  if(key === listKey) return;
+  listKey = key;
   const items = RECIPES.filter(r => matches(r, filter)).sort(SORTS[sortBy]);
   const names = k => FILTERS[k].items.filter(x => filter[k].has(x.id)).map(x => x.name);
   const cond = [...names('tool'), ...names('food')].join('・');
@@ -768,8 +862,8 @@ function renderList(){
     : `<span class="drink-name">${drinkName(current)}</span>に合うつまみ`)
     + (cond ? `（${esc(cond)}）` : '') + ` <b>${items.length}</b>品`
     + (preset ? '<button class="preset-x" data-preset-clear aria-label="条件を外す">外す ×</button>' : '');
-  $('list').innerHTML = items.length ? items.map(cardHTML).join('')
-    : `<li class="empty"><i class="ri-search-line"></i>この組み合わせのつまみは、まだありません。<br><button data-clear>絞り込みを外す</button></li>`;
+  if(items.length) $('list').replaceChildren(...items.map(cardEl));
+  else $('list').innerHTML = `<li class="empty"><i class="ri-search-line"></i>この組み合わせのつまみは、まだありません。<br><button data-clear>絞り込みを外す</button></li>`;
   const n = filter.tool.size + filter.food.size;
   $('filterBtn').classList.toggle('on', n > 0);
   $('filterBtn').innerHTML = `<i class="ri-equalizer-line"></i>絞り込み${n ? `<span class="n">${n}</span>` : ''}`;
@@ -796,7 +890,11 @@ function scrollToListTop(){
 const guestNote = () => !user && fbReady && saved.size
   ? `<div class="guest-note"><p>この保存は、この端末のブラウザにだけ残っています。会員登録（無料）すると、ほかの端末でも見られます。</p><button class="btn btn-sub" data-login>会員登録・ログイン</button></div>` : '';
 
+// 前に会員だった人は、ログインの状態が分かるまで保存の画面を描かない（ログインの案内が一瞬出ないように）
+const waitingAuth = () => fbReady && !authKnown && !!store.get(WAS_USER_KEY);
+
 function renderSaved(){
+  if(waitingAuth()){ $('savedBody').innerHTML = ''; return; }
   const items = [...saved.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => byId(id)).filter(Boolean);
   $('savedBody').innerHTML = items.length
     ? `<p class="count"><b>${items.length}</b>品</p><ul class="list">${items.map(cardHTML).join('')}</ul>${guestNote()}`
@@ -805,6 +903,7 @@ function renderSaved(){
 }
 
 function renderMypage(){
+  if(waitingAuth()){ $('mypageBody').innerHTML = ''; return; }
   if(!user){
     $('mypageBody').innerHTML = `
     <ul class="menu menu-top">
@@ -832,12 +931,10 @@ function renderDetailSave(){
   $('dSave').innerHTML = `<i class="${on ? 'ri-bookmark-fill' : 'ri-bookmark-line'}"></i>${on ? '保存済み' : '保存'}`;
 }
 
-function openRecipe(id){
-  const r = byId(id);
-  if(!r) return closeRecipe();
-  openId = id;
-  $('detail').innerHTML = `
-    <img class="hero" src="${photo(r)}" alt="${esc(r.name)}" onerror="this.remove()">
+// withImg=false は、前もって描いておく練習用（写真を読まない。warmUp）
+function detailHTML(r, withImg = true){
+  return `
+    ${withImg ? `<img class="hero" src="${small(r, 720)}" data-orig="${photo(r)}" alt="${esc(r.name)}" fetchpriority="high" onerror="imgFallback(this)" style="background-image:url(${small(r, 240)})">` : ''}
     <h2 class="d-name">${esc(r.name)}</h2>
     <p class="d-catch">${esc(r.catch)}</p>
     <p class="d-saves" id="dSaves"></p>
@@ -854,6 +951,13 @@ function openRecipe(id){
     <ul class="ing">${r.ing.map(([n, a]) => `<li><span>${esc(n)}</span><span>${esc(a)}</span></li>`).join('')}</ul>
     <h3 class="d-h">作り方</h3>
     <ol class="steps">${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>`;
+}
+
+function openRecipe(id){
+  const r = byId(id);
+  if(!r) return closeRecipe();
+  openId = id;
+  $('detail').innerHTML = detailHTML(r);
   renderDetailSave();
   renderDetailSaves();
   $('sheet').scrollTop = 0;
@@ -882,6 +986,8 @@ function closeRecipe(){
 //   #c-5min / #i-cabbage … さがす（ホームの作り方・食材から。HOME.presets）
 //   #saved / #saved/mugen-piman … 保存
 //   #mypage … マイページ
+// 変わったところだけ描き直す（2026-10-13）。レシピを開く・閉じるだけのときは、後ろの画面に触らない
+let viewShown = null;
 function applyHash(){
   const [head, recipe] = location.hash.slice(1).split('/');
   view = head === 'saved' || head === 'mypage' ? head : !head || head === 'home' ? 'home' : 'search';
@@ -889,20 +995,25 @@ function applyHash(){
     current = DRINKS.some(d => d.id === head) ? head : 'all';
     preset = HOME.presets[head] ? head : null;
   }
-  $('appHead').hidden = view !== 'search' && view !== 'home';
-  $('viewHome').hidden = view !== 'home';
-  $('viewSearch').hidden = view !== 'search';
-  $('viewSaved').hidden = view !== 'saved';
-  $('viewMypage').hidden = view !== 'mypage';
-  document.querySelectorAll('.tab').forEach(t => {
-    t.classList.toggle('on', t.dataset.view === view);
-    t.toggleAttribute('aria-current', t.dataset.view === view);
-  });
-  if(view === 'home') renderHome();
+  const changed = view !== viewShown;
+  if(changed){
+    viewShown = view;
+    $('appHead').hidden = view !== 'search' && view !== 'home';
+    $('viewHome').hidden = view !== 'home';
+    $('viewSearch').hidden = view !== 'search';
+    $('viewSaved').hidden = view !== 'saved';
+    $('viewMypage').hidden = view !== 'mypage';
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('on', t.dataset.view === view);
+      t.toggleAttribute('aria-current', t.dataset.view === view);
+    });
+  }
+  if(view === 'home' && changed) renderHome();
   if(view === 'search'){ renderChips(); renderList(); }
-  if(view === 'saved') renderSaved();
-  if(view === 'mypage') renderMypage();
-  recipe ? openRecipe(recipe) : closeRecipe();
+  if(view === 'saved' && changed) renderSaved();
+  if(view === 'mypage' && changed) renderMypage();
+  if(recipe){ if(recipe !== openId) openRecipe(recipe); }
+  else if(openId) closeRecipe();
 }
 const searchHash = () => preset || (current === 'all' ? 'all' : current);
 const baseHash = () => view === 'search' ? searchHash() : view === 'home' ? '' : view;
@@ -1044,12 +1155,39 @@ function renderHome(){
   const day = Math.floor((Date.now() + 9 * 3600e3) / 864e5);
   const ids = RECIPES.map(r => r.id);
   const r = byId(ids[day % ids.length]);
-  $('todayPick').innerHTML = r ? cardHTML(r) : '';
+  if(r && $('todayPick').firstElementChild?.dataset.id === r.id) return syncCard($('todayPick').firstElementChild);
+  $('todayPick').innerHTML = r ? cardHTML(r, true) : '';
 }
 
+// レシピのカードに指が触れた時点で、詳細の写真を読み始める（離すまでの時間を使う。2026-10-13）
+document.addEventListener('pointerdown', e => {
+  const c = e.target.closest('.card[data-id]');
+  const r = c && byId(c.dataset.id);
+  if(r && !c.dataset.warm){ c.dataset.warm = '1'; const i = new Image(); i.src = small(r, 720); }
+}, {passive: true});
+
+// 手が空いているあいだに、さがすの一覧のカードと詳細の画面を前もって作っておく（初めて押したときも待たせない）。
+// iPhone の Safari には requestIdleCallback が無いので、少しずつ setTimeout で進める
+const idle = window.requestIdleCallback ? f => requestIdleCallback(f, {timeout: 2000}) : f => setTimeout(() => f(null), 60);
+function warmUp(){
+  const todo = RECIPES.filter(r => !cardEls.has(r.id));
+  const step = deadline => {
+    let n = 0;
+    while(todo.length && (deadline ? deadline.timeRemaining() > 3 : n++ < 12)) cardEl(todo.shift());
+    if(todo.length) return idle(step);
+    if(!openId && RECIPES.length){
+      $('detail').innerHTML = detailHTML(RECIPES[0], false);
+      $('sheet').scrollTop = 0;
+    }
+  };
+  idle(step);
+}
+
+saved = loadGuestSaves();
 window.addEventListener('hashchange', applyHash);
 applyHash();
-watchStats();
+// 画面を描いてから、手が空いたときに Firebase を読み込む（会員の保存・みんなの保存数・ログイン）
+idle(() => { loadFirebase(); warmUp(); });
 </script>
 </body>
 </html>

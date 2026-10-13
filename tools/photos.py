@@ -23,3 +23,9 @@ for src in sorted((IMAGES / 'raw').glob('*')):
     out = IMAGES / f'{src.stem}.jpg'
     im.crop((left, top, left + s, top + s)).resize((SIZE, SIZE), Image.LANCZOS).save(out, quality=80, optimize=True)
     print(f'{out.name} ({out.stat().st_size // 1024}KB)')
+
+# 表示用の小さい写真（images/w240・w480・w720 の WebP）も作り直す（2026-10-13）
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import thumbs  # noqa: E402
+thumbs.ensure()
