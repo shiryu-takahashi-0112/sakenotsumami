@@ -384,6 +384,84 @@
    ]
   },
   {
+   "date": "2026-10-30",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-quick-bb7928",
+   "drink": "beer",
+   "ids": [
+    "kimchi-yakko",
+    "ika-butter",
+    "shishamo"
+   ]
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "reel",
+   "type": "single",
+   "folder": "mushroom-ajillo-v2",
+   "drink": "wine",
+   "ids": [
+    "mushroom-ajillo"
+   ]
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-all-e1a7db",
+   "drink": "shochu",
+   "ids": [
+    "enoki-nametake",
+    "satsumaage-aburi",
+    "aburaage-natto"
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "reel",
+   "type": "single",
+   "folder": "yakinasu",
+   "drink": "sake",
+   "ids": [
+    "yakinasu"
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sour-all-a7eae0",
+   "drink": "sour",
+   "ids": [
+    "sunagimo-garlic",
+    "tunamayo-piman",
+    "samgyeopsal"
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "reel",
+   "type": "single",
+   "folder": "chikuwa-isobe",
+   "drink": "highball",
+   "ids": [
+    "chikuwa-isobe"
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-range-1f1d39",
+   "drink": "beer",
+   "ids": [
+    "sausage-cabbage",
+    "mentai-potesala",
+    "yodare-dori"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",

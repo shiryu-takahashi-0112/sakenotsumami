@@ -10,6 +10,31 @@ service cloud.firestore {
         && request.resource.data.savedAt == request.time;
     }
 
+    // レシピごとの保存数（2026-10-10）。誰でも読める。
+    // 書けるのは、自分の保存（users/{uid}/saves/{recipeId}）と同じ一括書き込みで ±1 するときだけ。
+    // 保存を足すときは +1、外すときは -1 で、自分の保存の有無が前後で合っていないと書けない。
+    match /stats/{recipeId} {
+      allow read: if true;
+      allow delete: if false;
+      allow create: if request.auth != null
+        && recipeId.matches('^[a-z0-9-]{1,60}$')
+        && request.resource.data.keys().hasOnly(['saves'])
+        && request.resource.data.saves == 1
+        && !exists(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId))
+        && existsAfter(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId));
+      allow update: if request.auth != null
+        && request.resource.data.keys().hasOnly(['saves'])
+        && (
+          (request.resource.data.saves == resource.data.saves + 1
+            && !exists(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId))
+            && existsAfter(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId)))
+          || (request.resource.data.saves == resource.data.saves - 1
+            && request.resource.data.saves >= 0
+            && exists(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId))
+            && !existsAfter(/databases/$(database)/documents/users/$(request.auth.uid)/saves/$(recipeId)))
+        );
+    }
+
     // お問い合わせ（contact.html、2026-10-09）。誰でも送れるが、読む・直す・消すのはコンソールからだけ
     match /inquiries/{id} {
       allow read, update, delete: if false;
