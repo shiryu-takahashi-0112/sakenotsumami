@@ -84,6 +84,7 @@ def main(argv=None):
             "photo": photo.as_uri(),
             "keyIngs": v2.key_ings(r["ing"]),
             "point": point, "pointStep": k,
+            "ingLine": common.ing_line(r),
         })
     short = f"{zlib.crc32(','.join(r['id'] for r in sel).encode()):08x}"[:6]
     name = f"list-{a.drink}-{a.theme}-{short}"
@@ -93,9 +94,10 @@ def main(argv=None):
     c = {"drinkId": a.drink, "drink": drinks[a.drink], "head1": head1, "headMid": mid, "head2": head2,
          "items": items, "count": d["count"], "hook": hook}
 
-    lines = [head1 + mid + head2]
-    lines += [f"{k + 1}. {x['name']}（{x['min']}分・{x['tool']}）" for k, x in enumerate(items)]
-    lines += ["", "保存しておくと、飲みたい夜にすぐ作れます。", "レシピはプロフィールのリンクから。",
+    lines = [head1 + mid + head2, common.SAVE_LINE, ""]
+    for k, x in enumerate(items):
+        lines += [f"{k + 1}. {x['name']}（{x['min']}分・{x['tool']}）", x["ingLine"]]
+    lines += ["", "作り方は、プロフィールのリンクから。",
               common.SHARE_LINE_LIST,          # 送信を促す一言（◯選型）2026-10-11〜
               "",   # 注記2行（AI・20歳）は2026-10-07から付けない
               " ".join(common.list_hashtags(name, a.theme, a.drink, drinks[a.drink]))]
