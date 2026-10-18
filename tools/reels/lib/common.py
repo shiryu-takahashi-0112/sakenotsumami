@@ -57,6 +57,20 @@ AGE_NOTE = "お酒は20歳になってから。"
 # 送信（共有）を促す一言（2026-10-09・CEO創・Shiryuの指示。2026-10-11の作り足しから追加）
 SHARE_LINE_SINGLE = "一緒に飲む人に送って、今夜のつまみに"
 SHARE_LINE_LIST = "二人分だから、相手にも送っておく"
+# リールで保存を取りにいく（2026-10-17 定例でShiryuが決定）。キャプションに材料と作り方を全部書き、2行目で保存をすすめる。
+SAVE_LINE = "保存しておくと、買い物のときに見返せます。"
+
+
+def recipe_block(r):
+    """キャプションに載せる材料と作り方（1品型）。"""
+    lines = ["【材料】"] + [f"・{n} {q}".rstrip() for n, q in r["ing"]]
+    lines += ["", "【作り方】"] + [f"{k + 1}. {s}" for k, s in enumerate(r["steps"])]
+    return lines
+
+
+def ing_line(r):
+    """◯選型で1品ごとに添える材料の1行。"""
+    return "材料：" + "、".join(n for n, _ in r["ing"])
 
 
 def drinks_in(text):
@@ -250,8 +264,10 @@ def check_banned(text):
 def caption(c, kind="reel"):
     """ブランドとして淡々と、一人称なしで書く。"""
     r = c["recipe"]
-    lines = [
-        headline(c),
+    lines = [headline(c)]
+    if kind == "reel":
+        lines.append(SAVE_LINE)
+    lines += [
         r["name"],
         "",
         c["why"],
@@ -259,7 +275,9 @@ def caption(c, kind="reel"):
     ]
     if kind == "carousel":
         lines.append("材料と作り方は2枚目から。")
-    lines += ["レシピはプロフィールのリンクから。"]
+    block = recipe_block(r) + [""] if kind == "reel" else []   # 材料・作り方には使わない語の確認を当てない
+    head = lines
+    lines = ["レシピはプロフィールのリンクから。"]
     if kind == "reel":
         lines.append(SHARE_LINE_SINGLE)       # 送信を促す一言（1品型）2026-10-11〜
     lines += [
@@ -269,7 +287,8 @@ def caption(c, kind="reel"):
         "",
         " ".join(hashtags(c)),
     ]
-    return check_banned("\n".join(lines) + "\n")
+    check_banned("\n".join(head + lines))
+    return "\n".join(head + block + lines) + "\n"
 
 
 def fill_template(template, out_html, c):

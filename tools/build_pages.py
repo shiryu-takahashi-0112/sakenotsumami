@@ -18,10 +18,34 @@ python 3.9 でも動くように書く（Macの python3 が 3.9 のため）。
 中身が伝わりにくい。そのため、同じ内容を素のHTMLでも用意する。
 公開URLを変えるときは BASE だけを直す。
 """
-import html, json, pathlib, re, shutil, subprocess, datetime
+import html, json, pathlib, re, shutil, subprocess, datetime, hashlib, sys
 
 BASE = 'https://osakenomitai.com/sakenotsumami/'
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / 'tools'))
+import thumbs  # noqa: E402
+
+# 表示を速くするための小さい写真（images/w240・w480・w720 の WebP）を、足りなければ先に作る（2026-10-13）。
+# Pillow が無い環境では何もしない（作ったものはコミットしてあるので、出力は変わらない）
+thumbs.ensure(quiet=True)
+
+
+def photo_url(rel, w, up=''):
+    """写真のURL。小さい写真（WebP）があればそれを、無ければ元の 800px の JPEG を使う。rel は images からの相対パス"""
+    if thumbs.has(rel, w):
+        return f"{up}images/w{w}/{rel[:-4]}.webp"
+    return f'{up}images/{rel}'
+
+
+def ver(rel):
+    """ファイルの中身のハッシュ。?v= に付けて、更新したら古いキャッシュを使わないようにする（sw.js）"""
+    return hashlib.sha1((ROOT / rel).read_bytes()).hexdigest()[:10]
+
+
+# Google Fonts の読み込みで最初の表示を止めない（読み込めたら書体が切り替わる。display=swap と同じ見え方）
+FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+         '<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'">')
 
 # recipes.js をそのまま node で読んで JSON にする（データの定義を二重に持たないため）
 data = json.loads(subprocess.run(
@@ -47,7 +71,7 @@ RECIPES = [r for r in ALL_RECIPES if has_photo(r)]
 def thumb(r, up='../../'):
     """一覧のカードの写真。写真がまだ無い品は黄色の地にする"""
     if has_photo(r):
-        return f'<img src="{up}images/{r["id"]}.jpg" alt="" loading="lazy" width="72" height="72">'
+        return f'<img src="{photo_url(r["id"] + ".jpg", 240, up)}" alt="" loading="lazy" decoding="async" width="72" height="72">'
     return '<i></i>'
 
 
@@ -211,10 +235,9 @@ def page(*, path, title, desc, image, body, jsonld, up, search='all'):
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{image}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+{FONTS}
 <style>{CSS}</style>
-<link rel="stylesheet" href="{up}footer.css">
+<link rel="stylesheet" href="{up}footer.css?v={ver('footer.css')}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
@@ -237,7 +260,7 @@ def recipe_page(r):
     desc = f"{r['catch']}{r['min']}分・{TOOLS[r['tool']]['name']}で作れる、{drinks}に合うつまみのレシピ（2人分）。{r['why']}"
     img = f"{BASE}images/{r['id']}.jpg" if has_photo(r) else f'{BASE}og-image.jpg'
     body = f'''<p class="crumb"><a href="../../">サケノツマミ</a> ／ <a href="../../drinks/{r['drinks'][0]}/">{e(DNAME[r['drinks'][0]])}に合うつまみ</a></p>
-{f'<img class="hero" src="../../images/{r["id"]}.jpg" alt="{e(r["name"])}" width="800" height="600">' if has_photo(r) else ''}
+{f'<img class="hero" src="{photo_url(r["id"] + ".jpg", 720, "../../")}" alt="{e(r["name"])}" width="800" height="600" fetchpriority="high">' if has_photo(r) else ''}
 <h1>{e(r['name'])}</h1>
 <p class="catch">{e(r['catch'])}</p>
 <dl class="meta"><div><dt>時間</dt><dd>{r['min']}分</dd></div><div><dt>道具</dt><dd>{e(TOOLS[r['tool']]['name'])}</dd></div><div><dt>分量</dt><dd>2人分</dd></div></dl>
@@ -435,21 +458,25 @@ def week_card(up):
             f'''<span>{jp_date(WEEK_DATA['start'], False)}〜{jp_date(WEEK_DATA['end'], False)}に紹介する{n}品</span></div></a>''')
 
 
-def cards(title, groups, used, kind=None):
+def cards(title, groups, used, kind=None, up='', eager=0):
     """ホームの写真つきの横に流れるカード。写真は、その仲間で recipes.js の先に載っている写真のある品
     （ホームの中でなるべく写真が重ならないようにする。used に使った品を入れていく）。写真のある品が無い仲間は出さない（黄色の地は使わない）"""
     # kind が drinks・ingredients のときは、お酒・食材そのものの写真（images/<kind>/<id>.jpg）があればそれを使う（2026-10-10 Shiryu）
     out = []
     for slug, href, name, items in groups:
         if kind and (ROOT / 'images' / kind / f'{slug}.jpg').exists():
-            src = f'images/{kind}/{slug}.jpg'
+            rel = f'{kind}/{slug}.jpg'
         else:
             r = next((r for r in items if has_photo(r) and r['id'] not in used), None) or next((r for r in items if has_photo(r)), None)
             if not r:
                 continue
             used.add(r['id'])
-            src = f'images/{r["id"]}.jpg'
-        out.append(f'<a class="ft-card" href="{href}" role="listitem"><img src="{src}" alt="" loading="lazy" width="132" height="132">'
+            rel = f'{r["id"]}.jpg'
+        # 132px のカード。画面の細かさに合わせて 240px か 480px を使う
+        srcset = f' srcset="{photo_url(rel, 240, up)} 240w, {photo_url(rel, 480, up)} 480w" sizes="132px"' if thumbs.has(rel, 480) else ''
+        # 開いてすぐ見える最初のカード（eager 枚）は、後回しにせず先に読む
+        load = 'fetchpriority="high"' if len(out) < eager else 'loading="lazy"'
+        out.append(f'<a class="ft-card" href="{href}" role="listitem"><img src="{photo_url(rel, 240, up)}"{srcset} alt="" {load} decoding="async" width="132" height="132">'
                    f'<b>{e(name)}</b><span>{len(items)}品</span></a>')
     return f'<p class="ft-h">{e(title)}</p><div class="ft-cards" role="list" aria-label="{e(title)}">{"".join(out)}</div>'
 
@@ -465,7 +492,7 @@ def write_app_home():
     if WEEK_DATA:
         out.append(week_card(''))
     used = set()
-    out.append(cards('お酒からさがす', [(d['id'], f"#{d['id']}", d['name'], [r for r in RECIPES if d['id'] in r['drinks']]) for d in DRINKS], used, 'drinks'))
+    out.append(cards('お酒からさがす', [(d['id'], f"#{d['id']}", d['name'], [r for r in RECIPES if d['id'] in r['drinks']]) for d in DRINKS], used, 'drinks', eager=3))
     out.append(cards('作り方からさがす', [(c['slug'], f"#c-{c['slug']}", c['name'], [r for r in RECIPES if c['test'](r)]) for c in CONDS], used))
     out.append(cards('食材からさがす', [(g['slug'], f"#i-{g['slug']}", g['name'], g['items']) for g in INGS], used, 'ingredients'))
     if NEWS:
@@ -478,7 +505,11 @@ def write_app_home():
     src = p.read_text(encoding='utf-8')
     a, b = '<!-- home:start（tools/build_pages.py が書き出す。手で直さない） -->', '<!-- home:end -->'
     i, j = src.index(a) + len(a), src.index(b)
-    p.write_text(src[:i] + '\n' + '\n'.join(out) + '\n' + src[j:], encoding='utf-8')
+    src = src[:i] + '\n' + '\n'.join(out) + '\n' + src[j:]
+    # 読み込むファイルに中身のハッシュを付ける（更新したら、サービスワーカーが古いものを使わないように）
+    src = re.sub(r'(href|src)="(footer\.css|recipes\.js|firebase-config\.js)(\?v=[0-9a-f]+)?"',
+                 lambda m: f'{m[1]}="{m[2]}?v={ver(m[2])}"', src)
+    p.write_text(src, encoding='utf-8')
 
 
 WEEKDAY = '月火水木金土日'
