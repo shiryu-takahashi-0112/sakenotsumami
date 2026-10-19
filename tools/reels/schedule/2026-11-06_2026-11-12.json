@@ -1,0 +1,232 @@
+{
+ "period": [
+  "2026-11-06",
+  "2026-11-12"
+ ],
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "post_time": {
+  "reel": "12:00"
+ },
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-11-06",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-quick-3d23ac",
+    "title": "◯選型：ハイボール・10分以内・3品（うずら卵のベーコン巻き／厚切りハムステーキ／きのこのレンジマリネ）",
+    "drink": "highball",
+    "items": [
+     "uzura-bacon",
+     "ham-steak",
+     "kinoko-marinade"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-quick-3d23ac/reel.mp4",
+     "caption": "reels/queue/list-highball-quick-3d23ac/caption.txt",
+     "cover": "reels/queue/list-highball-quick-3d23ac/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-07",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "aburaage-negiponzu",
+    "title": "1品型：カリカリ油揚げのねぎポン酢（ビール）",
+    "drink": "beer",
+    "items": [
+     "aburaage-negiponzu"
+    ],
+    "files": {
+     "mp4": "reels/queue/aburaage-negiponzu/reel.mp4",
+     "caption": "reels/queue/aburaage-negiponzu/caption.txt",
+     "cover": "reels/queue/aburaage-negiponzu/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-08",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-sour-nofire-01e3fa",
+    "title": "◯選型：レモンサワー・火を使わない・3品（かぶの塩レモン和え／たこのキムチ和え／クリームチーズのコチュジャン和え）",
+    "drink": "sour",
+    "items": [
+     "kabu-lemon",
+     "tako-kimchi",
+     "creamcheese-gochujang"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sour-nofire-01e3fa/reel.mp4",
+     "caption": "reels/queue/list-sour-nofire-01e3fa/caption.txt",
+     "cover": "reels/queue/list-sour-nofire-01e3fa/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "aji-namerou",
+    "title": "1品型：あじのなめろう（日本酒）",
+    "drink": "sake",
+    "items": [
+     "aji-namerou"
+    ],
+    "files": {
+     "mp4": "reels/queue/aji-namerou/reel.mp4",
+     "caption": "reels/queue/aji-namerou/caption.txt",
+     "cover": "reels/queue/aji-namerou/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-range-6cae61",
+    "title": "◯選型：焼酎・レンジ・3品（鯛のレンジ蒸し ねぎ油がけ／ごぼうチップス／里芋のゆず味噌がけ）",
+    "drink": "shochu",
+    "items": [
+     "tai-negiyu",
+     "gobo-chips",
+     "satoimo-yuzumiso"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-range-6cae61/reel.mp4",
+     "caption": "reels/queue/list-shochu-range-6cae61/caption.txt",
+     "cover": "reels/queue/list-shochu-range-6cae61/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "aburaage-pizza",
+    "title": "1品型：油揚げピザ（ワイン）",
+    "drink": "wine",
+    "items": [
+     "aburaage-pizza"
+    ],
+    "files": {
+     "mp4": "reels/queue/aburaage-pizza/reel.mp4",
+     "caption": "reels/queue/aburaage-pizza/caption.txt",
+     "cover": "reels/queue/aburaage-pizza/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-all-e82656",
+    "title": "◯選型：ビール・全部・3品（鶏つくねの照り焼き／とうもろこしのバター醤油／かぼちゃのクミン焼き）",
+    "drink": "beer",
+    "items": [
+     "tori-tsukune",
+     "corn-butter",
+     "kabocha-cumin"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-all-e82656/reel.mp4",
+     "caption": "reels/queue/list-beer-all-e82656/caption.txt",
+     "cover": "reels/queue/list-beer-all-e82656/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}

@@ -1,0 +1,65 @@
+[
+ {
+  "post_id": null,
+  "date": "2026-11-06",
+  "folder": "list-highball-quick-3d23ac",
+  "type": "失敗に気づかせる",
+  "hook": "ハム、反ってない？",
+  "sub": "格子の切り込みで防ぐ",
+  "facts": "ham-steak steps1「ハムは1cm厚さに切り、両面に浅く格子の切り込みを入れる」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-07",
+  "folder": "aburaage-negiponzu",
+  "type": "数字で約束",
+  "hook": "トースターで8分",
+  "sub": "カリッと香ばしい油揚げ",
+  "facts": "min8/tool toaster、steps2「トースターで4〜5分、途中で裏返して両面がカリッとするまで焼く」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-08",
+  "folder": "list-sour-nofire-01e3fa",
+  "type": "問いかけ",
+  "hook": "どれがサワーに合う？",
+  "sub": "かぶ・たこ・クリームチーズ",
+  "facts": "ids kabu-lemon・tako-kimchi・creamcheese-gochujang、drinks すべて sour を含む"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-09",
+  "folder": "aji-namerou",
+  "type": "ツッコミ",
+  "hook": "火、使っていません",
+  "sub": "たたくだけのなめろう",
+  "facts": "tool none、steps2「あじは細かく刻み、包丁でたたいて粘りを出す」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-10",
+  "folder": "list-shochu-range-6cae61",
+  "type": "結論を先に",
+  "hook": "3品、レンジだけで",
+  "sub": "鯛・ごぼう・里芋",
+  "facts": "tai-negiyu・gobo-chips・satoimo-yuzumiso すべて tool range（レンジ）"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-11",
+  "folder": "aburaage-pizza",
+  "type": "失敗に気づかせる",
+  "hook": "油、ふいてある？",
+  "sub": "油揚げがピザの土台",
+  "facts": "steps1「油揚げはキッチンペーパーで余分な油をふく」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-12",
+  "folder": "list-beer-all-e82656",
+  "type": "数字で約束",
+  "hook": "いちばん早いのは8分",
+  "sub": "とうもろこし・鶏つくね・かぼちゃ",
+  "facts": "corn-butter min8/tool range、kabocha-cumin min15/tool toaster、tori-tsukune min20/tool pan"
+ }
+]
