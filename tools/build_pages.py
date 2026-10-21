@@ -509,7 +509,7 @@ def write_app_home():
     # 読み込むファイルに中身のハッシュを付ける（更新したら、サービスワーカーが古いものを使わないように）
     src = re.sub(r'(href|src)="(footer\.css|recipes\.js|firebase-config\.js)(\?v=[0-9a-f]+)?"',
                  lambda m: f'{m[1]}="{m[2]}?v={ver(m[2])}"', src)
-    p.write_text(src, encoding='utf-8')
+    write('index.html', src)
 
 
 WEEKDAY = '月火水木金土日'
@@ -560,10 +560,27 @@ def week_page(w):
     return page(path='week/', title=title, desc=desc, image=list_image(allr), body=body, jsonld=jsonld, up='../')
 
 
+# sitemap.xml の lastmod は「このページの中身が最後に変わった日」にする（実行した日ではない）。
+# 中身が変わっていなければ前回の日付をそのまま使うことで、recipes.js を変えていないのに実行日だけで
+# sitemap.xml が変わり、ビルド確認（CIが走った日とPRを作った日がずれると lastmod だけの差分で落ちる）が
+# 機械的に失敗する不具合を直す（2026-10-18・CEOの指示、sakenotsumami#31で発生を確認）。
+LASTMOD_PATH = ROOT / 'tools' / 'lastmod.json'
+try:
+    _prev_lastmod = json.loads(LASTMOD_PATH.read_text(encoding='utf-8'))
+except (FileNotFoundError, json.JSONDecodeError):
+    _prev_lastmod = {}
+_new_lastmod = {}
+
+
 def write(rel, text):
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(text, encoding='utf-8')
+    h = hashlib.sha1(text.encode('utf-8')).hexdigest()
+    prev = _prev_lastmod.get(rel)
+    date = prev['date'] if prev and prev.get('hash') == h else TODAY
+    _new_lastmod[rel] = {'hash': h, 'date': date}
+    return date
 
 
 # 4品を下回った組み合わせ・外した食材のページが残らないよう、書き出す前に消す
@@ -593,14 +610,19 @@ if week:
 write('news/index.html', news_page())
 write_app_home()
 
-urls = ([BASE] + [f"{BASE}drinks/{d['id']}/" for d in DRINKS]
-        + [f"{BASE}drinks/{d['id']}/{c['slug']}/" for d, c in DRINK_CONDS]
-        + [f"{BASE}conditions/{c['slug']}/" for c in CONDS]
-        + [f"{BASE}ingredients/{g['slug']}/" for g in INGS]
-        + [f'{BASE}news/']
-        + ([f'{BASE}week/'] if week else [])
-        + [f"{BASE}recipes/{r['id']}/" for r in RECIPES])
+# 各URLに対応する書き出し先（write() に渡した rel）。sitemap.xml の lastmod を、そのページの
+# 中身が最後に変わった日から引くために使う
+url_rels = ([(BASE, 'index.html')] + [(f"{BASE}drinks/{d['id']}/", f"drinks/{d['id']}/index.html") for d in DRINKS]
+        + [(f"{BASE}drinks/{d['id']}/{c['slug']}/", f"drinks/{d['id']}/{c['slug']}/index.html") for d, c in DRINK_CONDS]
+        + [(f"{BASE}conditions/{c['slug']}/", f"conditions/{c['slug']}/index.html") for c in CONDS]
+        + [(f"{BASE}ingredients/{g['slug']}/", f"ingredients/{g['slug']}/index.html") for g in INGS]
+        + [(f'{BASE}news/', 'news/index.html')]
+        + ([(f'{BASE}week/', 'week/index.html')] if week else [])
+        + [(f"{BASE}recipes/{r['id']}/", f"recipes/{r['id']}/index.html") for r in RECIPES])
+urls = [u for u, _ in url_rels]
 write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-      + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
+      + ''.join(f'  <url><loc>{u}</loc><lastmod>{_new_lastmod[rel]["date"]}</lastmod></url>\n' for u, rel in url_rels) + '</urlset>\n')
 write('robots.txt', f'User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n')
+# 次回の実行で「中身が変わったかどうか」を比べられるように、書き出した各ページのハッシュと日付を残す
+LASTMOD_PATH.write_text(json.dumps(_new_lastmod, ensure_ascii=False, indent=1, sort_keys=True) + '\n', encoding='utf-8')
 print(f'recipes: {len(RECIPES)}（写真待ち {len(ALL_RECIPES) - len(RECIPES)}）, drinks: {len(DRINKS)}, drink×条件: {len(DRINK_CONDS)}, 食材: {len(INGS)}, week: {bool(week)}, sitemap: {len(urls)} URLs')

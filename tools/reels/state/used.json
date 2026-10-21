@@ -462,6 +462,84 @@
    ]
   },
   {
+   "date": "2026-11-06",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-quick-3d23ac",
+   "drink": "highball",
+   "ids": [
+    "uzura-bacon",
+    "ham-steak",
+    "kinoko-marinade"
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "reel",
+   "type": "single",
+   "folder": "aburaage-negiponzu",
+   "drink": "beer",
+   "ids": [
+    "aburaage-negiponzu"
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sour-nofire-01e3fa",
+   "drink": "sour",
+   "ids": [
+    "kabu-lemon",
+    "tako-kimchi",
+    "creamcheese-gochujang"
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "kind": "reel",
+   "type": "single",
+   "folder": "aji-namerou",
+   "drink": "sake",
+   "ids": [
+    "aji-namerou"
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-range-6cae61",
+   "drink": "shochu",
+   "ids": [
+    "tai-negiyu",
+    "gobo-chips",
+    "satoimo-yuzumiso"
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "reel",
+   "type": "single",
+   "folder": "aburaage-pizza",
+   "drink": "wine",
+   "ids": [
+    "aburaage-pizza"
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-all-e82656",
+   "drink": "beer",
+   "ids": [
+    "tori-tsukune",
+    "corn-butter",
+    "kabocha-cumin"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",
