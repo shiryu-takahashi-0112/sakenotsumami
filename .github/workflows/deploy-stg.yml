@@ -38,6 +38,11 @@ jobs:
       - uses: actions/checkout@v4
         if: steps.secret.outputs.ok == 'true'
 
+      - uses: actions/setup-node@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          node-version: 22
+
       - name: Build
         if: steps.secret.outputs.ok == 'true'
         env:
