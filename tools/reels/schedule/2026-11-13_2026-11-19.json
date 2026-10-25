@@ -1,0 +1,232 @@
+{
+ "period": [
+  "2026-11-13",
+  "2026-11-19"
+ ],
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "post_time": {
+  "reel": "12:00"
+ },
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-11-13",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-nofire-b9c0a0",
+    "title": "◯選型：ハイボール・火を使わない・3品（サーモンとアボカドのポキ／サラダチキンのバンバンジー／ねぎチャーシュー）",
+    "drink": "highball",
+    "items": [
+     "salmon-poke",
+     "saladchicken-bangbangji",
+     "negi-chashu"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-nofire-b9c0a0/reel.mp4",
+     "caption": "reels/queue/list-highball-nofire-b9c0a0/caption.txt",
+     "cover": "reels/queue/list-highball-nofire-b9c0a0/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "hotate-butter",
+    "title": "1品型：ホタテのバターソテー（ワイン）",
+    "drink": "wine",
+    "items": [
+     "hotate-butter"
+    ],
+    "files": {
+     "mp4": "reels/queue/hotate-butter/reel.mp4",
+     "caption": "reels/queue/hotate-butter/caption.txt",
+     "cover": "reels/queue/hotate-butter/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-15",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-quick-354657",
+    "title": "◯選型：焼酎・10分以内・3品（ローストビーフのユッケ風／にんじんしりしり／いかとめかぶのしょうがポン酢）",
+    "drink": "shochu",
+    "items": [
+     "roastbeef-yukke",
+     "ninjin-shirishiri",
+     "ika-mekabu"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-quick-354657/reel.mp4",
+     "caption": "reels/queue/list-shochu-quick-354657/caption.txt",
+     "cover": "reels/queue/list-shochu-quick-354657/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "buta-negishio-lemon",
+    "title": "1品型：豚バラのねぎ塩レモン（レモンサワー）",
+    "drink": "sour",
+    "items": [
+     "buta-negishio-lemon"
+    ],
+    "files": {
+     "mp4": "reels/queue/buta-negishio-lemon/reel.mp4",
+     "caption": "reels/queue/buta-negishio-lemon/caption.txt",
+     "cover": "reels/queue/buta-negishio-lemon/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-sake-range-8746e6",
+    "title": "◯選型：日本酒・レンジ・3品（塩辛じゃがバター／新玉ねぎの丸ごとレンジ蒸し／オクラのおかか和え）",
+    "drink": "sake",
+    "items": [
+     "shiokara-jagabutter",
+     "shintama-range",
+     "okura-okaka"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sake-range-8746e6/reel.mp4",
+     "caption": "reels/queue/list-sake-range-8746e6/caption.txt",
+     "cover": "reels/queue/list-sake-range-8746e6/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "shimesaba-yakumi",
+    "title": "1品型：しめさばの薬味たっぷりのせ（焼酎）",
+    "drink": "shochu",
+    "items": [
+     "shimesaba-yakumi"
+    ],
+    "files": {
+     "mp4": "reels/queue/shimesaba-yakumi/reel.mp4",
+     "caption": "reels/queue/shimesaba-yakumi/caption.txt",
+     "cover": "reels/queue/shimesaba-yakumi/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-sour-all-dc5bcc",
+    "title": "◯選型：レモンサワー・全部・3品（トマトと卵の中華炒め／ズッキーニのナムル／オクラの豚巻きポン酢）",
+    "drink": "sour",
+    "items": [
+     "tomato-tamago",
+     "zucchini-namul",
+     "butamaki-okura"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-sour-all-dc5bcc/reel.mp4",
+     "caption": "reels/queue/list-sour-all-dc5bcc/caption.txt",
+     "cover": "reels/queue/list-sour-all-dc5bcc/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}
