@@ -83,7 +83,7 @@ TONIGHT = [
     ("roastbeef-yukke", "shochu"),       # 11/15 リール：焼酎・10分以内の3選
     ("buta-negishio-lemon", "sour"),     # 11/16 リール：豚バラのねぎ塩レモン（レモンサワー）
     ("shiokara-jagabutter", "sake"),     # 11/17 リール：日本酒・レンジの3選
-    ("buri-teriyaki", "shochu"),         # 11/18 リール：ぶりの照り焼き（焼酎）
+    ("shimesaba-yakumi", "shochu"),      # 11/18 リール：しめさばの薬味たっぷりのせ（焼酎）
     ("tomato-tamago", "sour"),           # 11/19 リール：レモンサワーの3選
 ]
 

@@ -36,7 +36,7 @@ PLAN = [
     ("2026-11-15", "list", "shochu", "quick", ["roastbeef-yukke", "ninjin-shirishiri", "ika-mekabu"], None),
     ("2026-11-16", "single", "sour", None, ["buta-negishio-lemon"], None),
     ("2026-11-17", "list", "sake", "range", ["shiokara-jagabutter", "shintama-range", "okura-okaka"], None),
-    ("2026-11-18", "single", "shochu", None, ["buri-teriyaki"], None),
+    ("2026-11-18", "single", "shochu", None, ["shimesaba-yakumi"], None),
     ("2026-11-19", "list", "sour", "all", ["tomato-tamago", "zucchini-namul", "butamaki-okura"], None),
 ]
 CAROUSELS = {}   # Instagramは動画だけ（2026-10-07決定）。カルーセルは新規に作らない

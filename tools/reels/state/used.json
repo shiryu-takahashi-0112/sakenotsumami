@@ -540,6 +540,84 @@
    ]
   },
   {
+   "date": "2026-11-13",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-nofire-b9c0a0",
+   "drink": "highball",
+   "ids": [
+    "salmon-poke",
+    "saladchicken-bangbangji",
+    "negi-chashu"
+   ]
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "reel",
+   "type": "single",
+   "folder": "hotate-butter",
+   "drink": "wine",
+   "ids": [
+    "hotate-butter"
+   ]
+  },
+  {
+   "date": "2026-11-15",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-quick-354657",
+   "drink": "shochu",
+   "ids": [
+    "roastbeef-yukke",
+    "ninjin-shirishiri",
+    "ika-mekabu"
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "kind": "reel",
+   "type": "single",
+   "folder": "buta-negishio-lemon",
+   "drink": "sour",
+   "ids": [
+    "buta-negishio-lemon"
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sake-range-8746e6",
+   "drink": "sake",
+   "ids": [
+    "shiokara-jagabutter",
+    "shintama-range",
+    "okura-okaka"
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "kind": "reel",
+   "type": "single",
+   "folder": "shimesaba-yakumi",
+   "drink": "shochu",
+   "ids": [
+    "shimesaba-yakumi"
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sour-all-dc5bcc",
+   "drink": "sour",
+   "ids": [
+    "tomato-tamago",
+    "zucchini-namul",
+    "butamaki-okura"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",
