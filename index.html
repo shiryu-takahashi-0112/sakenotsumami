@@ -478,11 +478,32 @@ let saved = new Map();   // レシピid → 保存した日時（ミリ秒）
 let unsubSaves = null;
 const PENDING_KEY = 'sakenotsumami.pendingSave';   // ログイン前に押した保存。ログイン後に保存する
 const EMAIL_KEY = 'sakenotsumami.emailForSignIn';  // メールリンクを開いたときに使うアドレス
+const EMAIL_CTX_KEY = 'sakenotsumami.emailForSignInContext'; // メールリンクでの会員登録が、どの案内から始まったか
 const store = {
   get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
   set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} },
   del(k){ try{ localStorage.removeItem(k); }catch(e){} },
 };
+
+// 会員登録導線の計測（2026-10-11）。表示・クリック・完了の段階だけを記録し、個人情報は入れない。
+// 読めるのは運営者だけ（firestore.rules）。失敗してもアプリの動作は止めない
+function logFunnel(step, extra){
+  if(!fbReady) return;
+  try{
+    db.collection('funnel_events').add(Object.assign(
+      {step, createdAt: firebase.firestore.FieldValue.serverTimestamp()}, extra || {}
+    )).catch(() => {});
+  }catch(e){}
+}
+// 今どの会員登録の案内を見ているか（会員登録ボタンのクリックと完了を、どの入口からか揃えて記録するため）。
+// モーダルを開くとき（openLoginのctx）に覚えておいた値があればそれを使う（例：3品目の案内は'guest_3rd_save'）
+let authModalCtx = null;
+function authContext(){
+  if(!$('loginModal').hidden) return authModalCtx || 'save';
+  if(view === 'saved') return 'saved_tab';
+  if(view === 'mypage') return 'mypage_tab';
+  return 'other';
+}
 
 /* ---------- ログインしないで保存（2026-10-10） ---------- */
 // 会員でなくても保存できる。保存はこの端末（localStorage）にだけ持ち、みんなの保存数（stats）には入れない。
@@ -552,12 +573,13 @@ function toggleGuestSave(id){
   storeGuestSaves(saved);
   refreshSaveUI();
   showToast(on ? '保存しました' : '保存を外しました');
-  // 3品目を保存したら、一度だけ会員登録を案内する（閉じたら出さない）
+  // 3品目を保存したら、一度だけ会員登録を案内する（閉じたら出さない）。会員登録導線の計測（2026-10-11）の新しい入口
   if(on && saved.size >= GUEST_PROMPT_AT && fbReady && !store.get(GUEST_PROMPT_KEY)){
     store.set(GUEST_PROMPT_KEY, String(Date.now()));
+    logFunnel('save_prompt_shown', {context: 'guest_3rd_save'});
     setTimeout(() => {
       openLogin('保存したつまみを、ほかの端末でも',
-        `${saved.size}品を保存しました。無料の会員登録をすると、機種変更やパソコンからでも同じ保存を見られます。今の保存はそのまま引き継ぎます。パスワードは不要です。`, true);
+        `${saved.size}品を保存しました。無料の会員登録をすると、機種変更やパソコンからでも同じ保存を見られます。今の保存はそのまま引き継ぎます。パスワードは不要です。`, true, 'guest_3rd_save');
     }, 700);
   }
 }
@@ -658,7 +680,9 @@ function authFormHTML(title, lead){
     <p class="legal">続けると、<a href="terms.html">利用規約</a>と<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなします。</p>`;
 }
 
-function openLogin(title, lead, later){
+// ctx：この案内がどの入口から出たか（会員登録導線の計測用）。省略時はauthContext()が画面から推測する
+function openLogin(title, lead, later, ctx){
+  authModalCtx = ctx || null;
   loadFirebase();
   $('loginModalBody').innerHTML = authFormHTML(title, lead || '登録もログインも同じボタンからできます。パスワードは不要です。')
     + (later ? '<button class="btn btn-sub later" data-close>あとで</button>' : '');
@@ -669,14 +693,18 @@ function closeModals(){
   $('logoutModal').hidden = true;
   $('installModal').hidden = true;
   $('filterModal').hidden = true;
+  authModalCtx = null;
 }
 
 // ログインのボタンとフォームは、モーダルとマイページの両方に置くので委譲で拾う
 document.addEventListener('click', async e => {
   if(e.target.closest('[data-auth="google"]')){
+    const ctx = authContext();
+    logFunnel('auth_click', {method: 'google', context: ctx});
     // ふつうは画面を開いた直後に読み込み終わっている。まだのときは待つ（その場合、ポップアップが止められることがある→メールを案内）
     if(!auth && !(await loadFirebase())) return showToast('通信できませんでした。時間をおいてお試しください');
     auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(() => logFunnel('auth_complete', {method: 'google', context: ctx}))
       .catch(err => {
         // 本人が閉じた／連続タップで前の試行が取り消された場合は、失敗として出さない
         if(err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') return;
@@ -696,11 +724,14 @@ document.addEventListener('submit', async e => {
   const email = form.email.value.trim();
   const btn = form.querySelector('button');
   const msg = form.parentElement.querySelector('[data-auth-msg]');
+  const ctx = authContext();
+  logFunnel('auth_click', {method: 'email', context: ctx});
   btn.disabled = true;
   try{
     if(!auth && !(await loadFirebase())) throw new Error('firebase');
     await auth.sendSignInLinkToEmail(email, {url: location.origin + location.pathname, handleCodeInApp: true});
     store.set(EMAIL_KEY, email);
+    store.set(EMAIL_CTX_KEY, ctx); // リンクを開いて完了する時点では画面の状態が分からないので、ここで覚えておく
     msg.className = 'auth-msg ok';
     msg.textContent = `${email} にログイン用のリンクを送りました。メールを開いてリンクを押すと、ログインが完了します。`;
   }catch(err){
@@ -720,7 +751,9 @@ async function finishEmailLink(){
   if(!email) return;
   try{
     await auth.signInWithEmailLink(email, location.href);
+    logFunnel('auth_complete', {method: 'email', context: store.get(EMAIL_CTX_KEY) || 'other'});
     store.del(EMAIL_KEY);
+    store.del(EMAIL_CTX_KEY);
     showToast('ログインしました');
   }catch(e){
     showToast('リンクが古いか、すでに使われています');
