@@ -508,6 +508,7 @@ function savesRef(){ return db.collection('users').doc(user.uid).collection('sav
 // 自分の保存と同じ一括書き込みで ±1 する（firestore.rules で、自分の保存の有無と合わないと書けない）。
 // この仕組みより前の保存は数に入っていないので、外すときは数が1以上のときだけ減らす。
 let stats = new Map();   // レシピid → 保存数
+let statsReady = false;  // stats の最初の読み込みが届いたか
 const saveCount = id => stats.get(id) || 0;
 
 function watchStats(){
@@ -515,8 +516,21 @@ function watchStats(){
   db.collection('stats').onSnapshot(snap => {
     stats = new Map();
     snap.forEach(d => { const n = d.get('saves'); if(typeof n === 'number' && n > 0) stats.set(d.id, n); });
+    statsReady = true;
     refreshCounts();
   }, () => {});
+}
+
+// 外すときに使う、その品の今の保存数。stats の最初の読み込みがまだ届いていないときは
+// （ログイン直後など）キャッシュの0をそのまま信じず、その場で読みに行く。
+// 届く前は「0」と「まだ分からない」が同じに見えてしまい、本当は1以上でも -1 を送らず数が減らないままになるため（2026-10-30）。
+async function currentSaveCount(id){
+  if(statsReady) return saveCount(id);
+  try{
+    const d = await db.collection('stats').doc(id).get();
+    const n = d.data()?.saves;
+    return typeof n === 'number' ? n : 0;
+  }catch(e){ return saveCount(id); }
 }
 
 function refreshCounts(){
@@ -541,7 +555,7 @@ async function writeSave(id, on){
     batch.set(stat, {saves: inc(1)}, {merge: true});
   }else{
     batch.delete(savesRef().doc(id));
-    if(saveCount(id) > 0) batch.set(stat, {saves: inc(-1)}, {merge: true});
+    if(await currentSaveCount(id) > 0) batch.set(stat, {saves: inc(-1)}, {merge: true});
   }
   await batch.commit();
 }
