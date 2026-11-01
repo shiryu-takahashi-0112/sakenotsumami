@@ -618,6 +618,84 @@
    ]
   },
   {
+   "date": "2026-11-20",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-quick-15f2ce",
+   "drink": "beer",
+   "ids": [
+    "pajeori",
+    "atsuage-oyster",
+    "keranchim"
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "kind": "reel",
+   "type": "single",
+   "folder": "tara-meuniere",
+   "drink": "wine",
+   "ids": [
+    "tara-meuniere"
+   ]
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-nofire-06a811",
+   "drink": "highball",
+   "ids": [
+    "ebi-avocado",
+    "cornedbeef-onion",
+    "somtam-daikon"
+   ]
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "reel",
+   "type": "single",
+   "folder": "salmon-chanchan",
+   "drink": "sake",
+   "ids": [
+    "salmon-chanchan"
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-range-a11dc8",
+   "drink": "shochu",
+   "ids": [
+    "range-yudofu",
+    "range-japchae",
+    "tori-yuzukosho-mushi"
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "kind": "reel",
+   "type": "single",
+   "folder": "ika-gochujang",
+   "drink": "sour",
+   "ids": [
+    "ika-gochujang"
+   ]
+  },
+  {
+   "date": "2026-11-26",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-wine-all-86cc0c",
+   "drink": "wine",
+   "ids": [
+    "seafood-marinade",
+    "avocado-egg",
+    "gyu-garlic"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",

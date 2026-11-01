@@ -1,0 +1,232 @@
+{
+ "period": [
+  "2026-11-20",
+  "2026-11-26"
+ ],
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "post_time": {
+  "reel": "12:00"
+ },
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-11-20",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-quick-15f2ce",
+    "title": "◯選型：ビール・10分以内・3品（ねぎのパジョリ／厚揚げのオイスターしょうが煮／レンジでケランチム）",
+    "drink": "beer",
+    "items": [
+     "pajeori",
+     "atsuage-oyster",
+     "keranchim"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-quick-15f2ce/reel.mp4",
+     "caption": "reels/queue/list-beer-quick-15f2ce/caption.txt",
+     "cover": "reels/queue/list-beer-quick-15f2ce/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-21",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "tara-meuniere",
+    "title": "1品型：たらのレモンバタームニエル（ワイン）",
+    "drink": "wine",
+    "items": [
+     "tara-meuniere"
+    ],
+    "files": {
+     "mp4": "reels/queue/tara-meuniere/reel.mp4",
+     "caption": "reels/queue/tara-meuniere/caption.txt",
+     "cover": "reels/queue/tara-meuniere/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-22",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-nofire-06a811",
+    "title": "◯選型：ハイボール・火を使わない・3品（えびとアボカドのわさびマヨ／コンビーフのオニオンスライスのせ／大根のソムタム風サラダ）",
+    "drink": "highball",
+    "items": [
+     "ebi-avocado",
+     "cornedbeef-onion",
+     "somtam-daikon"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-nofire-06a811/reel.mp4",
+     "caption": "reels/queue/list-highball-nofire-06a811/caption.txt",
+     "cover": "reels/queue/list-highball-nofire-06a811/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "salmon-chanchan",
+    "title": "1品型：鮭のちゃんちゃん焼き（日本酒）",
+    "drink": "sake",
+    "items": [
+     "salmon-chanchan"
+    ],
+    "files": {
+     "mp4": "reels/queue/salmon-chanchan/reel.mp4",
+     "caption": "reels/queue/salmon-chanchan/caption.txt",
+     "cover": "reels/queue/salmon-chanchan/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-range-a11dc8",
+    "title": "◯選型：焼酎・レンジ・3品（レンジ湯豆腐のしょうがあん／レンジチャプチェ／鶏ももとしめじの柚子こしょう蒸し）",
+    "drink": "shochu",
+    "items": [
+     "range-yudofu",
+     "range-japchae",
+     "tori-yuzukosho-mushi"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-range-a11dc8/reel.mp4",
+     "caption": "reels/queue/list-shochu-range-a11dc8/caption.txt",
+     "cover": "reels/queue/list-shochu-range-a11dc8/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-25",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "ika-gochujang",
+    "title": "1品型：いかのコチュジャン炒め（レモンサワー）",
+    "drink": "sour",
+    "items": [
+     "ika-gochujang"
+    ],
+    "files": {
+     "mp4": "reels/queue/ika-gochujang/reel.mp4",
+     "caption": "reels/queue/ika-gochujang/caption.txt",
+     "cover": "reels/queue/ika-gochujang/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-11-26",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-wine-all-86cc0c",
+    "title": "◯選型：ワイン・全部・3品（シーフードミックスのレモンマリネ／アボカドとうずら卵のチーズ焼き／牛こまのガーリックペッパー炒め）",
+    "drink": "wine",
+    "items": [
+     "seafood-marinade",
+     "avocado-egg",
+     "gyu-garlic"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-wine-all-86cc0c/reel.mp4",
+     "caption": "reels/queue/list-wine-all-86cc0c/caption.txt",
+     "cover": "reels/queue/list-wine-all-86cc0c/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}
