@@ -1,0 +1,65 @@
+[
+ {
+  "post_id": null,
+  "date": "2026-11-20",
+  "folder": "list-beer-quick-15f2ce",
+  "type": "結論を先に",
+  "hook": "全部10分以内",
+  "sub": "生のままも1品",
+  "facts": "pajeori min8/tool none・atsuage-oyster min10/tool range・keranchim min8/tool range"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-21",
+  "folder": "tara-meuniere",
+  "type": "失敗に気づかせる",
+  "hook": "バター、焦がさず色づけ",
+  "sub": "薄く色づいたら火を止め",
+  "facts": "tara-meuniere steps4「バターを入れて薄く色づくまで溶かす。火を止めてレモン汁を加え」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-22",
+  "folder": "list-highball-nofire-06a811",
+  "type": "問いかけ",
+  "hook": "どれが一番好み？",
+  "sub": "全部、火を使わない",
+  "facts": "ebi-avocado・cornedbeef-onion・somtam-daikon すべて tool none"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-23",
+  "folder": "salmon-chanchan",
+  "type": "失敗に気づかせる",
+  "hook": "鮭、生焼けに注意",
+  "sub": "中まで色が変わったか",
+  "facts": "salmon-chanchan steps4「鮭の中まで色が変わっているか確かめ」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-24",
+  "folder": "list-shochu-range-a11dc8",
+  "type": "ツッコミ",
+  "hook": "コンロ、出番なし",
+  "sub": "全部レンジだけ3品",
+  "facts": "range-yudofu・range-japchae・tori-yuzukosho-mushi すべて tool range"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-25",
+  "folder": "ika-gochujang",
+  "type": "数字で約束",
+  "hook": "12分で、イカ変身",
+  "sub": "白くなったら完成",
+  "facts": "ika-gochujang min12/tool pan、steps3「いかを加えて1〜2分、色が白く変わるまで炒める」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-26",
+  "folder": "list-wine-all-86cc0c",
+  "type": "結論を先に",
+  "hook": "器具が全部ちがう3品",
+  "sub": "レンジ・トースター・フライパン",
+  "facts": "seafood-marinade tool range・avocado-egg tool toaster・gyu-garlic tool pan"
+ }
+]
