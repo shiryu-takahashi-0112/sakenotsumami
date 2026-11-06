@@ -1091,6 +1091,14 @@ document.querySelector('.wrap').addEventListener('click', e => {
   if(e.target.closest('[data-preset-clear]')) goHash(current === 'all' ? 'all' : current);
   const go = e.target.closest('[data-go]');
   if(go) goHash(go.dataset.go);
+  // ホームのお酒・作り方・食材のカード（build_pages.py の cards() が <a href="#..."> で書き出す）。
+  // 素のリンクのままだと location.hash の直接代入と同じ扱いになり pushState を通らないので、ここで goHash に乗せる
+  // （Ctrl/Cmd/Shift/Alt+クリックは新しいタブで開く通常の動きのままにする）
+  const ft = e.target.closest('.ft-card[href^="#"]');
+  if(ft && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey){
+    e.preventDefault();
+    goHash(ft.getAttribute('href').slice(1));
+  }
   if(e.target.closest('#logoutBtn')) $('logoutModal').hidden = false;
   if(e.target.closest('[data-login]')) openLogin('会員登録・ログイン', 'この端末で保存したつまみは、そのまま引き継ぎます。パスワードは不要です。');
 });
