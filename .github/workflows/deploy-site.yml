@@ -37,6 +37,10 @@ jobs:
         with:
           repository: shiryu-takahashi-0112/sakenotsumami
           path: sakenotsumami
+      - uses: actions/setup-node@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          node-version: 22
       - name: Build
         if: steps.secret.outputs.ok == 'true'
         run: osakenomitai/site/build.sh "$PWD/osakenomitai" "$PWD/sakenotsumami"

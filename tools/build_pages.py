@@ -402,7 +402,7 @@ def ingredient_page(g):
 <h1>{e(g['name'])}のつまみ {n}品</h1>
 <p class="lead">{e(intro)}</p>
 <ul class="list">{''.join(card(r, drinks=True) for r in items)}</ul>
-<a class="cta" href="../../">アプリでほかのつまみを探す</a>
+<a class="cta" href="../../#i-{g['slug']}">アプリで{e(g['name'])}のつまみを探す</a>
 {footer('../../', f"ingredients/{g['slug']}/")}'''
     return page(path=f"ingredients/{g['slug']}/", title=title, desc=desc, image=list_image(items), body=body,
                 jsonld=item_list(title, items), up='../../', search=f"i-{g['slug']}")
@@ -422,7 +422,7 @@ def cond_page(c):
 <h1>{e(c['mod'])}つまみ {n}品</h1>
 <p class="lead">{e(intro)}</p>
 <ul class="list">{''.join(card(r, drinks=True) for r in items)}</ul>
-<a class="cta" href="../../">アプリでほかのつまみを探す</a>
+<a class="cta" href="../../#c-{c['slug']}">アプリで{e(c['mod'])}つまみを探す</a>
 {chips(f"お酒ごとに、{c['mod']}つまみ", [f'<a href="../../drinks/{d["id"]}/{c["slug"]}/">{e(d["name"])}</a>' for d, cc in DRINK_CONDS if cc is c])}
 {footer('../../', f"conditions/{c['slug']}/")}'''
     return page(path=f"conditions/{c['slug']}/", title=title, desc=desc, image=list_image(items), body=body,

@@ -529,6 +529,7 @@ function savesRef(){ return db.collection('users').doc(user.uid).collection('sav
 // 自分の保存と同じ一括書き込みで ±1 する（firestore.rules で、自分の保存の有無と合わないと書けない）。
 // この仕組みより前の保存は数に入っていないので、外すときは数が1以上のときだけ減らす。
 let stats = new Map();   // レシピid → 保存数
+let statsReady = false;  // stats の最初の読み込みが届いたか
 const saveCount = id => stats.get(id) || 0;
 
 function watchStats(){
@@ -536,8 +537,21 @@ function watchStats(){
   db.collection('stats').onSnapshot(snap => {
     stats = new Map();
     snap.forEach(d => { const n = d.get('saves'); if(typeof n === 'number' && n > 0) stats.set(d.id, n); });
+    statsReady = true;
     refreshCounts();
   }, () => {});
+}
+
+// 外すときに使う、その品の今の保存数。stats の最初の読み込みがまだ届いていないときは
+// （ログイン直後など）キャッシュの0をそのまま信じず、その場で読みに行く。
+// 届く前は「0」と「まだ分からない」が同じに見えてしまい、本当は1以上でも -1 を送らず数が減らないままになるため（2026-10-30）。
+async function currentSaveCount(id){
+  if(statsReady) return saveCount(id);
+  try{
+    const d = await db.collection('stats').doc(id).get();
+    const n = d.data()?.saves;
+    return typeof n === 'number' ? n : 0;
+  }catch(e){ return saveCount(id); }
 }
 
 function refreshCounts(){
@@ -562,7 +576,7 @@ async function writeSave(id, on){
     batch.set(stat, {saves: inc(1)}, {merge: true});
   }else{
     batch.delete(savesRef().doc(id));
-    if(saveCount(id) > 0) batch.set(stat, {saves: inc(-1)}, {merge: true});
+    if(await currentSaveCount(id) > 0) batch.set(stat, {saves: inc(-1)}, {merge: true});
   }
   await batch.commit();
 }
@@ -1051,11 +1065,20 @@ function applyHash(){
 const searchHash = () => preset || (current === 'all' ? 'all' : current);
 const baseHash = () => view === 'search' ? searchHash() : view === 'home' ? '' : view;
 
+// タブ・カードなどからの画面遷移は、location.hash への直接代入ではなく history.pushState を使う。
+// Cloudflare Web Analytics の自動計測（SPA対応）は pushState のパッチで遷移を検知する作りで、
+// location.hash の直接代入はこの検知に乗らない（hashchange も pushState 経由では発火しないため、ここで自分で applyHash を呼ぶ）
+function goHash(hash){
+  if((hash || '') === location.hash.slice(1)) return;
+  history.pushState(null, '', hash ? '#' + hash : location.pathname + location.search);
+  applyHash();
+}
+
 $('tabbar').addEventListener('click', e => {
   const t = e.target.closest('.tab');
   if(!t || !t.dataset.view) return;   // お知らせはふつうのリンク（news/）
   const v = t.dataset.view;
-  location.hash = v === 'search' ? searchHash() : v === 'home' ? '' : v;
+  goHash(v === 'search' ? searchHash() : v === 'home' ? '' : v);
   if(v === view && !openId) window.scrollTo({top: 0, behavior: 'smooth'});
 });
 $('filterBtn').addEventListener('click', () => {
@@ -1091,16 +1114,24 @@ $('list').addEventListener('click', e => {
 });
 $('chips').addEventListener('click', e => {
   const b = e.target.closest('.chip');
-  if(b) location.hash = b.dataset.id;
+  if(b) goHash(b.dataset.id);
 });
 document.querySelector('.wrap').addEventListener('click', e => {
   const s = e.target.closest('.save-btn');
   if(s) return toggleSave(s.dataset.id);
   const c = e.target.closest('.card');
-  if(c) location.hash = `${baseHash() || 'home'}/${c.dataset.id}`;
-  if(e.target.closest('[data-preset-clear]')) location.hash = current === 'all' ? 'all' : current;
+  if(c) goHash(`${baseHash() || 'home'}/${c.dataset.id}`);
+  if(e.target.closest('[data-preset-clear]')) goHash(current === 'all' ? 'all' : current);
   const go = e.target.closest('[data-go]');
-  if(go) location.hash = go.dataset.go;
+  if(go) goHash(go.dataset.go);
+  // ホームのお酒・作り方・食材のカード（build_pages.py の cards() が <a href="#..."> で書き出す）。
+  // 素のリンクのままだと location.hash の直接代入と同じ扱いになり pushState を通らないので、ここで goHash に乗せる
+  // （Ctrl/Cmd/Shift/Alt+クリックは新しいタブで開く通常の動きのままにする）
+  const ft = e.target.closest('.ft-card[href^="#"]');
+  if(ft && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey){
+    e.preventDefault();
+    goHash(ft.getAttribute('href').slice(1));
+  }
   if(e.target.closest('#logoutBtn')) $('logoutModal').hidden = false;
   if(e.target.closest('[data-login]')) openLogin('会員登録・ログイン', 'この端末で保存したつまみは、そのまま引き継ぎます。パスワードは不要です。');
 });
@@ -1120,7 +1151,7 @@ $('detail').addEventListener('click', async e => {
   catch(err){ prompt('このリンクをコピーしてください', url); }
 });
 
-$('back').addEventListener('click', () => { location.hash = baseHash(); });
+$('back').addEventListener('click', () => { goHash(baseHash()); });
 
 /* ---------- ホーム画面に追加（2026-10-09） ---------- */
 // Android の Chrome などは、ブラウザの追加の確認をボタン1つで出せる（beforeinstallprompt）。
@@ -1218,6 +1249,8 @@ function warmUp(){
 
 saved = loadGuestSaves();
 window.addEventListener('hashchange', applyHash);
+// 戻る・進むボタン（history.pushState で作った履歴）用。pushState は hashchange を発火しないため別に listen する
+window.addEventListener('popstate', applyHash);
 applyHash();
 // 画面を描いてから、手が空いたときに Firebase を読み込む（会員の保存・みんなの保存数・ログイン）
 idle(() => { loadFirebase(); warmUp(); });
