@@ -1,0 +1,65 @@
+[
+ {
+  "post_id": null,
+  "date": "2026-11-27",
+  "folder": "list-beer-quick-e12912",
+  "type": "数字で約束",
+  "hook": "10分以内、3品",
+  "sub": "いちばん短いのは6分",
+  "facts": "cheese-isobe min6/tool pan・eringi-gochujang min10/tool toaster・ingen-sichuan min10/tool pan"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-28",
+  "folder": "garlic-shrimp",
+  "type": "失敗に気づかせる",
+  "hook": "にんにく、焦がさず",
+  "sub": "弱火でじっくり香り出す",
+  "facts": "garlic-shrimp steps2「フライパンにオリーブオイルとにんにくを入れ、弱火で香りを出す」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-29",
+  "folder": "list-highball-all-d5ed93",
+  "type": "問いかけ",
+  "hook": "どれが気になる？",
+  "sub": "カレー・ピリ辛・スパイス",
+  "facts": "daizu-curry カレー塩焼き・hoikoro 甜麺醤と豆板醤・kajiki-tandoori ヨーグルトとカレー粉のタンドリー"
+ },
+ {
+  "post_id": null,
+  "date": "2026-11-30",
+  "folder": "mochi-cheese-nori",
+  "type": "ツッコミ",
+  "hook": "餅とチーズ、まさかの相性",
+  "sub": "のりで巻いて完成",
+  "facts": "mochi-cheese-nori steps3-4「醤油をぬり、チーズをのせて1〜2分焼く。小さく切ったのりで巻く」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-01",
+  "folder": "list-shochu-range-e93165",
+  "type": "結論を先に",
+  "hook": "これ全部レンジだけ",
+  "sub": "ごぼう・貝・肉だんご",
+  "facts": "tataki-gobo・asari-sakamushi・range-shumai すべて tool range"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-02",
+  "folder": "range-butashabu",
+  "type": "数字で約束",
+  "hook": "2分で豚しゃぶ",
+  "sub": "ピンク残れば30秒追加",
+  "facts": "range-butashabu steps2「600Wで2分加熱する。ピンク色の部分が残っていれば、30秒ずつ追加で加熱する」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-03",
+  "folder": "list-sake-all-7a44bf",
+  "type": "ツッコミ",
+  "hook": "かまぼこ、まさかの主役",
+  "sub": "明太マヨで格上げ",
+  "facts": "kamaboko-mentai かまぼこに明太マヨをのせてトースターで焼く・buri-teriyaki・maitake-ponzu も同じ◯選"
+ }
+]

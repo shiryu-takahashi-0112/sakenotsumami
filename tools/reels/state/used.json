@@ -696,6 +696,84 @@
    ]
   },
   {
+   "date": "2026-11-27",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-quick-e12912",
+   "drink": "beer",
+   "ids": [
+    "cheese-isobe",
+    "eringi-gochujang",
+    "ingen-sichuan"
+   ]
+  },
+  {
+   "date": "2026-11-28",
+   "kind": "reel",
+   "type": "single",
+   "folder": "garlic-shrimp",
+   "drink": "wine",
+   "ids": [
+    "garlic-shrimp"
+   ]
+  },
+  {
+   "date": "2026-11-29",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-all-d5ed93",
+   "drink": "highball",
+   "ids": [
+    "daizu-curry",
+    "hoikoro",
+    "kajiki-tandoori"
+   ]
+  },
+  {
+   "date": "2026-11-30",
+   "kind": "reel",
+   "type": "single",
+   "folder": "mochi-cheese-nori",
+   "drink": "sake",
+   "ids": [
+    "mochi-cheese-nori"
+   ]
+  },
+  {
+   "date": "2026-12-01",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-range-e93165",
+   "drink": "shochu",
+   "ids": [
+    "tataki-gobo",
+    "asari-sakamushi",
+    "range-shumai"
+   ]
+  },
+  {
+   "date": "2026-12-02",
+   "kind": "reel",
+   "type": "single",
+   "folder": "range-butashabu",
+   "drink": "sour",
+   "ids": [
+    "range-butashabu"
+   ]
+  },
+  {
+   "date": "2026-12-03",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-sake-all-7a44bf",
+   "drink": "sake",
+   "ids": [
+    "buri-teriyaki",
+    "kamaboko-mentai",
+    "maitake-ponzu"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",
