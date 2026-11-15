@@ -1,0 +1,65 @@
+[
+ {
+  "post_id": null,
+  "date": "2026-12-04",
+  "folder": "list-beer-nofire-aa885b",
+  "type": "結論を先に",
+  "hook": "火を使わない3品",
+  "sub": "ちくわ・卵・ピータン",
+  "facts": "chikuwa-kyuri tool none・deviled-egg tool none・pitan-tofu tool none"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-05",
+  "folder": "gorgonzola-honey",
+  "type": "数字で約束",
+  "hook": "3分で完成",
+  "sub": "切って、のせるだけ",
+  "facts": "gorgonzola-honey min3。steps「切る→クラッカーにのせる→はちみつと黒こしょう」の3手順"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-06",
+  "folder": "list-highball-quick-d0bcfc",
+  "type": "問いかけ",
+  "hook": "どれが気になる？",
+  "sub": "缶・蒸し・炒め",
+  "facts": "oil-sardine min10 toaster（缶をそのまま焼く）・chingensai-oyster min6 range（蒸す）・komatsuna-nampla min6 pan（炒める）"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-07",
+  "folder": "sasami-umeshiso",
+  "type": "失敗に気づかせる",
+  "hook": "中まで焼けてる？",
+  "sub": "切って確認、2分追加",
+  "facts": "sasami-umeshiso steps4「一番厚い部分を切って、中まで白くなっているか確かめる。赤い部分があれば2分ずつ追加で焼く」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-08",
+  "folder": "list-shochu-nofire-165d34",
+  "type": "ツッコミ",
+  "hook": "みょうが、まさかの主役",
+  "sub": "甘酢で桜色に",
+  "facts": "myoga-amazu steps4「15分ほどおき、みょうがが桜色になったら器に盛る」・tofu-shiokombu・natto-takuan も同じ◯選、いずれも tool none"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-09",
+  "folder": "torikawa",
+  "type": "数字で約束",
+  "hook": "8分でパリパリ",
+  "sub": "脂をふきながら焼く",
+  "facts": "torikawa steps2-3「出てきた脂はキッチンペーパーでふき取る。8〜10分焼いて全体がきつね色になりパリッとしたら」"
+ },
+ {
+  "post_id": null,
+  "date": "2026-12-10",
+  "folder": "list-wine-quick-682b4e",
+  "type": "問いかけ",
+  "hook": "一番気になるのは？",
+  "sub": "せんべい・ピザ・チーズ",
+  "facts": "cheese-senbei min5 range・gyoza-pizza min8 toaster・range-fondue min10 range、いずれも10分以内"
+ }
+]

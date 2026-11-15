@@ -1,0 +1,276 @@
+[
+ {
+  "scheduled_at": "2026-12-04T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "タコのカルパッチョは、玉ねぎを薄切りにして水にさらす。\n辛みが抜けて、タコの味を邪魔しない。\n#おつまみ",
+  "recipe_ids": [
+   "tako-carpaccio"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-04T15:05:00+09:00",
+  "kind": "ツッコミ",
+  "text": "調味料の蓋、\n気づけば輪ゴムで留まっている時期がある。\n思い当たる人は、返信にどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-04T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "ちくわときゅうりのごまポン酢、火を使わず8分。\nごまとポン酢のさっぱりした味は、ビールやレモンサワーとよく合う。\n詳しい手順は、アプリのレシピページに置いています。\nhttps://osakenomitai.com/sakenotsumami/recipes/chikuwa-kyuri/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#ビールに合う",
+  "recipe_ids": [
+   "chikuwa-kyuri"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-04T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "8分でできる、デビルドエッグ。\nマヨネーズと粒マスタードのまろやかな酸味は、白ワインやビールとよく合う。\nマスタードの量は多め・少なめ、好みが分かれそうなところ。\n#ビールに合う",
+  "recipe_ids": [
+   "deviled-egg"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-04T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "迷ったときの、ワイン向きの3品。\n枝豆のペペロンチーノ（8分・フライパン）\nローストビーフのユッケ風（5分・火を使わない）\nかぼちゃとクリームチーズのサラダ（10分・レンジ）\n#ワインに合う",
+  "recipe_ids": [
+   "edamame-peperoncino",
+   "roastbeef-yukke",
+   "kabocha-cheese-salad"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-05T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "長芋の梅おかか和えは、梅干しをたたいてめんつゆと混ぜる。\n酸味がやわらぎ、長芋にからみやすくなる。\n#おつまみ",
+  "recipe_ids": [
+   "nagaimo-ume"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-05T15:05:00+09:00",
+  "kind": "投票",
+  "text": "一品を盛る器、どっちで選ぶ？\nA 料理に合わせて選ぶ\nB 洗い物の少なさで選ぶ\n選んだ記号は、返信にどうぞ。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-05T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "ゴルゴンゾーラのはちみつくるみは、火を使わず3分。\nブルーチーズの強い塩気とはちみつの甘みは、赤ワインや甘口の白ワイン、ハイボールとよく合う。\n材料の量は、レシピページでご確認ください。\nhttps://osakenomitai.com/sakenotsumami/recipes/gorgonzola-honey/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#ワインに合う",
+  "recipe_ids": [
+   "gorgonzola-honey"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-05T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "ビールに合わせるなら、この3つ。\nイカのバター醤油焼き（10分・フライパン）\nサラダチキンのバンバンジー（5分・火を使わない）\nレンジ麻婆豆腐（15分・レンジ）\n#ビールに合う",
+  "recipe_ids": [
+   "ika-butter",
+   "saladchicken-bangbangji",
+   "range-mapo"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-05T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "土曜は、昼から何か作ろうかと思って、結局つまみ1品で終わる。\n予定を詰めない日があってもいい。\n予定を詰めない土曜、ありますか？",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-06T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "春菊を生で使うときは、冷水に少しつけてパリッとさせる。\n水気をよく切ってから和える。\n#おつまみ",
+  "recipe_ids": [
+   "shungiku-salad"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-06T15:05:00+09:00",
+  "kind": "大喜利",
+  "text": "【大喜利】\n引っ越しのたびに増えていく、謎のタッパーのふた。\nその正体を、返信で聞かせてください。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-06T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "トースターで焼く、オイルサーディンのねぎ醤油焼き。10分。\nいわしの脂と醤油の焦げた香りは、日本酒やハイボールによく合う。\n作り方の続きは、アプリのページからどうぞ。\nhttps://osakenomitai.com/sakenotsumami/recipes/oil-sardine/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#ハイボールに合う",
+  "recipe_ids": [
+   "oil-sardine"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-06T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "チンゲン菜のオイスター蒸し。かかるのは6分。\nオイスターソースのコクとしょうがの香りは、ビールやハイボールとよく合う。\nチンゲン菜の代わりに、小松菜で作っても近い仕上がりになりそうなところ。\n#ハイボールに合う",
+  "recipe_ids": [
+   "chingensai-oyster"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-06T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "レモンサワーのそばに置きたい3品。\nかぶの塩レモン和え（15分・火を使わない）\n無限ピーマン（5分・レンジ）\nツナマヨのピーマン詰め焼き（15分・トースター）\n#レモンサワーに合う",
+  "recipe_ids": [
+   "kabu-lemon",
+   "mugen-piman",
+   "tunamayo-piman"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-07T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "明太クリームチーズディップは、クリームチーズを室温でやわらかくする。\nなめらかに混ざり、味が均一になる。\n#おつまみ",
+  "recipe_ids": [
+   "mentai-dip"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-07T15:05:00+09:00",
+  "kind": "ツッコミ",
+  "text": "キッチンのメモ用紙、\n買うものを書いたのに、持たずに出かける。\n似た経験があれば、返信で。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-07T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "ささみの梅しそチーズ焼き、トースターで15分。\n梅の酸味としその香りは、日本酒や焼酎とよく合う。\nチーズのコクがほどよく加わる。\nレシピの手順は、こちらのページにまとめました。\nhttps://osakenomitai.com/sakenotsumami/recipes/sasami-umeshiso/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#日本酒に合う",
+  "recipe_ids": [
+   "sasami-umeshiso"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-07T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "迷ったときの、ハイボール向きの3品。\nねぎチャーシュー（5分・火を使わない）\n鶏むねのハーブパン粉焼き（20分・トースター）\n砂肝のにんにく炒め（12分・フライパン）\n#ハイボールに合う",
+  "recipe_ids": [
+   "negi-chashu",
+   "mune-panko-yaki",
+   "sunagimo-garlic"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-07T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "月曜の夜、冷蔵庫を開けて、まず何があるかだけ確認する。\n決めるのはそのあとでいい。\nまず確認だけする夜、ありますか？",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-08T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "エリンギのバター醤油は、手で縦に細くさく。\n切るより断面が増えて、味がよくからむ。\n#おつまみ",
+  "recipe_ids": [
+   "eringi-butter"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-08T15:05:00+09:00",
+  "kind": "投票",
+  "text": "選ぶときに見るのは？\nA 冷蔵庫にあるもの\nB 気分で決める\nC お酒に合わせる\n選んだ記号を、ひとつ返信で。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-08T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "20分でできる、みょうがの甘酢漬け。\nみょうがの香りと甘酢のやさしい酸味は、冷やした日本酒や焼酎の水割りとよく合う。\n今日の分量は、レシピページでどうぞ。\nhttps://osakenomitai.com/sakenotsumami/recipes/myoga-amazu/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#焼酎に合う",
+  "recipe_ids": [
+   "myoga-amazu"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-08T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "豆腐の塩昆布ごま油がけは、火を使わず3分。\n塩昆布のうまみとごま油の香りは、日本酒や焼酎のすっきりした味とよく合う。\nほかに合わせるなら、塩昆布以外で試したい薬味も気になる。\n#焼酎に合う",
+  "recipe_ids": [
+   "tofu-shiokombu"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-08T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "冷蔵庫と相談して決める、日本酒の3品。\nまぐろのユッケ風（5分・火を使わない）\nだし巻き卵（12分・フライパン）\nささみのわさび和え（12分・レンジ）\n#日本酒に合う",
+  "recipe_ids": [
+   "maguro-yukke",
+   "dashimaki",
+   "sasami-wasabi"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-09T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "オクラは、塩でこすってうぶ毛を取ってから加熱する。\n口当たりがなめらかになる。\n#おつまみ",
+  "recipe_ids": [
+   "okura-okaka"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-09T15:05:00+09:00",
+  "kind": "ツッコミ",
+  "text": "シンクの排水口のネット、\n交換するタイミングをいつも逃す。\nそうなる人は、返信でひとこと。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-09T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "フライパンで作る、鶏皮のパリパリ焼き。15分。\nパリッとした食感と塩気は、ビールやハイボールの炭酸とよく合う。\nレモンを絞ると、レモンサワーとも合う。\n材料と手順、アプリのページに置いています。\nhttps://osakenomitai.com/sakenotsumami/recipes/torikawa/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#レモンサワーに合う",
+  "recipe_ids": [
+   "torikawa"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-09T19:05:00+09:00",
+  "kind": "◯選",
+  "text": "焼酎の夜に回したい、つまみを3つ。\n牛肉のしぐれ煮（15分・フライパン）\nかつおのたたき 香味のせ（8分・火を使わない）\nいかとめかぶのしょうがポン酢（5分・火を使わない）\n#焼酎に合う",
+  "recipe_ids": [
+   "gyu-shigure",
+   "katsuo-tataki",
+   "ika-mekabu"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-09T21:00:00+09:00",
+  "kind": "あるある",
+  "text": "水曜になると、週の初めに買ったものが半分くらい残っている。\nその残りで、どうにか一品にする。\n週の半分で見直す人、ありますか？",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-10T11:05:00+09:00",
+  "kind": "小ワザ",
+  "text": "オニオンスライスは、薄切りにしてから5分水にさらす。\n辛みが抜け、水気はしっかり絞る。\n#おつまみ",
+  "recipe_ids": [
+   "onion-okaka"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-10T15:05:00+09:00",
+  "kind": "大喜利",
+  "text": "食器棚の奥でずっと眠っている、もらいもののグラス。\n出番を、返信で予想してください。",
+  "recipe_ids": []
+ },
+ {
+  "scheduled_at": "2026-12-10T17:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "チーズせんべい。かかるのは5分。\nカリッと焼けたチーズの香ばしさと塩気は、ビールや赤ワインとよく合う。\n作り方はこの先、レシピページで見られます。\nhttps://osakenomitai.com/sakenotsumami/recipes/cheese-senbei/?utm_source=threads&utm_medium=social&utm_campaign=evening\n#ワインに合う",
+  "recipe_ids": [
+   "cheese-senbei"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-10T19:05:00+09:00",
+  "kind": "今夜の一品",
+  "text": "餃子の皮ピザ、トースターで8分。\nケチャップとチーズの味は、ビールやハイボール、赤ワインとよく合う。\nピーマンは多め・少なめ、好みが分かれそうなところ。\n#ワインに合う",
+  "recipe_ids": [
+   "gyoza-pizza"
+  ]
+ },
+ {
+  "scheduled_at": "2026-12-10T21:00:00+09:00",
+  "kind": "◯選",
+  "text": "ビールのそばに置きたい3品。\n焼きししゃも（10分・トースター）\n焼きししとうのおかか醤油（6分・フライパン）\n油揚げピザ（10分・トースター）\n#ビールに合う",
+  "recipe_ids": [
+   "shishamo",
+   "yaki-shishito",
+   "aburaage-pizza"
+  ]
+ }
+]

@@ -774,6 +774,84 @@
    ]
   },
   {
+   "date": "2026-12-04",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-beer-nofire-aa885b",
+   "drink": "beer",
+   "ids": [
+    "chikuwa-kyuri",
+    "deviled-egg",
+    "pitan-tofu"
+   ]
+  },
+  {
+   "date": "2026-12-05",
+   "kind": "reel",
+   "type": "single",
+   "folder": "gorgonzola-honey",
+   "drink": "wine",
+   "ids": [
+    "gorgonzola-honey"
+   ]
+  },
+  {
+   "date": "2026-12-06",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-highball-quick-d0bcfc",
+   "drink": "highball",
+   "ids": [
+    "oil-sardine",
+    "chingensai-oyster",
+    "komatsuna-nampla"
+   ]
+  },
+  {
+   "date": "2026-12-07",
+   "kind": "reel",
+   "type": "single",
+   "folder": "sasami-umeshiso",
+   "drink": "sake",
+   "ids": [
+    "sasami-umeshiso"
+   ]
+  },
+  {
+   "date": "2026-12-08",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-shochu-nofire-165d34",
+   "drink": "shochu",
+   "ids": [
+    "myoga-amazu",
+    "tofu-shiokombu",
+    "natto-takuan"
+   ]
+  },
+  {
+   "date": "2026-12-09",
+   "kind": "reel",
+   "type": "single",
+   "folder": "torikawa",
+   "drink": "sour",
+   "ids": [
+    "torikawa"
+   ]
+  },
+  {
+   "date": "2026-12-10",
+   "kind": "reel",
+   "type": "list",
+   "folder": "list-wine-quick-682b4e",
+   "drink": "wine",
+   "ids": [
+    "cheese-senbei",
+    "gyoza-pizza",
+    "range-fondue"
+   ]
+  },
+  {
    "date": null,
    "kind": "carousel",
    "type": "single",

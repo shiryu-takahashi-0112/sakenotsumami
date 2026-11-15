@@ -1,0 +1,232 @@
+{
+ "period": [
+  "2026-12-04",
+  "2026-12-10"
+ ],
+ "app_url": "https://osakenomitai.com/sakenotsumami/",
+ "post_time": {
+  "reel": "12:00"
+ },
+ "utm": {
+  "medium": "social",
+  "campaign": "launch",
+  "sources": [
+   "instagram",
+   "tiktok",
+   "youtube"
+  ]
+ },
+ "days": [
+  {
+   "date": "2026-12-04",
+   "weekday": "金",
+   "video": {
+    "type": "list",
+    "folder": "list-beer-nofire-aa885b",
+    "title": "◯選型：ビール・火を使わない・3品（ちくわときゅうりのごまポン酢／デビルドエッグ／ピータン豆腐）",
+    "drink": "beer",
+    "items": [
+     "chikuwa-kyuri",
+     "deviled-egg",
+     "pitan-tofu"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-beer-nofire-aa885b/reel.mp4",
+     "caption": "reels/queue/list-beer-nofire-aa885b/caption.txt",
+     "cover": "reels/queue/list-beer-nofire-aa885b/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-05",
+   "weekday": "土",
+   "video": {
+    "type": "single",
+    "folder": "gorgonzola-honey",
+    "title": "1品型：ゴルゴンゾーラのはちみつくるみ（ワイン）",
+    "drink": "wine",
+    "items": [
+     "gorgonzola-honey"
+    ],
+    "files": {
+     "mp4": "reels/queue/gorgonzola-honey/reel.mp4",
+     "caption": "reels/queue/gorgonzola-honey/caption.txt",
+     "cover": "reels/queue/gorgonzola-honey/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-06",
+   "weekday": "日",
+   "video": {
+    "type": "list",
+    "folder": "list-highball-quick-d0bcfc",
+    "title": "◯選型：ハイボール・10分以内・3品（オイルサーディンのねぎ醤油焼き／チンゲン菜のオイスター蒸し／小松菜のナンプラー炒め）",
+    "drink": "highball",
+    "items": [
+     "oil-sardine",
+     "chingensai-oyster",
+     "komatsuna-nampla"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-highball-quick-d0bcfc/reel.mp4",
+     "caption": "reels/queue/list-highball-quick-d0bcfc/caption.txt",
+     "cover": "reels/queue/list-highball-quick-d0bcfc/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-07",
+   "weekday": "月",
+   "video": {
+    "type": "single",
+    "folder": "sasami-umeshiso",
+    "title": "1品型：ささみの梅しそチーズ焼き（日本酒）",
+    "drink": "sake",
+    "items": [
+     "sasami-umeshiso"
+    ],
+    "files": {
+     "mp4": "reels/queue/sasami-umeshiso/reel.mp4",
+     "caption": "reels/queue/sasami-umeshiso/caption.txt",
+     "cover": "reels/queue/sasami-umeshiso/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-08",
+   "weekday": "火",
+   "video": {
+    "type": "list",
+    "folder": "list-shochu-nofire-165d34",
+    "title": "◯選型：焼酎・火を使わない・3品（みょうがの甘酢漬け／豆腐の塩昆布ごま油がけ／納豆とたくあんののり巻き）",
+    "drink": "shochu",
+    "items": [
+     "myoga-amazu",
+     "tofu-shiokombu",
+     "natto-takuan"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-shochu-nofire-165d34/reel.mp4",
+     "caption": "reels/queue/list-shochu-nofire-165d34/caption.txt",
+     "cover": "reels/queue/list-shochu-nofire-165d34/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-09",
+   "weekday": "水",
+   "video": {
+    "type": "single",
+    "folder": "torikawa",
+    "title": "1品型：鶏皮のパリパリ焼き（レモンサワー）",
+    "drink": "sour",
+    "items": [
+     "torikawa"
+    ],
+    "files": {
+     "mp4": "reels/queue/torikawa/reel.mp4",
+     "caption": "reels/queue/torikawa/caption.txt",
+     "cover": "reels/queue/torikawa/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  },
+  {
+   "date": "2026-12-10",
+   "weekday": "木",
+   "video": {
+    "type": "list",
+    "folder": "list-wine-quick-682b4e",
+    "title": "◯選型：ワイン・10分以内・3品（チーズせんべい／餃子の皮ピザ／レンジでチーズフォンデュ）",
+    "drink": "wine",
+    "items": [
+     "cheese-senbei",
+     "gyoza-pizza",
+     "range-fondue"
+    ],
+    "files": {
+     "mp4": "reels/queue/list-wine-quick-682b4e/reel.mp4",
+     "caption": "reels/queue/list-wine-quick-682b4e/caption.txt",
+     "cover": "reels/queue/list-wine-quick-682b4e/cover.jpg"
+    },
+    "platforms": [
+     "instagram",
+     "tiktok",
+     "youtube"
+    ]
+   },
+   "carousel": null,
+   "urls": {
+    "instagram": "https://osakenomitai.com/sakenotsumami/?utm_source=instagram&utm_medium=social&utm_campaign=launch",
+    "tiktok": "https://osakenomitai.com/sakenotsumami/?utm_source=tiktok&utm_medium=social&utm_campaign=launch",
+    "youtube": "https://osakenomitai.com/sakenotsumami/?utm_source=youtube&utm_medium=social&utm_campaign=launch"
+   }
+  }
+ ]
+}
