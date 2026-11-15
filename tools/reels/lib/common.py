@@ -58,7 +58,31 @@ AGE_NOTE = "お酒は20歳になってから。"
 SHARE_LINE_SINGLE = "一緒に飲む人に送って、今夜のつまみに"
 SHARE_LINE_LIST = "二人分だから、相手にも送っておく"
 # リールで保存を取りにいく（2026-10-17 定例でShiryuが決定）。キャプションに材料と作り方を全部書き、2行目で保存をすすめる。
-SAVE_LINE = "保存しておくと、買い物のときに見返せます。"
+# 2026-11-13・灯の指示：文言を数パターン用意してローテーションする（品ごとに固定で決まる）。
+SAVE_LINES = [
+    "保存しておくと、買い物のときに見返せます。",
+    "買い物の前に、材料だけでも保存を。",
+    "あとで作るときは、保存した画面から。",
+]
+SAVE_LINE = SAVE_LINES[0]   # 後方互換（check_pairing.py 等が参照）
+
+# ◯選型の品リストの最後（ハッシュタグの直前）に、もう一度置く短い一言（2026-11-13・灯の指示）。
+SAVE_LINES_END = [
+    "ここまでの{n}品、保存で見返せます。",
+    "{n}品まとめて、保存しておくと迷わない。",
+    "迷ったら、保存した画面で見比べられます。",
+]
+
+
+def save_line(seed):
+    """CTA文言をローテーションする（seed が同じなら常に同じ文言になる）。"""
+    return SAVE_LINES[zlib.crc32(str(seed).encode()) % len(SAVE_LINES)]
+
+
+def save_line_end(seed, n):
+    """◯選型の末尾に置く短い一言（seed が同じなら常に同じ文言になる）。"""
+    tmpl = SAVE_LINES_END[zlib.crc32((str(seed) + ":end").encode()) % len(SAVE_LINES_END)]
+    return tmpl.format(n=n) if "{n}" in tmpl else tmpl
 
 
 def recipe_block(r):
@@ -266,7 +290,7 @@ def caption(c, kind="reel"):
     r = c["recipe"]
     lines = [headline(c)]
     if kind == "reel":
-        lines.append(SAVE_LINE)
+        lines.append(save_line(r["id"]))
     lines += [
         r["name"],
         "",

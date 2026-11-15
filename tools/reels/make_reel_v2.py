@@ -80,7 +80,8 @@ def main(argv=None):
     build_video(html, work, out, lead_cover=not c["hook"], bgm="bgm_v2.py")
     if c["hook"]:
         (out / "caption_v2.txt").write_text(cap, encoding="utf-8")       # フックを入れる前のキャプション
-        cap = v2.hook_caption(cap, c["hook"]["hook"])
+        # 2026-11-13・灯の指示：保存のCTAを1行目（フック）の直下（2行目）に固定するため、元の見出し行をフックに置き換える。
+        cap = v2.hook_caption(cap, c["hook"]["hook"], replace_first=True)
     (out / "caption.txt").write_text(cap, encoding="utf-8")
     if not a.keep_frames:
         shutil.rmtree(work / "frames", ignore_errors=True)

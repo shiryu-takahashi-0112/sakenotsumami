@@ -94,11 +94,13 @@ def main(argv=None):
     c = {"drinkId": a.drink, "drink": drinks[a.drink], "head1": head1, "headMid": mid, "head2": head2,
          "items": items, "count": d["count"], "hook": hook}
 
-    lines = [head1 + mid + head2, common.SAVE_LINE, ""]
+    seed = ",".join(r["id"] for r in sel)
+    lines = [head1 + mid + head2, common.save_line(seed), ""]
     for k, x in enumerate(items):
         lines += [f"{k + 1}. {x['name']}（{x['min']}分・{x['tool']}）", x["ingLine"]]
     lines += ["", "作り方は、プロフィールのリンクから。",
               common.SHARE_LINE_LIST,          # 送信を促す一言（◯選型）2026-10-11〜
+              common.save_line_end(seed, n),   # 保存の一言をもう一度（2026-11-13・灯の指示）
               "",   # 注記2行（AI・20歳）は2026-10-07から付けない
               " ".join(common.list_hashtags(name, a.theme, a.drink, drinks[a.drink]))]
     common.check_banned("\n".join(x["why"] for x in items))
@@ -116,7 +118,8 @@ def main(argv=None):
     build_video(html, work, out, lead_cover=not hook, bgm="bgm_v2.py")
     if hook:
         (out / "caption_v2.txt").write_text(cap, encoding="utf-8")       # フックを入れる前のキャプション
-        cap = v2.hook_caption(cap, hook["hook"])
+        # 2026-11-13・灯の指示：保存のCTAを1行目（フック）の直下（2行目）に固定するため、元の見出し行をフックに置き換える。
+        cap = v2.hook_caption(cap, hook["hook"], replace_first=True)
     (out / "caption.txt").write_text(cap, encoding="utf-8")
     (out / "meta.json").write_text(json.dumps({"type": "list", "drink": a.drink, "theme": a.theme, "version": 2,
                                                **({"hook": hook} if hook else {}),
