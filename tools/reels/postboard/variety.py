@@ -32,6 +32,7 @@ WINDOW_HEAD = 7       # 1行目の書き出しを数える幅（日）
 WINDOW_TEXT = 14      # 同じ文を使わない幅（日）
 MAX_HEAD = 2          # 同じ3文字で始まる投稿の上限（WINDOW_HEAD のあいだ）
 MAX_URL = 7           # URL入りの投稿の上限（7日）。1日1本（2026-10-17 定例）
+MAX_URL_PER_DAY = 1   # URL入りの投稿は1日あたりこの本数まで（2026-11-17。7日の合計だけでは同じ日の2本を見逃すため）
 MAX_WHICH = 2         # 「どっち派」の上限（7日）
 SERIES = ("小ワザ", "今夜の一品", "【大喜利】")   # 1行目に毎日置かないシリーズ名
 
@@ -193,6 +194,16 @@ def check(posts, history=(), max_head=MAX_HEAD):
                     break
     count7(lambda x: bool(URL_RE.search(x)), MAX_URL, "URL入り")
     count7(lambda x: "どっち派" in x, MAX_WHICH, "「どっち派」")
+
+    # 同じ日（JST）にURL入りの投稿が複数（2026-11-17。7日の合計が上限以内でも、同じ日に2本あると見逃していた）
+    url_by_day = collections.defaultdict(list)
+    for t, p, new in items:
+        if URL_RE.search(p["text"]):
+            url_by_day[t.date()].append((t, p, new))
+    for day, hits in url_by_day.items():
+        if len(hits) > MAX_URL_PER_DAY and any(new for _, _, new in hits):
+            times = "、".join(f"{t:%H:%M}" for t, _, _ in sorted(hits))
+            errors.append(f"{day:%m/%d}: URL入りの投稿が同じ日に{len(hits)}本（上限{MAX_URL_PER_DAY}）: {times}")
 
     # 「今夜の一品」は1日1回
     by_day = collections.Counter(t.date() for t, p, _ in items if "今夜の一品" in p["text"])
